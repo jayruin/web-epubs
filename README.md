@@ -4,11 +4,17 @@ A collection of various documents for personal use, written in HTML, which are t
 
 ## Quick Links
 
+### Repository Links
+
 - [Public repository](https://github.com/jayruin/web-epubs-public)
 - [Private repository](https://github.com/jayruin/web-epubs-private)
 - [Github Pages of this repository](https://jayruin.github.io/web-epubs-public)
 - [Public Releases](https://github.com/jayruin/web-epubs-public/releases)
 - [Private Releases](https://github.com/jayruin/web-epubs-private/releases)
+
+### Latest Specs
+
+- [EPUB 3.2 Specs](https://www.w3.org/publishing/epub3/epub-spec.html)
 
 ## Why HTML?
 
@@ -32,3 +38,61 @@ PDF was also considered, however ePub has many advantages over PDF:
 - The XHTML files of ePubs can be deployed on the web (Github Pages) without any modification.
 - Widespread support for ePub including ereaders, smartphones, tablets, laptops, desktops, etc. PDF is practically unreadable on smaller devices. Try reading a PDF on a 6 inch ereader!
 - ePub converts to PDF fairly well, but the reverse is not true.
+
+## Adding Content
+
+### Minimal HTML
+
+```html
+<!DOCTYPE html>
+<title>My Title</title>
+
+<h1>My Header</h1>
+
+<p>My content.</p>
+```
+
+### _metadata.json
+
+Used to populate ePub metadata.
+
+```json
+{
+    "title": "My Title",
+    "author": "The Author",
+    "languages": [
+        "en",
+        "some other language"
+    ]
+}
+```
+
+### _nav.json
+
+Used to construct ePub navigation document.
+
+Contains an array of recursive `nav_node` objects, where each `nav_node` has a single key value pair mapping `href` to an array of `nav_node`.
+
+Make sure `href` contains a file with `.xhtml` extension.
+
+```json
+[
+    {
+        "file_1.xhtml": [
+            {
+                "nested_file_1.xhtml": [
+                    {
+                        "nested_file_1.xhtml#my-id-1": []
+                    },
+                    {
+                        "nested_file_2.xhtml#my-id-2": []
+                    },
+                    {
+                        "nested_file_1.xhtml#my-id-3": []
+                    }
+                ]
+            }
+        ]
+    }
+]
+```
