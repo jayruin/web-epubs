@@ -1,0 +1,191 @@
+from collections import OrderedDict
+import datetime
+import itertools
+import json
+import mimetypes
+from pathlib import Path
+import shutil
+from typing import List
+
+import scripts._shared.constants as constants
+from scripts._shared.metadata import Metadata
+from scripts._shared.nav_node import NavNode
+from scripts._shared.package_copier import PackageCopier
+
+
+class PackageBuilder:
+    def __init__(
+        self,
+        src: str,
+        dst: str,
+        template_dir: str
+    ) -> None:
+        self.src: str = src
+        self.dst: str = dst
+        self.template_dir: str = template_dir
+
+        with open(Path(self.src, constants.METADATA_JSON), "r") as f:
+            data = f.read()
+        self.metadata: Metadata = Metadata.from_json(data)
+
+        with open(Path(
+            self.template_dir,
+            constants.ROOT_PATH_DIR,
+            constants.TEMPLATE_XHTML
+        ), "r") as f:
+            template_str = f.read()
+        self.html_copier: PackageCopier = PackageCopier(
+            src=self.src,
+            dst=str(Path(self.dst, constants.ROOT_PATH_DIR)),
+            template_str=template_str,
+            template_indents=3
+        )
+
+        self.template_copier: PackageCopier = PackageCopier(
+            src=self.template_dir,
+            dst=self.dst,
+            template_str=template_str,
+            template_indents=3
+        )
+
+        with open(Path(self.src, constants.NAV_JSON), "r") as f:
+            content = f.read()
+        self.nav_nodes: List[NavNode] = [
+            NavNode.from_dict(d)
+            for d in json.loads(content)
+        ]
+
+    def _write_contents_from_template(
+        self
+    ) -> None:
+        self.template_copier.copy_over()
+        self.html_copier.copy_over()
+
+    def _write_nav_toc_xhtml(
+        self
+    ) -> None:
+        with open(Path(self.src, constants.NAV_JSON), "r") as f:
+            nav_lis = "".join(
+                [
+                    nav_node.get_nav_li(
+                        indents=5,
+                        root_dir=self.src
+                    )
+                    for nav_node in self.nav_nodes
+                ]
+            ).strip()
+        with open(Path(
+            self.template_dir,
+            constants.ROOT_PATH_DIR,
+            constants.TOC_XHTML
+        ), "r") as f:
+            content = f.read()
+        content = content.format(
+            nav=nav_lis
+        )
+        with open(Path(
+            self.dst,
+            constants.ROOT_PATH_DIR,
+            constants.TOC_XHTML
+        ), "w") as f:
+            f.write(content)
+        with open(Path(
+            self.template_dir,
+            constants.ROOT_PATH_DIR,
+            constants.NAV_XHTML
+        ), "r") as f:
+            content = f.read()
+        content = content.format(
+            nav=nav_lis
+        )
+        with open(Path(
+            self.dst,
+            constants.ROOT_PATH_DIR,
+            constants.NAV_XHTML
+        ), "w") as f:
+            f.write(content)
+
+    def _write_cover_xhtml(
+        self
+    ) -> None:
+        cover_src = Path(
+            self.template_dir,
+            constants.ROOT_PATH_DIR,
+            constants.COVER_XHTML
+        )
+        cover_dst = Path(
+            self.dst,
+            constants.ROOT_PATH_DIR,
+            constants.COVER_XHTML
+        )
+        shutil.copyfile(cover_src, cover_dst)
+
+    def _write_package_opf(
+        self
+    ) -> None:
+        with open(Path(
+            self.template_dir,
+            constants.ROOT_PATH_DIR,
+            constants.PACKAGE_OPF
+        ), "r") as f:
+            content = f.read()
+        content = content.format(
+            languages="".join(
+                [
+                    f"{constants.INDENT * 2}"
+                    f"<dc:language>{language}</dc:language>\n"
+                    for language in self.metadata.languages
+                ]
+            ).strip(),
+            title=self.metadata.title,
+            author=self.metadata.author,
+            date=datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+            manifest="".join(
+                [
+                    f"{constants.INDENT * 2}<"
+                    "item href=\"{href}\""
+                    " id=\"{id}\""
+                    " media-type=\"{media_type}\""
+                    "/>\n".format(
+                        href=key,
+                        id=val,
+                        media_type=mimetypes.guess_type(key)[0]
+                    )
+                    for key, val in self.html_copier.manifest_file_ids.items()
+                ]
+            ).strip(),
+            spine="".join(
+                [
+                    f"{constants.INDENT * 2}<"
+                    "itemref idref=\"{idref}\""
+                    " linear=\"yes\""
+                    "/>\n".format(
+                        idref=self.html_copier.manifest_file_ids[href]
+                    )
+                    for href in list(
+                        OrderedDict.fromkeys(
+                            itertools.chain.from_iterable(
+                                [
+                                    nav_node.get_spine_hrefs()
+                                    for nav_node in self.nav_nodes
+                                ]
+                            )
+                        )
+                    )
+                ]
+            ).strip()
+        )
+        with open(Path(
+            self.dst,
+            constants.ROOT_PATH_DIR,
+            constants.PACKAGE_OPF
+        ), "w") as f:
+            f.write(content)
+
+    def build(
+        self
+    ) -> None:
+        self._write_contents_from_template()
+        self._write_nav_toc_xhtml()
+        self._write_cover_xhtml()
+        self._write_package_opf()

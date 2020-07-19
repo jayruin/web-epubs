@@ -1,0 +1,9 @@
+INDENT = " " * 4
+COVER_XHTML = "_cover.xhtml"
+METADATA_JSON = "_metadata.json"
+NAV_JSON = "_nav.json"
+NAV_XHTML = "_nav.xhtml"
+PACKAGE_OPF = "package.opf"
+ROOT_PATH_DIR = "OEBPS"
+TEMPLATE_XHTML = "_template.xhtml"
+TOC_XHTML = "_toc.xhtml"
