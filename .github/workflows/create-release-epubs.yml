@@ -1,0 +1,43 @@
+name: Create Release ePubs
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "epub/**"
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on:
+      - ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 14
+          java-package: jdk
+      - name: Create and validate ePubs
+        run: |
+          find ./epub -maxdepth 1 -mindepth 1 -type d | python main.py
+      - name: Create Release
+        run: |
+          assets=();
+          for asset in ./epub/*.{epub,txt}; do
+            assets+=("-a" "$asset");
+          done;
+          tag_name="release-$RUN_ID";
+          release_name="Release $RUN_ID";
+          body="Automated ePub release";
+          message=$(printf "${release_name}\n\n${body}");
+          hub release create "${assets[@]}" -m "$message" "$tag_name";
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_ID: ${{ github.run_number }}
