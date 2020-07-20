@@ -1,1 +1,10 @@
-include: ["*/_*.xhtml"]
+include:
+  - _*.xhtml
+
+exclude:
+  - html/
+  - scripts/
+  - templates/
+  - epub.py
+  - epubcheck.py
+  - main.py
