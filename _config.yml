@@ -1,1 +1,1 @@
-include: ["_*.xhtml"]
+include: ["*/_*.xhtml"]
