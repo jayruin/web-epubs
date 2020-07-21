@@ -1,5 +1,6 @@
 INDENT = " " * 4
 COVER_XHTML = "_cover.xhtml"
+FILES_TO_OVERWRITE = ["img/cover.jpg"]
 METADATA_JSON = "_metadata.json"
 NAV_JSON = "_nav.json"
 NAV_XHTML = "_nav.xhtml"

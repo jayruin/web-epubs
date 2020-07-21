@@ -152,6 +152,7 @@ class PackageBuilder:
                         media_type=mimetypes.guess_type(key)[0]
                     )
                     for key, val in self.html_copier.manifest_file_ids.items()
+                    if key not in constants.FILES_TO_OVERWRITE
                 ]
             ).strip(),
             spine="".join(
