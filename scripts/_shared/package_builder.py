@@ -24,7 +24,7 @@ class PackageBuilder:
         self.dst: str = dst
         self.template_dir: str = template_dir
 
-        with open(Path(self.src, constants.METADATA_JSON), "r") as f:
+        with open(Path(self.src, constants.METADATA_JSON), "r", encoding="utf-8") as f:
             data = f.read()
         self.metadata: Metadata = Metadata.from_json(data)
 
@@ -32,7 +32,7 @@ class PackageBuilder:
             self.template_dir,
             constants.ROOT_PATH_DIR,
             constants.TEMPLATE_XHTML
-        ), "r") as f:
+        ), "r", encoding="utf-8") as f:
             template_str = f.read()
         self.html_copier: PackageCopier = PackageCopier(
             src=self.src,
@@ -48,7 +48,7 @@ class PackageBuilder:
             template_indents=3
         )
 
-        with open(Path(self.src, constants.NAV_JSON), "r") as f:
+        with open(Path(self.src, constants.NAV_JSON), "r", encoding="utf-8") as f:
             content = f.read()
         self.nav_nodes: List[NavNode] = [
             NavNode.from_dict(d)
@@ -64,7 +64,7 @@ class PackageBuilder:
     def _write_nav_toc_xhtml(
         self
     ) -> None:
-        with open(Path(self.src, constants.NAV_JSON), "r") as f:
+        with open(Path(self.src, constants.NAV_JSON), "r", encoding="utf-8") as f:
             nav_lis = "".join(
                 [
                     nav_node.get_nav_li(
@@ -78,7 +78,7 @@ class PackageBuilder:
             self.template_dir,
             constants.ROOT_PATH_DIR,
             constants.TOC_XHTML
-        ), "r") as f:
+        ), "r", encoding="utf-8") as f:
             content = f.read()
         content = content.format(
             nav=nav_lis
@@ -87,13 +87,13 @@ class PackageBuilder:
             self.dst,
             constants.ROOT_PATH_DIR,
             constants.TOC_XHTML
-        ), "w") as f:
+        ), "w", encoding="utf-8") as f:
             f.write(content)
         with open(Path(
             self.template_dir,
             constants.ROOT_PATH_DIR,
             constants.NAV_XHTML
-        ), "r") as f:
+        ), "r", encoding="utf-8") as f:
             content = f.read()
         content = content.format(
             nav=nav_lis
@@ -102,7 +102,7 @@ class PackageBuilder:
             self.dst,
             constants.ROOT_PATH_DIR,
             constants.NAV_XHTML
-        ), "w") as f:
+        ), "w", encoding="utf-8") as f:
             f.write(content)
 
     def _write_cover_xhtml(
@@ -127,7 +127,7 @@ class PackageBuilder:
             self.template_dir,
             constants.ROOT_PATH_DIR,
             constants.PACKAGE_OPF
-        ), "r") as f:
+        ), "r", encoding="utf-8") as f:
             content = f.read()
         content = content.format(
             languages="".join(
@@ -179,7 +179,7 @@ class PackageBuilder:
             self.dst,
             constants.ROOT_PATH_DIR,
             constants.PACKAGE_OPF
-        ), "w") as f:
+        ), "w", encoding="utf-8") as f:
             f.write(content)
 
     def build(

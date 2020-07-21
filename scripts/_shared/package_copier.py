@@ -62,7 +62,7 @@ class PackageCopier:
         self.next_index += 1
         file_src = Path(self.src_path, relative_file)
         file_dst = Path(self.dst_path, xhtml)
-        with open(file_src, "r") as f:
+        with open(file_src, "r", encoding="utf-8") as f:
             lines = f.readlines()
         self.title_parser.feed(lines[1])
         self.h1_parser.feed(lines[2])
@@ -73,7 +73,7 @@ class PackageCopier:
             for line in lines[3:]
         ]
         text = "".join(lines).strip()
-        with open(file_dst, "w") as f:
+        with open(file_dst, "w", encoding="utf-8") as f:
             f.write(self.template_str.format(
                 title=title,
                 text=text,

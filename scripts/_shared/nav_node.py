@@ -51,7 +51,7 @@ class NavNode(Node):
             parser = IdParser(href_split[1])
         href = href_split[0].replace("xhtml", "html", 1)
         try:
-            with open(Path(root_dir, href)) as f:
+            with open(Path(root_dir, href), "r", encoding="utf-8") as f:
                 parser.feed(f.read())
         except FileNotFoundError:
             return ""
