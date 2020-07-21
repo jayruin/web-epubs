@@ -34,7 +34,7 @@ class PackageCopier:
                 relative_file_path = Path(
                     Path(dirpath).relative_to(self.src_path),
                     filename
-                )
+                ).as_posix()
                 self._copy_file(str(relative_file_path))
 
     def _copy_file(
