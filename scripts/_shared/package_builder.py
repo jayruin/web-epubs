@@ -24,7 +24,10 @@ class PackageBuilder:
         self.dst: str = dst
         self.template_dir: str = template_dir
 
-        with open(Path(self.src, constants.METADATA_JSON), "r", encoding="utf-8") as f:
+        with open(Path(
+            self.src,
+            constants.METADATA_JSON
+        ), "r", encoding="utf-8") as f:
             data = f.read()
         self.metadata: Metadata = Metadata.from_json(data)
 
@@ -48,7 +51,10 @@ class PackageBuilder:
             template_indents=3
         )
 
-        with open(Path(self.src, constants.NAV_JSON), "r", encoding="utf-8") as f:
+        with open(Path(
+            self.src,
+            constants.NAV_JSON
+        ), "r", encoding="utf-8") as f:
             content = f.read()
         self.nav_nodes: List[NavNode] = [
             NavNode.from_dict(d)
@@ -64,7 +70,10 @@ class PackageBuilder:
     def _write_nav_toc_xhtml(
         self
     ) -> None:
-        with open(Path(self.src, constants.NAV_JSON), "r", encoding="utf-8") as f:
+        with open(Path(
+            self.src,
+            constants.NAV_JSON
+        ), "r", encoding="utf-8") as f:
             nav_lis = "".join(
                 [
                     nav_node.get_nav_li(
@@ -139,7 +148,8 @@ class PackageBuilder:
             ).strip(),
             title=self.metadata.title,
             author=self.metadata.author,
-            date=datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+            date=self.metadata.date,
+            modified=constants.BUILD_TIME,
             manifest="".join(
                 [
                     f"{constants.INDENT * 2}<"

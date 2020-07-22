@@ -67,6 +67,8 @@ Used to populate ePub metadata.
 }
 ```
 
+Can also specify optional `date` parameter (defaults to date time now). `date` parameter should be formatted as according to ePub specs.
+
 ### _nav.json
 
 Used to construct ePub navigation document.

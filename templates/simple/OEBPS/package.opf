@@ -11,7 +11,7 @@
         <meta refines="#author-id" property="role" scheme="marc:relators">aut</meta>
 
         <dc:date>{date}</dc:date>
-        <meta property="dcterms:modified">{date}</meta>
+        <meta property="dcterms:modified">{modified}</meta>
 
         <meta content="cover-image" name="cover"/>
     </metadata>
