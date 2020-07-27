@@ -17,11 +17,9 @@ ROOT_DIR = "./epubcheck"
 
 
 def build(
-    name: str,
-    ec: EPUBCheck
+    name: str
 ) -> None:
     EPUB(name, f"{name}.epub")
-    ec.check(f"{name}.epub", f"{name}.txt")
 
 
 def main():
@@ -33,7 +31,9 @@ def main():
         epubs_to_build = [line.strip() for line in sys.stdin]
 
     pool = multiprocessing.Pool()
-    pool.starmap(build, [(name, ec) for name in epubs_to_build])
+    pool.map(build, epubs_to_build)
+    for name in epubs_to_build:
+        ec.check(f"{name}.epub", f"{name}.txt")
 
 
 if __name__ == "__main__":
