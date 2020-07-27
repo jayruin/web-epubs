@@ -24,12 +24,14 @@ class PackageBuilder:
         self.dst: str = dst
         self.template_dir: str = template_dir
 
-        with open(Path(
-            self.src,
-            constants.METADATA_JSON
-        ), "r", encoding="utf-8") as f:
-            data = f.read()
-        self.metadata: Metadata = Metadata.from_json(data)
+        self.metadata: Metadata = Metadata.from_json_path(
+            Path(
+                self.src,
+                constants.METADATA_JSON
+            )
+        )
+
+        shutil.rmtree(self.dst)
 
         with open(Path(
             self.template_dir,
