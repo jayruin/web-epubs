@@ -31,7 +31,7 @@ class PackageBuilder:
             )
         )
 
-        shutil.rmtree(self.dst)
+        shutil.rmtree(self.dst, ignore_errors=True)
 
         with open(Path(
             self.template_dir,
