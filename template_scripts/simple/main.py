@@ -6,7 +6,7 @@ root = str(Path(__file__).resolve().parents[2])
 sys.path.append(root)
 os.chdir(root)
 
-from scripts._shared.package_builder import PackageBuilder  # noqa E402
+from template_scripts._shared.package_builder import PackageBuilder  # noqa E402
 
 
 def main():

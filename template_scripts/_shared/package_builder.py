@@ -7,10 +7,10 @@ from pathlib import Path
 import shutil
 from typing import List
 
-import scripts._shared.constants as constants
-from scripts._shared.metadata import Metadata
-from scripts._shared.nav_node import NavNode
-from scripts._shared.package_copier import PackageCopier
+import template_scripts._shared.constants as constants
+from template_scripts._shared.metadata import Metadata
+from template_scripts._shared.nav_node import NavNode
+from template_scripts._shared.package_copier import PackageCopier
 
 
 class PackageBuilder:
