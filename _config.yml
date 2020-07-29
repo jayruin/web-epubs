@@ -2,9 +2,7 @@ include:
   - _*.xhtml
 
 exclude:
+  - epub_scripts/
   - html/
   - scripts/
   - template_scripts/
-  - epub.py
-  - epubcheck.py
-  - main.py

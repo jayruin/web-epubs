@@ -3,12 +3,12 @@ import os
 import pathlib
 import sys
 
-root = str(pathlib.Path(__file__).resolve().parents[0])
+root = str(pathlib.Path(__file__).resolve().parents[1])
 sys.path.append(root)
 os.chdir(root)
 
-from epub import EPUB  # noqa E402
-from epubcheck import EPUBCheck  # noqa E402
+from epub_scripts.epub import EPUB  # noqa E402
+from epub_scripts.epubcheck import EPUBCheck  # noqa E402
 
 
 DOWNLOAD_LINK = "https://api.github.com/repos/w3c/epubcheck/releases/latest"
