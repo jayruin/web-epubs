@@ -4,7 +4,7 @@ include:
 exclude:
   - html/
   - scripts/
-  - templates/
+  - template_scripts/
   - epub.py
   - epubcheck.py
   - main.py
