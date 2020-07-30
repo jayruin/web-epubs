@@ -2,6 +2,7 @@ include:
   - _*.xhtml
 
 exclude:
+  - calibrecli/
   - epub_scripts/
   - html/
   - scripts/
