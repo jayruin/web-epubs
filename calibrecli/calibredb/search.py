@@ -30,10 +30,13 @@ def search(
     if limit_:
         args.extend(["--limit", limit_])
     args.append(search_expression_)
-    result = subprocess.run(
-        args,
-        capture_output=True,
-        check=True,
-        encoding="utf-8"
-    )
+    try:
+        result = subprocess.run(
+            args,
+            capture_output=True,
+            check=True,
+            encoding="utf-8"
+        )
+    except subprocess.CalledProcessError:
+        return []
     return result.stdout.split(",")

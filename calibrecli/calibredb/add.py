@@ -4,7 +4,7 @@ from typing import List, Optional
 
 
 def add(
-    search_expression_: str,
+    files_: List[str],
     portable: Optional[str] = "",
     help_: Optional[bool] = None,
     with_library_: Optional[str] = None,
@@ -51,7 +51,7 @@ def add(
     if empty_:
         args.append("--empty")
     if identifiers_:
-        for identifier in identifiers:
+        for identifier_ in identifiers_:
             args.extend(["--identifier", identifier_])
     if isbn_:
         args.extend(["--isbn", isbn_])
@@ -73,5 +73,5 @@ def add(
         args.append("--one-book-per-directory")
     if recurse_:
         args.append("--recurse")
-    args.append(search_expression_)
+    args.extend(files_)
     result = subprocess.run(args, check=True)

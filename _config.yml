@@ -6,4 +6,5 @@ exclude:
   - epub_scripts/
   - html/
   - scripts/
+  - sync_scripts/
   - template_scripts/
