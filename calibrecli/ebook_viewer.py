@@ -16,7 +16,7 @@ def ebook_viewer(
     version_: Optional[bool] = None
 ) -> None:
     """
-    https://manual.calibre-ebook.com/generated/en/calibredb.html#add-format
+    https://manual.calibre-ebook.com/generated/en/ebook-viewer.html
     """
     args = [os.path.join(portable, "ebook-viewer")]
     if continue_:
