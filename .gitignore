@@ -1,0 +1,6 @@
+__pycache__/
+
+/epub/*.epub
+/epub/*.txt
+
+/epubcheck/
