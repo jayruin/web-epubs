@@ -12,6 +12,7 @@ class Metadata:
     title: str
     author: str
     languages: List[str]
+    cover_file: str = "img/cover.jpg"
     date: str = constants.BUILD_TIME
 
     @classmethod

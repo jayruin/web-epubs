@@ -8,6 +8,7 @@ import shutil
 from typing import List
 
 import template_scripts._shared.constants as constants
+from template_scripts._shared.cover import create_default_cover
 from template_scripts._shared.metadata import Metadata
 from template_scripts._shared.nav_node import NavNode
 from template_scripts._shared.package_copier import PackageCopier
@@ -32,6 +33,9 @@ class PackageBuilder:
         )
 
         shutil.rmtree(self.dst, ignore_errors=True)
+
+        self.manifest_files_to_ignore: List[str] = []
+        self.manifest_files_to_ignore.append(self.metadata.cover_file)
 
         with open(Path(
             self.template_dir,
@@ -129,7 +133,13 @@ class PackageBuilder:
             constants.ROOT_PATH_DIR,
             constants.COVER_XHTML
         )
-        shutil.copyfile(cover_src, cover_dst)
+        with open(cover_src, "r", encoding="utf-8") as f:
+            content = f.read()
+        content = content.format(
+            cover_file=self.metadata.cover_file
+        )
+        with open(cover_dst, "w", encoding="utf-8") as f:
+            f.write(content)
 
     def _write_package_opf(
         self
@@ -152,6 +162,8 @@ class PackageBuilder:
             author=self.metadata.author,
             date=self.metadata.date,
             modified=constants.BUILD_TIME,
+            cover_file=self.metadata.cover_file,
+            cover_media_type=mimetypes.guess_type(self.metadata.cover_file)[0],
             manifest="".join(
                 [
                     f"{constants.INDENT * 2}<"
@@ -164,7 +176,7 @@ class PackageBuilder:
                         media_type=mimetypes.guess_type(key)[0]
                     )
                     for key, val in self.html_copier.manifest_file_ids.items()
-                    if key not in constants.FILES_TO_OVERWRITE
+                    if key not in self.manifest_files_to_ignore
                 ]
             ).strip(),
             spine="".join(
@@ -195,6 +207,18 @@ class PackageBuilder:
         ), "w", encoding="utf-8") as f:
             f.write(content)
 
+    def _create_default_cover_if_needed(
+        self
+    ) -> None:
+        cover_path = Path(
+            self.dst,
+            constants.ROOT_PATH_DIR,
+            self.metadata.cover_file
+        )
+
+        if not cover_path.exists():
+            create_default_cover(cover_path)
+
     def build(
         self
     ) -> None:
@@ -202,3 +226,4 @@ class PackageBuilder:
         self._write_nav_toc_xhtml()
         self._write_cover_xhtml()
         self._write_package_opf()
+        self._create_default_cover_if_needed()

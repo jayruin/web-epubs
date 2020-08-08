@@ -12,8 +12,6 @@
 
         <dc:date>{date}</dc:date>
         <meta property="dcterms:modified">{modified}</meta>
-
-        <meta content="cover-image" name="cover"/>
     </metadata>
 
     <manifest>
@@ -21,7 +19,7 @@
         <item href="_toc.xhtml" id="toc" media-type="application/xhtml+xml"/>
         <item href="_nav.xhtml" id="nav" media-type="application/xhtml+xml" properties="nav"/>
         <item href="css/stylesheet.css" id="stylesheet" media-type="text/css"/>
-        <item href="img/cover.jpg" id="cover" media-type="image/jpeg" properties="cover-image"/>
+        <item href="{cover_file}" id="cover" media-type="{cover_media_type}" properties="cover-image"/>
         {manifest}
     </manifest>
 
