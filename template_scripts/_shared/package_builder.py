@@ -35,7 +35,7 @@ class PackageBuilder:
         shutil.rmtree(self.dst, ignore_errors=True)
 
         self.manifest_files_to_ignore: List[str] = []
-        self.manifest_files_to_ignore.append(self.metadata.cover_file)
+        self.manifest_files_to_ignore.append(self.metadata.cover)
 
         with open(Path(
             self.template_dir,
@@ -136,7 +136,7 @@ class PackageBuilder:
         with open(cover_src, "r", encoding="utf-8") as f:
             content = f.read()
         content = content.format(
-            cover_file=self.metadata.cover_file
+            cover_file=self.metadata.cover
         )
         with open(cover_dst, "w", encoding="utf-8") as f:
             f.write(content)
@@ -162,8 +162,8 @@ class PackageBuilder:
             author=self.metadata.author,
             date=self.metadata.date,
             modified=constants.BUILD_TIME,
-            cover_file=self.metadata.cover_file,
-            cover_media_type=mimetypes.guess_type(self.metadata.cover_file)[0],
+            cover_file=self.metadata.cover,
+            cover_media_type=mimetypes.guess_type(self.metadata.cover)[0],
             manifest="".join(
                 [
                     f"{constants.INDENT * 2}<"
@@ -213,7 +213,7 @@ class PackageBuilder:
         cover_path = Path(
             self.dst,
             constants.ROOT_PATH_DIR,
-            self.metadata.cover_file
+            self.metadata.cover
         )
 
         if not cover_path.exists():
