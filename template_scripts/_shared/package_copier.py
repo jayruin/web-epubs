@@ -66,8 +66,8 @@ class PackageCopier:
             lines = f.readlines()
         self.title_parser.feed(lines[1])
         self.h1_parser.feed(lines[2])
-        title = self.title_parser.content
-        h1 = self.h1_parser.content
+        title = self.title_parser.get_content()
+        h1 = self.h1_parser.get_content()
         lines = [
             constants.INDENT * self.template_indents + line
             for line in lines[3:]

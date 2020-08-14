@@ -55,7 +55,7 @@ class NavNode(Node):
                 parser.feed(f.read())
         except FileNotFoundError:
             return ""
-        return parser.content
+        return parser.get_content()
 
     def get_spine_hrefs(
         self

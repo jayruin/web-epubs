@@ -54,3 +54,10 @@ class IdParser(HTMLParser):
     ) -> None:
         if self.is_active:
             self.content += data
+
+    def get_content(
+        self
+    ) -> str:
+        result = self.content
+        self.content = ""
+        return result
