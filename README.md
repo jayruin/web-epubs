@@ -72,7 +72,7 @@ Used to populate ePub metadata.
 Optional parameters:
 
 - `date` parameter (defaults to date time now) which specifies the publication date. This parameter should be formatted as according to ePub specs.
-- `cover` parameter (defaults to "img/cover.jpg") which specifies the relative path to the cover image. This image should be in a file formatted that is supported by the ePub specs.
+- `cover` parameter (defaults to "img/cover.jpg") which specifies the relative path to the cover image. This image should be in a file format that is supported by the ePub specs.
 
 ### _nav.json
 
