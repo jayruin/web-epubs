@@ -9,6 +9,7 @@ from typing import List
 
 import template_scripts._shared.constants as constants
 from template_scripts._shared.cover import create_default_cover
+from template_scripts._shared.css import generate_css_links
 from template_scripts._shared.metadata import Metadata
 from template_scripts._shared.nav_node import NavNode
 from template_scripts._shared.package_copier import PackageCopier
@@ -34,8 +35,13 @@ class PackageBuilder:
 
         shutil.rmtree(self.dst, ignore_errors=True)
 
-        self.manifest_files_to_ignore: List[str] = []
-        self.manifest_files_to_ignore.append(self.metadata.cover)
+        self.manifest_files_to_ignore: List[str] = [
+            self.metadata.cover,
+            "css/stylesheet.css"
+        ]
+
+        self.css_files: List[str] = self.metadata.css
+        self.css_links: str = ""
 
         with open(Path(
             self.template_dir,
@@ -73,6 +79,31 @@ class PackageBuilder:
         self.template_copier.copy_over()
         self.html_copier.copy_over()
 
+        if not self.css_files:
+            css_files_set = set()
+            css_files_set |= set(
+                [
+                    str(Path(file).relative_to(constants.ROOT_PATH_DIR))
+                    for file in self.template_copier.manifest_file_ids
+                    if file.endswith(".css")
+                ]
+            )
+            css_files_set |= set(
+                [
+                    file
+                    for file in self.html_copier.manifest_file_ids
+                    if file.endswith(".css")
+                ]
+            )
+            self.css_files = sorted(css_files_set)
+
+        self.css_links = generate_css_links(
+            css_files=self.css_files,
+            indents=2
+        )
+
+        self.html_copier.copy_over(css_links=self.css_links)
+
     def _write_nav_toc_xhtml(
         self
     ) -> None:
@@ -96,7 +127,8 @@ class PackageBuilder:
         ), "r", encoding="utf-8") as f:
             content = f.read()
         content = content.format(
-            nav=nav_lis
+            nav=nav_lis,
+            css=self.css_links
         )
         with open(Path(
             self.dst,
@@ -111,7 +143,8 @@ class PackageBuilder:
         ), "r", encoding="utf-8") as f:
             content = f.read()
         content = content.format(
-            nav=nav_lis
+            nav=nav_lis,
+            css=self.css_links
         )
         with open(Path(
             self.dst,
@@ -136,7 +169,8 @@ class PackageBuilder:
         with open(cover_src, "r", encoding="utf-8") as f:
             content = f.read()
         content = content.format(
-            cover_file=self.metadata.cover
+            cover_file=self.metadata.cover,
+            css=self.css_links
         )
         with open(cover_dst, "w", encoding="utf-8") as f:
             f.write(content)

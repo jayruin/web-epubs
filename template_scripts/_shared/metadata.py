@@ -1,5 +1,5 @@
 from __future__ import annotations
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import json
 from pathlib import Path
 from typing import List
@@ -13,6 +13,7 @@ class Metadata:
     author: str
     languages: List[str]
     cover: str = "img/cover.jpg"
+    css: List[str] = field(default_factory=list)
     date: str = constants.BUILD_TIME
 
     @classmethod

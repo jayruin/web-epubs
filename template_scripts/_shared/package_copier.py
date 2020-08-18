@@ -27,7 +27,8 @@ class PackageCopier:
         os.makedirs(self.dst_path, exist_ok=True)
 
     def copy_over(
-        self
+        self,
+        css_links: str = None
     ) -> None:
         for dirpath, dirnames, filenames in os.walk(self.src_path):
             for filename in filenames:
@@ -35,11 +36,12 @@ class PackageCopier:
                     Path(dirpath).relative_to(self.src_path),
                     filename
                 ).as_posix()
-                self._copy_file(str(relative_file_path))
+                self._copy_file(str(relative_file_path), css_links)
 
     def _copy_file(
         self,
-        relative_file: str
+        relative_file: str,
+        css_links: str = None
     ) -> None:
         file_src = Path(self.src_path, relative_file)
         file_dst = Path(self.dst_path, relative_file)
@@ -47,7 +49,8 @@ class PackageCopier:
         if file_dst.name.startswith("_"):
             return
         if file_dst.name.endswith(".html"):
-            self._copy_html(relative_file)
+            if css_links:
+                self._copy_html(relative_file, css_links)
         else:
             shutil.copyfile(file_src, file_dst)
             self.manifest_file_ids[relative_file] = f"id-{self.next_index}"
@@ -55,7 +58,8 @@ class PackageCopier:
 
     def _copy_html(
         self,
-        relative_file: str
+        relative_file: str,
+        css_links: str
     ) -> None:
         xhtml = relative_file.replace(".html", ".xhtml")
         self.manifest_file_ids[xhtml] = f"id-{self.next_index}"
@@ -76,6 +80,7 @@ class PackageCopier:
         with open(file_dst, "w", encoding="utf-8") as f:
             f.write(self.template_str.format(
                 title=title,
-                text=text,
-                header=h1
+                css=css_links,
+                header=h1,
+                text=text
             ))
