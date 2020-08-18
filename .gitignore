@@ -1,6 +1,12 @@
+# Compiled bytecode
 __pycache__/
 
+# ePub output
 /epub/*.epub
 /epub/*.txt
 
+# Local cached copy of epubcheck
 /epubcheck/
+
+# Code editors
+/.vscode/
