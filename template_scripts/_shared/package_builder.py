@@ -1,4 +1,3 @@
-from collections import OrderedDict
 import datetime
 import itertools
 import json
@@ -221,15 +220,11 @@ class PackageBuilder:
                     "/>\n".format(
                         idref=self.html_copier.manifest_file_ids[href]
                     )
-                    for href in list(
-                        OrderedDict.fromkeys(
-                            itertools.chain.from_iterable(
-                                [
-                                    nav_node.get_spine_hrefs()
-                                    for nav_node in self.nav_nodes
-                                ]
-                            )
-                        )
+                    for href in itertools.chain.from_iterable(
+                        [
+                            nav_node.get_spine_hrefs()
+                            for nav_node in self.nav_nodes
+                        ]
                     )
                 ]
             ).strip()
