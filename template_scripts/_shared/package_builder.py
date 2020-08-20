@@ -7,7 +7,7 @@ from pathlib import Path
 import shutil
 from typing import List
 
-import template_scripts._shared.constants as constants
+import core.constants as constants
 from template_scripts._shared.cover import create_default_cover
 from template_scripts._shared.css import generate_css_links
 from template_scripts._shared.metadata import Metadata

@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from typing import List
 
-import template_scripts._shared.constants as constants
+import core.constants as constants
 
 
 @dataclass

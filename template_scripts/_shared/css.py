@@ -1,6 +1,6 @@
 from typing import List
 
-import template_scripts._shared.constants as constants
+import core.constants as constants
 
 
 def generate_css_links(
