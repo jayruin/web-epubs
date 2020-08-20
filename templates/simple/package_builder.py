@@ -65,11 +65,6 @@ class PackageBuilder:
 
         shutil.rmtree(self.dst, ignore_errors=True)
 
-        self.manifest_files_to_ignore: List[str] = [
-            self.metadata.cover,
-            "css/stylesheet.css"
-        ]
-
         self.css_files: List[str] = self.metadata.css
         self.css_links: str = ""
 

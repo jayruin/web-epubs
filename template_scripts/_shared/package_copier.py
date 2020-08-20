@@ -1,7 +1,6 @@
 import os
 from pathlib import Path
 import shutil
-from typing import Dict
 
 from core import constants
 from core.htmlparsers.tag_name_parser import TagNameParser
@@ -21,8 +20,6 @@ class PackageCopier:
         self.template_indents: int = template_indents
         self.title_parser: TagNameParser = TagNameParser("title")
         self.h1_parser: TagNameParser = TagNameParser("h1")
-        self.next_index: int = 1
-        self.manifest_file_ids: Dict[str, str] = {}
 
         os.makedirs(self.dst_path, exist_ok=True)
 
@@ -52,8 +49,6 @@ class PackageCopier:
             self._copy_html(relative_file, css_links)
         else:
             shutil.copyfile(file_src, file_dst)
-            self.manifest_file_ids[relative_file] = f"id-{self.next_index}"
-            self.next_index += 1
 
     def _copy_html(
         self,
@@ -61,8 +56,6 @@ class PackageCopier:
         css_links: str
     ) -> None:
         xhtml = relative_file.replace(".html", ".xhtml")
-        self.manifest_file_ids[xhtml] = f"id-{self.next_index}"
-        self.next_index += 1
         file_src = Path(self.src_path, relative_file)
         file_dst = Path(self.dst_path, xhtml)
         with open(file_src, "r", encoding="utf-8") as f:
