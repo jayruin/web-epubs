@@ -1,5 +1,5 @@
-from core import constants
-from core.formatters.base_formatter import BaseFormatter
+from .. import constants
+from .base_formatter import BaseFormatter
 
 
 class CsslinksFormatter(BaseFormatter):

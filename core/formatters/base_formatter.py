@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from template_scripts._shared.package_contents import PackageContents
+from ..package_contents import PackageContents
 
 
 class BaseFormatter(ABC):
