@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 from typing import Dict, List
 
-import core.constants as constants
+from core import constants
 from template_scripts._shared.metadata import Metadata
 from template_scripts._shared.nav_node import NavNode
 

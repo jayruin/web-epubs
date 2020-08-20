@@ -3,7 +3,7 @@ from pathlib import Path
 import shutil
 from typing import Dict
 
-import core.constants as constants
+from core import constants
 from template_scripts._shared.tag_name_parser import TagNameParser
 
 

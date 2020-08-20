@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from typing import List
 
-import core.constants as constants
+from core import constants
 
 
 @dataclass

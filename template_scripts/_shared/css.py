@@ -1,6 +1,6 @@
 from typing import List
 
-import core.constants as constants
+from core import constants
 
 
 def generate_css_links(

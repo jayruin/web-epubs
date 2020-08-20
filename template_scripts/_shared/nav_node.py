@@ -2,7 +2,7 @@ import itertools
 from pathlib import Path
 from typing import List
 
-import core.constants as constants
+from core import constants
 from template_scripts._shared.id_parser import IdParser
 from template_scripts._shared.node import Node
 from template_scripts._shared.tag_name_parser import TagNameParser
