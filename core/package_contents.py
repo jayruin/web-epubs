@@ -51,7 +51,6 @@ class PackageContents:
             self._traverse_css_files(template_root_path)
             self._traverse_css_files(src_path)
             self.css_files = sorted(set(self.css_files))
-        print(self.file_id_mapping)
 
     def _traverse_files(
         self,

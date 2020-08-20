@@ -28,7 +28,7 @@ class PackageCopier:
 
     def copy_over(
         self,
-        css_links: str = None
+        css_links: str
     ) -> None:
         for dirpath, dirnames, filenames in os.walk(self.src_path):
             for filename in filenames:
@@ -41,7 +41,7 @@ class PackageCopier:
     def _copy_file(
         self,
         relative_file: str,
-        css_links: str = None
+        css_links: str
     ) -> None:
         file_src = Path(self.src_path, relative_file)
         file_dst = Path(self.dst_path, relative_file)
@@ -49,8 +49,7 @@ class PackageCopier:
         if file_dst.name.startswith("_"):
             return
         if file_dst.name.endswith(".html"):
-            if css_links:
-                self._copy_html(relative_file, css_links)
+            self._copy_html(relative_file, css_links)
         else:
             shutil.copyfile(file_src, file_dst)
             self.manifest_file_ids[relative_file] = f"id-{self.next_index}"

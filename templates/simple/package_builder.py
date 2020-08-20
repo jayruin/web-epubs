@@ -1,5 +1,3 @@
-from collections import OrderedDict
-import itertools
 import json
 import mimetypes
 from pathlib import Path
@@ -16,7 +14,6 @@ from core.formatters import (
     SpineitemrefsFormatter
 )
 from template_scripts._shared.cover import create_default_cover
-from template_scripts._shared.css import generate_css_links
 from core.config.metadata import Metadata
 from core.config.nav_node import NavNode
 from template_scripts._shared.package_copier import PackageCopier
@@ -109,33 +106,9 @@ class PackageBuilder:
     def _write_contents_from_template(
         self
     ) -> None:
-        self.template_copier.copy_over()
-        self.html_copier.copy_over()
-
-        if not self.css_files:
-            css_files_set = set()
-            css_files_set |= set(
-                [
-                    str(Path(file).relative_to(constants.ROOT_PATH_DIR))
-                    for file in self.template_copier.manifest_file_ids
-                    if file.endswith(".css")
-                ]
-            )
-            css_files_set |= set(
-                [
-                    file
-                    for file in self.html_copier.manifest_file_ids
-                    if file.endswith(".css")
-                ]
-            )
-            self.css_files = sorted(css_files_set)
-
-        self.css_links = generate_css_links(
-            css_files=self.css_files,
-            indents=2
-        )
-
-        self.html_copier.copy_over(css_links=self.css_links)
+        css_links = self.csslinks_formatter.run(indents=2)
+        self.template_copier.copy_over(css_links)
+        self.html_copier.copy_over(css_links)
 
     def _write_nav_toc_xhtml(
         self
