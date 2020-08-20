@@ -3,9 +3,9 @@ from pathlib import Path
 from typing import List
 
 from .. import constants
-from template_scripts._shared.id_parser import IdParser
+from ..htmlparsers.id_parser import IdParser
 from .node import Node
-from template_scripts._shared.tag_name_parser import TagNameParser
+from ..htmlparsers.tag_name_parser import TagNameParser
 
 
 class NavNode(Node):

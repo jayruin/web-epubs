@@ -4,7 +4,7 @@ import shutil
 from typing import Dict
 
 from core import constants
-from template_scripts._shared.tag_name_parser import TagNameParser
+from core.htmlparsers.tag_name_parser import TagNameParser
 
 
 class PackageCopier:
