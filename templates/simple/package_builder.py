@@ -7,6 +7,14 @@ import shutil
 from typing import List
 
 from core import constants
+from core.package_contents import PackageContents
+from core.formatters import (
+    CsslinksFormatter,
+    LanguagesFormatter,
+    ManifestitemsFormatter,
+    NavlisFormatter,
+    SpineitemrefsFormatter
+)
 from template_scripts._shared.cover import create_default_cover
 from template_scripts._shared.css import generate_css_links
 from core.config.metadata import Metadata
@@ -21,6 +29,32 @@ class PackageBuilder:
         dst: str,
         template_dir: str
     ) -> None:
+        self.package_contents: PackageContents = PackageContents(
+            src=src,
+            template_dir=template_dir
+        )
+        self.csslinks_formatter: CsslinksFormatter
+        self.languages_formatter: LanguagesFormatter
+        self.manifestitems_formatter: ManifestitemsFormatter
+        self.navlis_formatter: NavlisFormatter
+        self.spineitemrefs_formatter: SpineitemrefsFormatter
+
+        self.csslinks_formatter = CsslinksFormatter(
+            self.package_contents
+        )
+        self.languages_formatter = LanguagesFormatter(
+            self.package_contents
+        )
+        self.manifestitems_formatter = ManifestitemsFormatter(
+            self.package_contents
+        )
+        self.navlis_formatter = NavlisFormatter(
+            self.package_contents
+        )
+        self.spineitemrefs_formatter = SpineitemrefsFormatter(
+            self.package_contents
+        )
+
         self.src: str = src
         self.dst: str = dst
         self.template_dir: str = template_dir
@@ -106,19 +140,8 @@ class PackageBuilder:
     def _write_nav_toc_xhtml(
         self
     ) -> None:
-        with open(Path(
-            self.src,
-            constants.NAV_JSON
-        ), "r", encoding="utf-8") as f:
-            nav_lis = "".join(
-                [
-                    nav_node.get_nav_li(
-                        indents=5,
-                        root_dir=self.src
-                    )
-                    for nav_node in self.nav_nodes
-                ]
-            ).strip()
+        nav_lis = self.navlis_formatter.run(indents=5)
+        css_links = self.csslinks_formatter.run(indents=2)
         with open(Path(
             self.template_dir,
             constants.ROOT_PATH_DIR,
@@ -127,7 +150,7 @@ class PackageBuilder:
             content = f.read()
         content = content.format(
             nav=nav_lis,
-            css=self.css_links
+            css=css_links
         )
         with open(Path(
             self.dst,
@@ -143,7 +166,7 @@ class PackageBuilder:
             content = f.read()
         content = content.format(
             nav=nav_lis,
-            css=self.css_links
+            css=css_links
         )
         with open(Path(
             self.dst,
@@ -169,7 +192,7 @@ class PackageBuilder:
             content = f.read()
         content = content.format(
             cover_file=self.metadata.cover,
-            css=self.css_links
+            css=self.csslinks_formatter.run(indents=2)
         )
         with open(cover_dst, "w", encoding="utf-8") as f:
             f.write(content)
@@ -184,52 +207,15 @@ class PackageBuilder:
         ), "r", encoding="utf-8") as f:
             content = f.read()
         content = content.format(
-            languages="".join(
-                [
-                    f"{constants.INDENT * 2}"
-                    f"<dc:language>{language}</dc:language>\n"
-                    for language in self.metadata.languages
-                ]
-            ).strip(),
+            languages=self.languages_formatter.run(indents=2),
             title=self.metadata.title,
             author=self.metadata.author,
             date=self.metadata.date,
             modified=constants.BUILD_TIME,
             cover_file=self.metadata.cover,
             cover_media_type=mimetypes.guess_type(self.metadata.cover)[0],
-            manifest="".join(
-                [
-                    f"{constants.INDENT * 2}<"
-                    "item href=\"{href}\""
-                    " id=\"{id}\""
-                    " media-type=\"{media_type}\""
-                    "/>\n".format(
-                        href=key,
-                        id=val,
-                        media_type=mimetypes.guess_type(key)[0]
-                    )
-                    for key, val in self.html_copier.manifest_file_ids.items()
-                    if key not in self.manifest_files_to_ignore
-                ]
-            ).strip(),
-            spine="".join(
-                [
-                    f"{constants.INDENT * 2}<"
-                    "itemref idref=\"{idref}\""
-                    " linear=\"yes\""
-                    "/>\n".format(
-                        idref=self.html_copier.manifest_file_ids[href]
-                    )
-                    for href in OrderedDict.fromkeys(
-                        itertools.chain.from_iterable(
-                            [
-                                nav_node.get_spine_hrefs()
-                                for nav_node in self.nav_nodes
-                            ]
-                        )
-                    )
-                ]
-            ).strip()
+            manifest=self.manifestitems_formatter.run(indents=2),
+            spine=self.spineitemrefs_formatter.run(indents=2)
         )
         with open(Path(
             self.dst,

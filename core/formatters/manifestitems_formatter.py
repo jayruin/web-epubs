@@ -21,6 +21,5 @@ class ManifestitemsFormatter(BaseFormatter):
                     media_type=mimetypes.guess_type(key)[0]
                 )
                 for key, val in self.package_contents.file_id_mapping.items()
-                if key not in self.manifest_files_to_ignore
             ]
         ).strip()
