@@ -4,8 +4,8 @@ from pathlib import Path
 from typing import Dict, List
 
 from core import constants
-from template_scripts._shared.metadata import Metadata
-from template_scripts._shared.nav_node import NavNode
+from .config.metadata import Metadata
+from .config.nav_node import NavNode
 
 
 class PackageContents:
