@@ -11,7 +11,7 @@ from template_scripts._shared.package_builder import PackageBuilder  # noqa E402
 
 def main():
     for arg in sys.argv[1:]:
-        template_dir = "./templates/simple"
+        template_dir = "./templates/simple/contents"
         src = os.path.join("./html", arg)
         dst = os.path.join("./epub", arg)
         pb = PackageBuilder(src, dst, template_dir)

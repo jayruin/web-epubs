@@ -110,7 +110,7 @@ Make sure `href` contains a file with `.xhtml` extension.
 Manually building:
 
 ```bash
-python3 "./template_scripts/simple/main.py" "Hello World" "My Other Book"
+python3 "./templates/simple/main.py" "Hello World" "My Other Book"
 python3 "./epub_scripts/build.py" "./epub/Hello World" "./epub/My Other Book"
 ```
 
