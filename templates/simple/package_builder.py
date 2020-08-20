@@ -65,9 +65,6 @@ class PackageBuilder:
 
         shutil.rmtree(self.dst, ignore_errors=True)
 
-        self.css_files: List[str] = self.metadata.css
-        self.css_links: str = ""
-
         with open(Path(
             self.template_dir,
             constants.ROOT_PATH_DIR,
