@@ -1,5 +1,4 @@
 from collections import OrderedDict
-import datetime
 import itertools
 import json
 import mimetypes
@@ -10,8 +9,8 @@ from typing import List
 from core import constants
 from template_scripts._shared.cover import create_default_cover
 from template_scripts._shared.css import generate_css_links
-from template_scripts._shared.metadata import Metadata
-from template_scripts._shared.nav_node import NavNode
+from core.config.metadata import Metadata
+from core.config.nav_node import NavNode
 from template_scripts._shared.package_copier import PackageCopier
 
 
