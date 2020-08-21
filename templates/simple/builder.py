@@ -21,7 +21,7 @@ from template_scripts._shared.cover import create_default_cover
 from template_scripts._shared.package_copier import PackageCopier
 
 
-class PackageBuilder:
+class Builder:
     def __init__(
         self,
         src: str,

@@ -6,7 +6,7 @@ root = str(Path(__file__).resolve().parents[2])
 sys.path.append(root)
 os.chdir(root)
 
-from templates.simple.package_builder import PackageBuilder  # noqa E402
+from templates.simple.builder import Builder  # noqa E402
 
 
 def main():
@@ -14,7 +14,7 @@ def main():
         template_dir = "./templates/simple/contents"
         src = os.path.join("./html", arg)
         dst = os.path.join("./epub", arg)
-        pb = PackageBuilder(src, dst, template_dir)
+        pb = Builder(src, dst, template_dir)
         pb.build()
 
 
