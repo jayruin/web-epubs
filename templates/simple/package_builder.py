@@ -2,10 +2,11 @@ import json
 import mimetypes
 from pathlib import Path
 import shutil
-from typing import List
+from typing import List, Type
 
 from core import constants
-from core.package_contents import PackageContents
+from core.files.readers import TextReader, Utf8Reader
+from core.files.writers import TextWriter, Utf8Writer
 from core.formatters import (
     CsslinksFormatter,
     LanguagesFormatter,
@@ -13,9 +14,10 @@ from core.formatters import (
     NavlisFormatter,
     SpineitemrefsFormatter
 )
-from template_scripts._shared.cover import create_default_cover
 from core.config.metadata import Metadata
 from core.config.nav_node import NavNode
+from core.package_contents import PackageContents
+from template_scripts._shared.cover import create_default_cover
 from template_scripts._shared.package_copier import PackageCopier
 
 
@@ -52,6 +54,9 @@ class PackageBuilder:
             self.package_contents
         )
 
+        self.reader: Type[TextReader] = Utf8Reader()
+        self.writer: Type[TextWriter] = Utf8Writer()
+
         self.src: str = src
         self.dst: str = dst
         self.template_dir: str = template_dir
@@ -65,12 +70,13 @@ class PackageBuilder:
 
         shutil.rmtree(self.dst, ignore_errors=True)
 
-        with open(Path(
-            self.template_dir,
-            constants.ROOT_PATH_DIR,
-            constants.TEMPLATE_XHTML
-        ), "r", encoding="utf-8") as f:
-            template_str = f.read()
+        template_str = self.reader.read(
+            Path(
+                self.template_dir,
+                constants.ROOT_PATH_DIR,
+                constants.TEMPLATE_XHTML
+            )
+        )
         self.html_copier: PackageCopier = PackageCopier(
             src=self.src,
             dst=str(Path(self.dst, constants.ROOT_PATH_DIR)),
@@ -85,11 +91,12 @@ class PackageBuilder:
             template_indents=3
         )
 
-        with open(Path(
-            self.src,
-            constants.NAV_JSON
-        ), "r", encoding="utf-8") as f:
-            content = f.read()
+        content = self.reader.read(
+            Path(
+                self.src,
+                constants.NAV_JSON
+            )
+        )
         self.nav_nodes: List[NavNode] = [
             NavNode.from_dict(d)
             for d in json.loads(content)
@@ -107,38 +114,44 @@ class PackageBuilder:
     ) -> None:
         nav_lis = self.navlis_formatter.run(indents=5)
         css_links = self.csslinks_formatter.run(indents=2)
-        with open(Path(
-            self.template_dir,
-            constants.ROOT_PATH_DIR,
-            constants.TOC_XHTML
-        ), "r", encoding="utf-8") as f:
-            content = f.read()
+        content = self.reader.read(
+            Path(
+                self.template_dir,
+                constants.ROOT_PATH_DIR,
+                constants.TOC_XHTML
+            )
+        )
         content = content.format(
             nav=nav_lis,
             css=css_links
         )
-        with open(Path(
-            self.dst,
-            constants.ROOT_PATH_DIR,
-            constants.TOC_XHTML
-        ), "w", encoding="utf-8") as f:
-            f.write(content)
-        with open(Path(
-            self.template_dir,
-            constants.ROOT_PATH_DIR,
-            constants.NAV_XHTML
-        ), "r", encoding="utf-8") as f:
-            content = f.read()
+        self.writer.write(
+            Path(
+                self.dst,
+                constants.ROOT_PATH_DIR,
+                constants.TOC_XHTML
+            ),
+            content
+        )
+        content = self.reader.read(
+            Path(
+                self.template_dir,
+                constants.ROOT_PATH_DIR,
+                constants.NAV_XHTML
+            )
+        )
         content = content.format(
             nav=nav_lis,
             css=css_links
         )
-        with open(Path(
-            self.dst,
-            constants.ROOT_PATH_DIR,
-            constants.NAV_XHTML
-        ), "w", encoding="utf-8") as f:
-            f.write(content)
+        self.writer.write(
+            Path(
+                self.dst,
+                constants.ROOT_PATH_DIR,
+                constants.NAV_XHTML
+            ),
+            content
+        )
 
     def _write_cover_xhtml(
         self
@@ -153,24 +166,23 @@ class PackageBuilder:
             constants.ROOT_PATH_DIR,
             constants.COVER_XHTML
         )
-        with open(cover_src, "r", encoding="utf-8") as f:
-            content = f.read()
+        content = self.reader.read(cover_src)
         content = content.format(
             cover_file=self.metadata.cover,
             css=self.csslinks_formatter.run(indents=2)
         )
-        with open(cover_dst, "w", encoding="utf-8") as f:
-            f.write(content)
+        self.writer.write(cover_dst, content)
 
     def _write_package_opf(
         self
     ) -> None:
-        with open(Path(
-            self.template_dir,
-            constants.ROOT_PATH_DIR,
-            constants.PACKAGE_OPF
-        ), "r", encoding="utf-8") as f:
-            content = f.read()
+        content = self.reader.read(
+            Path(
+                self.template_dir,
+                constants.ROOT_PATH_DIR,
+                constants.PACKAGE_OPF
+            )
+        )
         content = content.format(
             languages=self.languages_formatter.run(indents=2),
             title=self.metadata.title,
@@ -182,12 +194,14 @@ class PackageBuilder:
             manifest=self.manifestitems_formatter.run(indents=2),
             spine=self.spineitemrefs_formatter.run(indents=2)
         )
-        with open(Path(
-            self.dst,
-            constants.ROOT_PATH_DIR,
-            constants.PACKAGE_OPF
-        ), "w", encoding="utf-8") as f:
-            f.write(content)
+        self.writer.write(
+            Path(
+                self.dst,
+                constants.ROOT_PATH_DIR,
+                constants.PACKAGE_OPF
+            ),
+            content
+        )
 
     def _create_default_cover_if_needed(
         self
