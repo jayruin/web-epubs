@@ -4,7 +4,6 @@ include:
 exclude:
   - calibrecli/
   - core/
-  - epub_scripts/
   - html/
   - scripts/
   - sync_scripts/

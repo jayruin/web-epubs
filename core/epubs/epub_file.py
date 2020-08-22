@@ -1,3 +1,4 @@
+from __future__ import annotations
 import os
 from pathlib import Path
 import zipfile
@@ -34,3 +35,10 @@ class EPUBFile:
             with os.scandir(file_or_dir) as it:
                 for entry in it:
                     self._add(z, Path(entry.path))
+
+    @classmethod
+    def zip_directory(
+        cls,
+        directory_str: str
+    ) -> EPUBFile:
+        return cls(directory_str, f"{directory_str}.epub")

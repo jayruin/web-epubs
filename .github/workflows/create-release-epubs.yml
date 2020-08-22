@@ -26,7 +26,7 @@ jobs:
           java-package: jdk
       - name: Create and validate ePubs
         run: |
-          find ./epub -maxdepth 1 -mindepth 1 -type d | python epub_scripts/build.py
+          find ./epub -maxdepth 1 -mindepth 1 -type d | python -m epub.zipping
       - name: Create Release
         run: |
           assets=();
