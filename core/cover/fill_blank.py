@@ -3,11 +3,13 @@ from pathlib import Path
 import shutil
 
 
-def create_default_cover(
+def fill_blank_cover(
     path: Path
 ) -> None:
+    if path.exists():
+        return
     os.makedirs(path.parent, exist_ok=True)
     shutil.copyfile(
-        "./template_scripts/_shared/cover.jpg",
+        "./core/cover/cover.jpg",
         path
     )

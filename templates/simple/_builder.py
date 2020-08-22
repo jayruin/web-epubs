@@ -6,6 +6,9 @@ from typing import List, Type
 
 from ._copier import SimpleCopier
 from core import constants
+from core.config.metadata import Metadata
+from core.config.nav_node import NavNode
+from core.cover import fill_blank_cover
 from core.files.readers import TextReader, Utf8Reader
 from core.files.writers import TextWriter, Utf8Writer
 from core.formatters import (
@@ -15,10 +18,7 @@ from core.formatters import (
     NavlisFormatter,
     SpineitemrefsFormatter
 )
-from core.config.metadata import Metadata
-from core.config.nav_node import NavNode
 from core.package_contents import PackageContents
-from template_scripts._shared.cover import create_default_cover
 
 
 class SimpleBuilder:
@@ -212,8 +212,7 @@ class SimpleBuilder:
             self.metadata.cover
         )
 
-        if not cover_path.exists():
-            create_default_cover(cover_path)
+        fill_blank_cover(cover_path)
 
     def build(
         self

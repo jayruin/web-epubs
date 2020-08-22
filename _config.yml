@@ -7,4 +7,3 @@ exclude:
   - html/
   - scripts/
   - sync_scripts/
-  - template_scripts/
