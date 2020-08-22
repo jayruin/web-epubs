@@ -7,8 +7,8 @@ root = str(pathlib.Path(__file__).resolve().parents[1])
 sys.path.append(root)
 os.chdir(root)
 
-from core.epubs.epub_file import EPUBFile  # noqa E402
-from core.epub.epub_check import EPUBCheck  # noqa E402
+from core.epubs import EPUBFile  # noqa E402
+from core.epubs import EPUBCheck  # noqa E402
 
 
 DOWNLOAD_LINK = "https://api.github.com/repos/w3c/epubcheck/releases/latest"
