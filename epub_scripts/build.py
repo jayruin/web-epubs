@@ -8,7 +8,7 @@ sys.path.append(root)
 os.chdir(root)
 
 from epub_scripts.epub import EPUB  # noqa E402
-from epub_scripts.epubcheck import EPUBCheck  # noqa E402
+from core.epub.epub_check import EPUBCheck  # noqa E402
 
 
 DOWNLOAD_LINK = "https://api.github.com/repos/w3c/epubcheck/releases/latest"
