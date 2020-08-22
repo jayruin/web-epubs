@@ -5,6 +5,7 @@ on:
       - master
     paths:
       - "epub/**"
+      - "!epub/zipping.py"
 
   workflow_dispatch:
 
