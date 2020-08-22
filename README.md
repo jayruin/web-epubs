@@ -111,7 +111,7 @@ Manually building:
 
 ```bash
 python3 -m templates.simple "Hello World" "My Other Book"
-python3 -m epub.zipping "./epub/Hello World" "./epub/My Other Book"
+python3 -m epub.zipping "Hello World" "My Other Book"
 ```
 
 There is also a GitHub Workflow `Create Release ePubs` found in `create-release-epubs.yml` which will automatically build ePubs when unzipped files are uploaded to `epub/`.
