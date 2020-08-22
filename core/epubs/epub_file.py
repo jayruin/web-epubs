@@ -4,7 +4,7 @@ import zipfile
 from zipfile import ZipFile
 
 
-class EPUB:
+class EPUBFile:
     def __init__(
         self,
         directory_str: str,
