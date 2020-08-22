@@ -105,13 +105,18 @@ Make sure `href` contains a file with `.xhtml` extension.
 ]
 ```
 
+## Requirements
+
+- Install Python 3.7+
+- Run `python -m pip install -r requirements.txt`
+
 ## Building ePubs
 
-Manually building:
+Manually building (Python 3.7+):
 
 ```bash
-python3 -m templates.simple "Hello World" "My Other Book"
-python3 -m epub.zipping "Hello World" "My Other Book"
+python -m templates.simple "Hello World" "My Other Book"
+python -m epub.zipping "Hello World" "My Other Book"
 ```
 
 There is also a GitHub Workflow `Create Release ePubs` found in `create-release-epubs.yml` which will automatically build ePubs when unzipped files are uploaded to `epub/`.
@@ -121,5 +126,5 @@ There is also a GitHub Workflow `Create Release ePubs` found in `create-release-
 ### Syncing with Calibre
 
 ```bash
-python3 "./sync_scripts/sync_calibre.py" "Hello World" "My Other Book"
+python "./sync_scripts/sync_calibre.py" "Hello World" "My Other Book"
 ```
