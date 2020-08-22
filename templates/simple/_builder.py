@@ -4,6 +4,7 @@ from pathlib import Path
 import shutil
 from typing import List, Type
 
+from ._copier import SimpleCopier
 from core import constants
 from core.files.readers import TextReader, Utf8Reader
 from core.files.writers import TextWriter, Utf8Writer
@@ -18,7 +19,6 @@ from core.config.metadata import Metadata
 from core.config.nav_node import NavNode
 from core.package_contents import PackageContents
 from template_scripts._shared.cover import create_default_cover
-from template_scripts._shared.package_copier import PackageCopier
 
 
 class SimpleBuilder:
@@ -77,14 +77,14 @@ class SimpleBuilder:
                 constants.TEMPLATE_XHTML
             )
         )
-        self.html_copier: PackageCopier = PackageCopier(
+        self.html_copier: SimpleCopier = SimpleCopier(
             src=self.src,
             dst=str(Path(self.dst, constants.ROOT_PATH_DIR)),
             template_str=template_str,
             template_indents=3
         )
 
-        self.template_copier: PackageCopier = PackageCopier(
+        self.template_copier: SimpleCopier = SimpleCopier(
             src=self.template_dir,
             dst=self.dst,
             template_str=template_str,
