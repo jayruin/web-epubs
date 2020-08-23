@@ -121,10 +121,12 @@ python -m epub.zipping "Hello World" "My Other Book"
 
 There is also a GitHub Workflow `Create Release ePubs` found in `create-release-epubs.yml` which will automatically build ePubs when unzipped files are uploaded to `epub/`.
 
-## Syncing ePubs
+## Plugins
 
-### Syncing with Calibre
+### Syncing ePubs
+
+#### Syncing with Calibre
 
 ```bash
-python "./sync_scripts/sync_calibre.py" "Hello World" "My Other Book"
+python -m plugins.sync.calibre "Hello World" "My Other Book"
 ```
