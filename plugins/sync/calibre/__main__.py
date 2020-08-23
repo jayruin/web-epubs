@@ -6,10 +6,9 @@ from core.files.readers import Utf8Reader
 from plugins.calibrecli import calibredb
 
 
-# PORTABLE = "/Calibre Portable/Calibre"
-# LIBRARY = "/Calibre Portable/Calibre Library"
+settings_file = "./plugins/sync/calibre/settings.json"
 reader = Utf8Reader()
-plugin_settings = json.loads(reader.read("./plugins/sync/calibre/settings.json"))
+plugin_settings = json.loads(reader.read(settings_file))
 PORTABLE = plugin_settings["PORTABLE"]
 LIBRARY = plugin_settings["LIBRARY"]
 
