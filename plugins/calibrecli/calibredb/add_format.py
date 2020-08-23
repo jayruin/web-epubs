@@ -32,4 +32,4 @@ def add_format(
         args.append("--dont-replace")
     args.append(id_)
     args.append(ebook_file_)
-    result = subprocess.run(args, check=True)
+    subprocess.run(args, check=True)

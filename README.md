@@ -146,7 +146,7 @@ Plugins add additional functionality. Before using a plugin, run:
 python -m pip install -r "./plugins/{GROUPING}/{PLUGIN}/requirements.txt"
 ```
 
-Then, tweak the configuration file at `"./plugins/{GROUPING}/{PLUGIN}/config.json"` if necessary.
+Then, tweak the settings file at `./plugins/{GROUPING}/{PLUGIN}/settings.json` if necessary.
 
 ### Sync
 
@@ -157,3 +157,7 @@ Make sure you have Calibre installed.
 ```bash
 python -m plugins.sync.calibre "Hello World" "My Other Book"
 ```
+
+Settings:
+- `PORTABLE`: Used to specify location of Calibre executables. For instance, if you want to use a Calibre Portable install you might use something like `"/Calibre Portable/Calibre"`
+- `LIBRARY`: Used to specify location of Calibre library. For instance, if you want to use a Calibre Portable install you might use something like `"/Calibre Portable/Calibre Library"`

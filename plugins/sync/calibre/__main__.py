@@ -1,13 +1,17 @@
+import json
 import sys
 
 from core.config.metadata import Metadata
+from core.files.readers import Utf8Reader
 from plugins.calibrecli import calibredb
 
 
 # PORTABLE = "/Calibre Portable/Calibre"
 # LIBRARY = "/Calibre Portable/Calibre Library"
-PORTABLE = ""
-LIBRARY = None
+reader = Utf8Reader()
+plugin_settings = json.loads(reader.read("./plugins/sync/calibre/settings.json"))
+PORTABLE = plugin_settings["PORTABLE"]
+LIBRARY = plugin_settings["LIBRARY"]
 
 
 new_books = []
@@ -27,9 +31,15 @@ for arg in sys.argv[1:]:
     elif len(book_ids) == 1:
         calibredb.add_format(
             id_=book_ids[0],
-            ebook_file_=ebook_file
+            ebook_file_=ebook_file,
+            portable=PORTABLE,
+            with_library_=LIBRARY
         )
     else:
         print(f"Skipping {arg} due to ambiguous metadata")
 if new_books:
-    calibredb.add(new_books)
+    calibredb.add(
+        files_=new_books,
+        portable=PORTABLE,
+        with_library_=LIBRARY
+    )

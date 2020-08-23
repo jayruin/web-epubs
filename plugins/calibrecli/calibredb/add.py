@@ -74,4 +74,4 @@ def add(
     if recurse_:
         args.append("--recurse")
     args.extend(files_)
-    result = subprocess.run(args, check=True)
+    subprocess.run(args, check=True)
