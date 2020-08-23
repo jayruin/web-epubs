@@ -19,7 +19,7 @@ A collection of various documents for personal use, written in HTML, which are t
 - [Building ePubs](#building-epubs)
 - [Plugins](#plugins)
     - [Sync](#sync)
-    - [Syncing With Calibre](#syncing-with-calibre)
+        - [Syncing With Calibre](#syncing-with-calibre)
 
 ## Quick Links
 
