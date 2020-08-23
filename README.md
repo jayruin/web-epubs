@@ -4,6 +4,23 @@
 
 A collection of various documents for personal use, written in HTML, which are then compiled into ePubs.
 
+## Table of Contents
+
+- [Quick Links](#quick-links)
+    - [Repository Links](#repository-links)
+    - [Latest Specs](#latest-specs)
+- [Why HTML?](#why-html)
+- [Why ePub?](#why-epub)
+- [Requirements](#requirements)
+- [Adding Content](#adding-content)
+    - [Minimal HTML](#minimal-html)
+    - [_metadata.json](#_metadatajson)
+    - [_nav.json](#_navjson)
+- [Building ePubs](#building-epubs)
+- [Plugins](#plugins)
+    - [Sync](#sync)
+    - [Syncing With Calibre](#syncing-with-calibre)
+
 ## Quick Links
 
 ### Repository Links
@@ -41,6 +58,11 @@ PDF was also considered, however ePub has many advantages over PDF:
 - Widespread support for ePub including ereaders, smartphones, tablets, laptops, desktops, etc. PDF is practically unreadable on smaller devices. Try reading a PDF on a 6 inch ereader!
 - ePub converts to PDF fairly well, but the reverse is not true.
 
+## Requirements
+
+- Install Python 3.7+
+- Run `python -m pip install -r requirements.txt`
+
 ## Adding Content
 
 ### Minimal HTML
@@ -71,7 +93,7 @@ Used to populate ePub metadata.
 
 Optional parameters:
 
-- `date` parameter is a string (defaults to date time now) which specifies the publication date. This parameter should be formatted as according to ePub specs.
+- `date` parameter is a string (defaults to date time now) which specifies the publication date. This parameter should be formatted according to ePub specs.
 - `css` parameter is an array of strings (defaults to empty array) which specifies the order in which css files should be linked. If this parameter is not specified, then css files will be linked in lexicographical order.
 - `cover` parameter is a string (defaults to "img/cover.jpg") which specifies the relative path to the cover image. This image should be in a file format that is supported by the ePub specs.
 
@@ -105,14 +127,9 @@ Make sure `href` contains a file with `.xhtml` extension.
 ]
 ```
 
-## Requirements
-
-- Install Python 3.7+
-- Run `python -m pip install -r requirements.txt`
-
 ## Building ePubs
 
-Manually building (Python 3.7+):
+Manually building:
 
 ```bash
 python -m templates.simple "Hello World" "My Other Book"
@@ -123,9 +140,19 @@ There is also a GitHub Workflow `Create Release ePubs` found in `create-release-
 
 ## Plugins
 
-### Syncing ePubs
+Plugins add additional functionality. Before using a plugin, run:
 
-#### Syncing with Calibre
+```bash
+python -m pip install -r "./plugins/{GROUPING}/{PLUGIN}/requirements.txt"
+```
+
+Then, tweak the configuration file at `"./plugins/{GROUPING}/{PLUGIN}/config.json"` if necessary.
+
+### Sync
+
+#### Syncing With Calibre
+
+Make sure you have Calibre installed.
 
 ```bash
 python -m plugins.sync.calibre "Hello World" "My Other Book"
