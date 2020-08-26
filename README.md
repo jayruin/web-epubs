@@ -18,6 +18,10 @@ A collection of various documents for personal use, written in HTML, which are t
 ### Latest Specs
 
 - [EPUB 3.2 Specs](https://www.w3.org/publishing/epub3/epub-spec.html)
+- [EPUB 2.0.1 Specs](http://idpf.org/epub/201)
+    - [Open Publication Structure (OPS)](http://www.idpf.org/doc_library/epub/OPS_2.0.1_draft.htm)
+    - [Open Packaging Format (OPF)](http://idpf.org/epub/20/spec/OPF_2.0.1_draft.htm)
+    - [Open Container Format (OCF)](http://www.idpf.org/doc_library/epub/OCF_2.0.1_draft.doc)
 
 ### Documentation
 
