@@ -23,5 +23,16 @@
     },
     {
         "building-epubs.xhtml": []
+    },
+    {
+        "plugins.xhtml": [
+            {
+                "plugins.xhtml#sync": [
+                    {
+                        "plugins.xhtml#syncing-with-calibre": []
+                    }
+                ]
+            }
+        ]
     }
 ]

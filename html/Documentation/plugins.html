@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<title>Plugins</title>
+
+<h1>Plugins</h1>
+
+<p>Plugins add additional functionality. Before using a plugin, run:</p>
+
+<pre><code>python -m pip install -r "./plugins/{GROUPING}/{PLUGIN}/requirements.txt"</code></pre>
+
+<p>Then, tweak the settings file at <code>./plugins/{GROUPING}/{PLUGIN}/settings.json</code> if necessary.</p>
+
+<h2 id="sync">Sync</h2>
+
+<h3 id="syncing-with-calibre">Syncing With Calibre</h3>
+
+<p>Make sure you have Calibre installed.</p>
+
+<pre><code>python -m plugins.sync.calibre "Hello World" "My Other Book"</code></pre>
+
+<p>Settings:</p>
+
+<ul>
+    <li><code>PORTABLE</code>: Used to specify location of Calibre executables. For instance, if you want to use a Calibre Portable install you might use something like <code>"/Calibre Portable/Calibre"</code></li>
+    <li><code>LIBRARY</code>: Used to specify location of Calibre library. For instance, if you want to use a Calibre Portable install you might use something like <code>"/Calibre Portable/Calibre Library"</code></li>
+</ul>
