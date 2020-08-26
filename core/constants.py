@@ -1,7 +1,17 @@
 import datetime
+from typing import List
 
 
 INDENT: str = " " * 4
+
+HTML_EMPTY_ELEMENTS: List[str] = [
+    "br",
+    "hr",
+    "img",
+    "link",
+    "meta"
+]
+
 BUILD_TIME: str = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 COVER_XHTML: str = "_cover.xhtml"
 EPUB_DIRECTORY: str = "./epub"

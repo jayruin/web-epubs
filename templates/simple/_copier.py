@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from core import constants
+from core.htmlparsers.indent_parser import IndentParser
 from core.package_copier import PackageCopier
 
 
@@ -19,11 +20,9 @@ class SimpleCopier(PackageCopier):
         self.h1_parser.feed(lines[2])
         title = self.title_parser.get_content()
         h1 = self.h1_parser.get_content()
-        lines = [
-            constants.INDENT * self.template_indents + line
-            for line in lines[3:]
-        ]
-        text = "".join(lines).strip()
+        indent_parser = IndentParser(self.template_indents)
+        indent_parser.feed("".join(lines[3:]))
+        text = indent_parser.get_content()
         with open(file_dst, "w", encoding="utf-8") as f:
             f.write(self.template_str.format(
                 title=title,
