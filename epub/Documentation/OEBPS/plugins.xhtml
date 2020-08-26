@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+    <head>
+        <title>Plugins</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+        <link href="css/stylesheet.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <section epub:type="bodymatter chapter">
+            <header>
+                <h1><a href="_toc.xhtml"></a></h1>
+            </header>
+            <h1>Plugins</h1>
+            
+            <p>Plugins add additional functionality. Before using a plugin, run:</p>
+            
+            <pre><code>python -m pip install -r "./plugins/{GROUPING}/{PLUGIN}/requirements.txt"</code></pre>
+            
+            <p>Then, tweak the settings file at <code>./plugins/{GROUPING}/{PLUGIN}/settings.json</code> if necessary.</p>
+            
+            <h2 id="sync">Sync</h2>
+            
+            <h3 id="syncing-with-calibre">Syncing With Calibre</h3>
+            
+            <p>Make sure you have Calibre installed.</p>
+            
+            <pre><code>python -m plugins.sync.calibre "Hello World" "My Other Book"</code></pre>
+            
+            <p>Settings:</p>
+            
+            <ul>
+                <li><code>PORTABLE</code>: Used to specify location of Calibre executables. For instance, if you want to use a Calibre Portable install you might use something like <code>"/Calibre Portable/Calibre"</code></li>
+                <li><code>LIBRARY</code>: Used to specify location of Calibre library. For instance, if you want to use a Calibre Portable install you might use something like <code>"/Calibre Portable/Calibre Library"</code></li>
+            </ul>
+        </section>
+    </body>
+</html>

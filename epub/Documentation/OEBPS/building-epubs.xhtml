@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+    <head>
+        <title>Building ePubs</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+        <link href="css/stylesheet.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <section epub:type="bodymatter chapter">
+            <header>
+                <h1><a href="_toc.xhtml"></a></h1>
+            </header>
+            <h1>Building ePubs</h1>
+            
+            <p>Manually building:</p>
+            
+            <pre><code>python -m templates.simple "Hello World" "My Other Book"
+            python -m epub.zipping "Hello World" "My Other Book"</code></pre>
+            
+            <p>There is also a GitHub Workflow <code>Create Release ePubs</code> found in <code>create-release-epubs.yml</code> which will automatically build ePubs when unzipped files are uploaded to <code>epub/</code>.</p>
+        </section>
+    </body>
+</html>
