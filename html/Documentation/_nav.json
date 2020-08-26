@@ -7,5 +7,18 @@
     },
     {
         "requirements.xhtml": []
+    },
+    {
+        "adding-content.xhtml": [
+            {
+                "adding-content.xhtml#minimal-html": []
+            },
+            {
+                "adding-content.xhtml#metadata-json": []
+            },
+            {
+                "adding-content.xhtml#nav-json": []
+            }
+        ]
     }
 ]
