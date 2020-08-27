@@ -10,7 +10,6 @@ class EPUBCheckResults:
     fatals: int
     errors: int
     warnings: int
-    infos: int
 
     @classmethod
     def from_json(
@@ -24,6 +23,5 @@ class EPUBCheckResults:
             name=json_file_path.stem.split(".")[0],
             fatals=checker["nFatal"],
             errors=checker["nError"],
-            warnings=checker["nWarning"],
-            infos=checker["nUsage"]
+            warnings=checker["nWarning"]
         )

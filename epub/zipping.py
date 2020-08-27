@@ -30,14 +30,12 @@ with multiprocessing.Pool() as pool:
 summary = {
     "fatals": 0,
     "errors": 0,
-    "warnings": 0,
-    "infos": 0
+    "warnings": 0
 }
 for name in epubs_to_build:
     result = ec.check(f"{name}.epub", f"{name}.txt")
     summary["fatals"] += result.fatals
     summary["errors"] += result.errors
     summary["warnings"] += result.warnings
-    summary["infos"] += result.infos
 with open(constants.EPUBCHECK_SUMMARY_JSON, "w", encoding="utf-8") as f:
     f.write(json.dumps(summary, indent=4))
