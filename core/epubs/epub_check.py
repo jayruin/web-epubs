@@ -74,12 +74,11 @@ class EPUBCheck:
                     self.java,
                     "-jar",
                     str(Path(self.root_path, "epubcheck.jar")),
-                    epub_file,
-                    "--json"
+                    epub_file
                 ],
                 stdout=f,
                 stderr=f
             )
-        return EPUBCheckResults.from_json(
-            Path(epub_file).with_suffix(".epubcheck.json")
+        return EPUBCheckResults.from_txt(
+            Path(epub_file).with_suffix(".txt")
         )

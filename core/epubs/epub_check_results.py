@@ -25,3 +25,18 @@ class EPUBCheckResults:
             errors=checker["nError"],
             warnings=checker["nWarning"]
         )
+
+    @classmethod
+    def from_txt(
+        cls,
+        txt_file_path: Path
+    ) -> EPUBCheckResults:
+        with open(txt_file_path, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+        messages = lines[-3].replace("Messages: ", "").split(" / ")
+        return cls(
+            name=txt_file_path.stem,
+            fatals=int(messages[0].split(" ")[0]),
+            errors=int(messages[1].split(" ")[0]),
+            warnings=int(messages[2].split(" ")[0])
+        )
