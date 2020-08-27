@@ -4,6 +4,7 @@ __pycache__/
 # ePub output
 /epub/*.epub
 /epub/*.txt
+/epub/*.json
 
 # Local cached copy of epubcheck
 /epubcheck/

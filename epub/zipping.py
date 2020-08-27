@@ -27,4 +27,4 @@ epubs_to_build = [
 with multiprocessing.Pool() as pool:
     pool.map(EPUBFile.zip_directory, epubs_to_build)
 for name in epubs_to_build:
-    ec.check(f"{name}.epub", f"{name}.txt")
+    result = ec.check(f"{name}.epub", f"{name}.txt")

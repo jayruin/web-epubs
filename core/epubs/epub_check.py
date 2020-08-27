@@ -6,6 +6,8 @@ import subprocess
 import urllib.request
 from zipfile import ZipFile
 
+from .epub_check_results import EPUBCheckResults
+
 
 class EPUBCheck:
     def __init__(
@@ -65,15 +67,19 @@ class EPUBCheck:
         self,
         epub_file: str,
         output_file: str
-    ) -> None:
+    ) -> EPUBCheckResults:
         with open(output_file, "w", encoding="utf-8") as f:
             subprocess.run(
                 [
                     self.java,
                     "-jar",
                     str(Path(self.root_path, "epubcheck.jar")),
-                    epub_file
+                    epub_file,
+                    "--json"
                 ],
                 stdout=f,
                 stderr=f
             )
+        return EPUBCheckResults.from_json(
+            Path(epub_file).with_suffix(".epubcheck.json")
+        )
