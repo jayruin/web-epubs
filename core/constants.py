@@ -23,3 +23,11 @@ PACKAGE_OPF: str = "package.opf"
 ROOT_PATH_DIR: str = "OEBPS"
 TEMPLATE_XHTML: str = "_template.xhtml"
 TOC_XHTML: str = "_toc.xhtml"
+
+EPUBCHECK_DOWNLOAD_URL: str = (
+    "https://api.github.com/repos/w3c/epubcheck/releases/latest"
+)
+EPUBCHECK_LOCAL_ZIP = "./epubcheck.zip"
+EPUBCHECK_ROOT_DIR = "./epubcheck"
+
+JAVA_EXECUTABLE = "java"

@@ -7,13 +7,12 @@ from core import constants
 from core.epubs import EPUBCheck, EPUBFile
 
 
-DOWNLOAD_LINK = "https://api.github.com/repos/w3c/epubcheck/releases/latest"
-LOCAL_ZIP = "./epubcheck.zip"
-ROOT_DIR = "./epubcheck"
-JAVA = "java"
-
-
-ec = EPUBCheck(DOWNLOAD_LINK, ROOT_DIR, LOCAL_ZIP, JAVA)
+ec = EPUBCheck(
+    constants.EPUBCHECK_DOWNLOAD_URL,
+    constants.EPUBCHECK_ROOT_DIR,
+    constants.EPUBCHECK_LOCAL_ZIP,
+    constants.JAVA_EXECUTABLE
+)
 ec.install()
 
 epubs_to_build = sys.argv[1:]
