@@ -17,7 +17,7 @@ class EPUBCheckResults:
         cls,
         json_file_path: Path
     ) -> EPUBCheckResults:
-        with open(json_file_path) as f:
+        with open(json_file_path, "r", encoding="utf-8") as f:
             data = json.loads(f.read())
         checker = data["checker"]
         return cls(

@@ -29,5 +29,6 @@ EPUBCHECK_DOWNLOAD_URL: str = (
 )
 EPUBCHECK_LOCAL_ZIP = "./epubcheck.zip"
 EPUBCHECK_ROOT_DIR = "./epubcheck"
+EPUBCHECK_SUMMARY_JSON = "./epubcheck.summary.json"
 
 JAVA_EXECUTABLE = "java"
