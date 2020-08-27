@@ -1,5 +1,9 @@
 [![Create Release ePubs Badge](https://github.com/jayruin/web-epubs-public/workflows/Create%20Release%20ePubs/badge.svg)](https://github.com/jayruin/web-epubs-public/actions?query=workflow%3A%22Create+Release+ePubs%22)
 
+![EPUBCheck Fatals](https://img.shields.io/badge/dynamic/json?label=EPUBCheck&prefix=Fatals%3A&query=fatals&url=https%3A%2F%2Fgithub.com%2Fjayruin%2Fweb-epubs-public%2Freleases%2Flatest%2Fdownload%2Fepubcheck.summary.json)
+![EPUBCheck Errors](https://img.shields.io/badge/dynamic/json?label=EPUBCheck&prefix=Errors%3A&query=errors&url=https%3A%2F%2Fgithub.com%2Fjayruin%2Fweb-epubs-public%2Freleases%2Flatest%2Fdownload%2Fepubcheck.summary.json)
+![EPUBCheck Warnings](https://img.shields.io/badge/dynamic/json?label=EPUBCheck&prefix=Warnings%3A&query=warnings&url=https%3A%2F%2Fgithub.com%2Fjayruin%2Fweb-epubs-public%2Freleases%2Flatest%2Fdownload%2Fepubcheck.summary.json)
+
 # web-epubs
 
 A collection of various documents for personal use, written in HTML, which are then compiled into ePubs.
