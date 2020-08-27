@@ -34,6 +34,7 @@ jobs:
           for asset in ./epub/*.{epub,txt}; do
             assets+=("-a" "$asset");
           done;
+          assets+=("-a" "./epubcheck.summary.json");
           tag_name="release-$RUN_ID";
           release_name="Release $RUN_ID";
           body="Automated ePub release";
