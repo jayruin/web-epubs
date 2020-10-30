@@ -1,6 +1,5 @@
 import itertools
 from pathlib import Path
-from typing import List
 
 from .. import constants
 from ..htmlparsers.id_parser import IdParser
@@ -59,7 +58,7 @@ class NavNode(Node):
 
     def get_spine_hrefs(
         self
-    ) -> List[str]:
+    ) -> list[str]:
         hrefs = [self.value.split("#")[0]]
         hrefs.extend(itertools.chain.from_iterable([
             child.get_spine_hrefs()

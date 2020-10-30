@@ -1,10 +1,10 @@
 import os
 import subprocess
-from typing import List, Optional
+from typing import Optional
 
 
 def add(
-    files_: List[str],
+    files_: list[str],
     portable: Optional[str] = "",
     help_: Optional[bool] = None,
     with_library_: Optional[str] = None,
@@ -15,7 +15,7 @@ def add(
     cover_: Optional[str] = None,
     duplicates_: Optional[bool] = None,
     empty_: Optional[bool] = None,
-    identifiers_: Optional[List[str]] = None,
+    identifiers_: Optional[list[str]] = None,
     isbn_: Optional[str] = None,
     languages_: Optional[str] = None,
     series_: Optional[str] = None,

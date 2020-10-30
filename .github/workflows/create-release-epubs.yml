@@ -19,11 +19,11 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: 3.9
       - name: Setup Java
         uses: actions/setup-java@v1
         with:
-          java-version: 14
+          java-version: 15
           java-package: jdk
       - name: Create and validate ePubs
         run: |

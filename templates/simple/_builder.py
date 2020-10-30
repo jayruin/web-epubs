@@ -2,7 +2,7 @@ import json
 import mimetypes
 from pathlib import Path
 import shutil
-from typing import List, Type
+from typing import Type
 
 from ._copier import SimpleCopier
 from core import constants
@@ -97,7 +97,7 @@ class SimpleBuilder:
                 constants.NAV_JSON
             )
         )
-        self.nav_nodes: List[NavNode] = [
+        self.nav_nodes: list[NavNode] = [
             NavNode.from_dict(d)
             for d in json.loads(content)
         ]

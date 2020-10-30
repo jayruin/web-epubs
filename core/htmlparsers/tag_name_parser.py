@@ -1,5 +1,4 @@
 from html.parser import HTMLParser
-from typing import List, Tuple
 
 
 class TagNameParser(HTMLParser):
@@ -16,7 +15,7 @@ class TagNameParser(HTMLParser):
     def handle_starttag(
         self,
         tag: str,
-        attrs: List[Tuple[str, str]]
+        attrs: list[tuple[str, str]]
     ) -> None:
         if self.is_active:
             tag_items = [tag]
@@ -38,7 +37,7 @@ class TagNameParser(HTMLParser):
     def handle_startendtag(
         self,
         tag: str,
-        attrs: List[Tuple[str, str]]
+        attrs: list[tuple[str, str]]
     ) -> None:
         if self.is_active:
             tag_items = [tag]

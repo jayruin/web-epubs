@@ -1,6 +1,6 @@
 import os
 import subprocess
-from typing import List, Optional
+from typing import Optional
 
 
 def search(
@@ -12,7 +12,7 @@ def search(
     username_: Optional[str] = None,
     version_: Optional[bool] = None,
     limit_: Optional[str] = None
-) -> List[str]:
+) -> list[str]:
     """
     https://manual.calibre-ebook.com/generated/en/calibredb.html#search
     """

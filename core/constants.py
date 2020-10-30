@@ -1,10 +1,9 @@
 import datetime
-from typing import List
 
 
 INDENT: str = " " * 4
 
-HTML_EMPTY_ELEMENTS: List[str] = [
+HTML_EMPTY_ELEMENTS: list[str] = [
     "br",
     "hr",
     "img",

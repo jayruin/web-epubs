@@ -1,7 +1,6 @@
 import json
 import os
 from pathlib import Path
-from typing import Dict, List, Set
 
 from core import constants
 from .config.metadata import Metadata
@@ -29,18 +28,18 @@ class PackageContents:
             constants.NAV_JSON
         ), "r", encoding="utf-8") as f:
             content = f.read()
-        self.nav_nodes: List[NavNode] = [
+        self.nav_nodes: list[NavNode] = [
             NavNode.from_dict(d)
             for d in json.loads(content)
         ]
 
-        self.files_to_ignore: Set[str] = {
+        self.files_to_ignore: set[str] = {
             self.metadata.cover
         }
 
-        self.file_id_mapping: Dict[str, str] = {}
+        self.file_id_mapping: dict[str, str] = {}
         self.next_index: int = 1
-        self.css_files: List[str] = []
+        self.css_files: list[str] = []
         if self.metadata.css:
             self.css_files = self.metadata.css
         should_search_css = not self.metadata.css

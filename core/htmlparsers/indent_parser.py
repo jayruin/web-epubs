@@ -1,5 +1,3 @@
-from typing import List, Tuple
-
 from .copy_parser import CopyParser
 from core import constants
 
@@ -17,7 +15,7 @@ class IndentParser(CopyParser):
     def handle_starttag(
         self,
         tag: str,
-        attrs: List[Tuple[str, str]]
+        attrs: list[tuple[str, str]]
     ) -> None:
         if tag == "pre":
             self.should_indent = False

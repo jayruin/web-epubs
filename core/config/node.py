@@ -1,8 +1,8 @@
 from __future__ import annotations
-from typing import Dict, List, TypeVar
+from typing import TypeVar
 
 
-NodeDict = Dict[str, "NodeDict"]
+NodeDict = dict[str, "NodeDict"]
 NT = TypeVar("NT", bound="Node")
 
 
@@ -10,10 +10,10 @@ class Node:
     def __init__(
         self,
         value: str,
-        children: List[NT]
+        children: list[NT]
     ) -> None:
         self.value: str = value
-        self.children: List[NT] = children
+        self.children: list[NT] = children
 
     @classmethod
     def from_dict(

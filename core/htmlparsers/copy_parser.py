@@ -1,6 +1,5 @@
 import html
 from html.parser import HTMLParser
-from typing import List, Tuple
 
 
 class CopyParser(HTMLParser):
@@ -14,7 +13,7 @@ class CopyParser(HTMLParser):
     def handle_starttag(
         self,
         tag: str,
-        attrs: List[Tuple[str, str]]
+        attrs: list[tuple[str, str]]
     ) -> None:
         self.content += f"<{tag}{self._get_attrs_str(attrs)}>"
 
@@ -27,7 +26,7 @@ class CopyParser(HTMLParser):
     def handle_startendtag(
         self,
         tag: str,
-        attrs: List[Tuple[str, str]]
+        attrs: list[tuple[str, str]]
     ) -> None:
         self.content += f"<{tag}{self._get_attrs_str(attrs)}/>"
 
@@ -46,7 +45,7 @@ class CopyParser(HTMLParser):
 
     def _get_attrs_str(
         self,
-        attrs: List[Tuple[str, str]]
+        attrs: list[tuple[str, str]]
     ) -> str:
         if attrs:
             attrs_str = " "
