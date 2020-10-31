@@ -38,7 +38,6 @@ class PackageContents:
         }
 
         self.file_id_mapping: dict[str, str] = {}
-        self.next_index: int = 1
         self.css_files: list[str] = []
         if self.metadata.css:
             self.css_files = self.metadata.css
@@ -55,6 +54,7 @@ class PackageContents:
         self,
         path: Path
     ) -> None:
+        found_files = []
         for dirpath, dirnames, filenames in os.walk(path):
             for filename in filenames:
                 relative_path = Path(
@@ -68,8 +68,10 @@ class PackageContents:
                     continue
                 if relative_file.endswith(".html"):
                     relative_file = relative_file[:-5] + ".xhtml"
-                self.file_id_mapping[relative_file] = f"id-{self.next_index}"
-                self.next_index += 1
+                found_files.append(relative_file)
+        found_files = sorted(found_files)
+        for index, found_file in enumerate(found_files, start=1):
+            self.file_id_mapping[found_file] = f"id-{index}"
 
     def _traverse_css_files(
         self,
