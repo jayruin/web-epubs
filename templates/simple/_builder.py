@@ -1,5 +1,4 @@
 import json
-import mimetypes
 from pathlib import Path
 import shutil
 from typing import Type
@@ -9,6 +8,7 @@ from core import constants
 from core.config.metadata import Metadata
 from core.config.nav_node import NavNode
 from core.cover import fill_blank_cover
+from core.extendedmimetypes import mimetypes
 from core.files.readers import TextReader, Utf8Reader
 from core.files.writers import TextWriter, Utf8Writer
 from core.formatters import (

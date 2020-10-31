@@ -1,7 +1,6 @@
-import mimetypes
-
 from .. import constants
 from .base_formatter import BaseFormatter
+from core.extendedmimetypes import mimetypes
 
 
 class ManifestitemsFormatter(BaseFormatter):
