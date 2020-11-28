@@ -30,7 +30,7 @@ jobs:
           python -m epub.check
       - name: Create and validate ePubs
         run: |
-          find ./epub -maxdepth 1 -mindepth 1 -type d | python -m epub.zipping
+          find ./epub -maxdepth 1 -mindepth 1 -type d -not -path "./epub/__pycache__" | python -m epub.zipping
       - name: Create Release
         run: |
           assets=();
