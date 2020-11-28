@@ -11,7 +11,7 @@
 <p>Create ePub contents from template. The .xhtml files can be deployed on the web (Github Pages) without any modification.</p>
 <pre><code>python -m templates.simple "Hello World" "My Other Book"</code></pre>
 
-<p>Zip ePub contents into .epub file:</p>
+<p>Zip ePub contents into a single .epub file.</p>
 <pre><code>python -m epub.zipping "Hello World" "My Other Book"</code></pre>
 
 <p>There is also a GitHub Workflow <code>Create Release ePubs</code> found in <code>create-release-epubs.yml</code> which will automatically build ePubs when unzipped files are uploaded to <code>epub/</code>.</p>
