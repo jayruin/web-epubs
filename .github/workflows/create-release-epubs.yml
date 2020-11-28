@@ -25,6 +25,9 @@ jobs:
         with:
           java-version: 15
           java-package: jdk
+      - name: Install EPUBCheck
+        run: |
+          python -m epub.check
       - name: Create and validate ePubs
         run: |
           find ./epub -maxdepth 1 -mindepth 1 -type d | python -m epub.zipping
