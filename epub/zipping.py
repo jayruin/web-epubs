@@ -15,7 +15,8 @@ def main():
         constants.EPUBCHECK_LOCAL_ZIP,
         constants.JAVA_EXECUTABLE
     )
-    ec.install()
+    if not ec.exists():
+        sys.exit("EPUBCheck not installed!")
 
     epubs_to_build = sys.argv[1:]
     if not epubs_to_build:

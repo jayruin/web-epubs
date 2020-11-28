@@ -82,3 +82,8 @@ class EPUBCheck:
         return EPUBCheckResults.from_txt(
             Path(epub_file).with_suffix(".txt")
         )
+
+    def exists(
+        self
+    ) -> bool:
+        return self.root_path.exists()
