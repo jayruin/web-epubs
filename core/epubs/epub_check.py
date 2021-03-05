@@ -73,11 +73,13 @@ class EPUBCheck:
                 [
                     self.java,
                     "-jar",
+                    "-Dfile.encoding=UTF-8",
                     str(Path(self.root_path, "epubcheck.jar")),
                     epub_file
                 ],
                 stdout=f,
-                stderr=f
+                stderr=f,
+                encoding="utf-8"
             )
         return EPUBCheckResults.from_txt(
             Path(epub_file).with_suffix(".txt")
