@@ -81,14 +81,16 @@ class SimpleBuilder:
             src=self.src,
             dst=str(Path(self.dst, constants.ROOT_PATH_DIR)),
             template_str=template_str,
-            template_indents=3
+            template_indents=3,
+            csslinks_formatter=self.csslinks_formatter
         )
 
         self.template_copier: SimpleCopier = SimpleCopier(
             src=self.template_dir,
             dst=self.dst,
             template_str=template_str,
-            template_indents=3
+            template_indents=3,
+            csslinks_formatter=self.csslinks_formatter
         )
 
         content = self.reader.read(
@@ -105,15 +107,17 @@ class SimpleBuilder:
     def _write_contents_from_template(
         self
     ) -> None:
-        css_links = self.csslinks_formatter.run(indents=2)
-        self.template_copier.copy_over(css_links)
-        self.html_copier.copy_over(css_links)
+        self.template_copier.copy_over()
+        self.html_copier.copy_over()
 
     def _write_nav_toc_xhtml(
         self
     ) -> None:
         nav_lis = self.navlis_formatter.run(indents=5)
-        css_links = self.csslinks_formatter.run(indents=2)
+        css_links = self.csslinks_formatter.run(
+            indents=2,
+            target=constants.NAV_XHTML
+        )
         content = self.reader.read(
             Path(
                 self.template_dir,
@@ -169,7 +173,10 @@ class SimpleBuilder:
         content = self.reader.read(cover_src)
         content = content.format(
             cover_file=self.metadata.cover,
-            css=self.csslinks_formatter.run(indents=2)
+            css=self.csslinks_formatter.run(
+                indents=2,
+                target=constants.COVER_XHTML
+            )
         )
         self.writer.write(cover_dst, content)
 

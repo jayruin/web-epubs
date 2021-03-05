@@ -1,3 +1,6 @@
+from pathlib import Path
+from typing import Optional
+
 from .. import constants
 from .base_formatter import BaseFormatter
 from core.extendedmimetypes import mimetypes
@@ -6,8 +9,10 @@ from core.extendedmimetypes import mimetypes
 class ManifestitemsFormatter(BaseFormatter):
     def run(
         self,
-        indents: int
+        indents: int,
+        target: Optional[Path] = None
     ) -> str:
+        assert target is None
         return "".join(
             [
                 f"{constants.INDENT * indents}<"

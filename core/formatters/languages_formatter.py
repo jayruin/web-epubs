@@ -1,3 +1,6 @@
+from pathlib import Path
+from typing import Optional
+
 from .. import constants
 from .base_formatter import BaseFormatter
 
@@ -5,8 +8,10 @@ from .base_formatter import BaseFormatter
 class LanguagesFormatter(BaseFormatter):
     def run(
         self,
-        indents: int
+        indents: int,
+        target: Optional[Path] = None
     ) -> str:
+        assert target is None
         return "".join(
             [
                 f"{constants.INDENT * indents}"

@@ -1,4 +1,6 @@
 from abc import ABC, abstractmethod
+from pathlib import Path
+from typing import Optional
 
 from ..package_contents import PackageContents
 
@@ -13,6 +15,7 @@ class BaseFormatter(ABC):
     @abstractmethod
     def run(
         self,
-        indents: int
+        indents: int,
+        target: Optional[Path] = None
     ) -> str:
         pass

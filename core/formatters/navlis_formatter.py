@@ -1,11 +1,16 @@
+from pathlib import Path
+from typing import Optional
+
 from .base_formatter import BaseFormatter
 
 
 class NavlisFormatter(BaseFormatter):
     def run(
         self,
-        indents: int
+        indents: int,
+        target: Optional[Path] = None
     ) -> str:
+        assert target is None
         return "".join(
             [
                 nav_node.get_nav_li(
