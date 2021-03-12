@@ -1,5 +1,5 @@
+import argparse
 import json
-import sys
 
 from core.config.metadata import Metadata
 from core.files.readers import Utf8Reader
@@ -13,13 +13,27 @@ PORTABLE = plugin_settings["PORTABLE"]
 LIBRARY = plugin_settings["LIBRARY"]
 
 
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "projects",
+    help=" ".join(
+        [
+            "List of projects.",
+            "Each project should be a subdirectory of the html directory."
+        ]
+    ),
+    nargs="+"
+)
+args = parser.parse_args()
+
+
 new_books = []
-for arg in sys.argv[1:]:
-    metadata = Metadata.from_json_path(f"html/{arg}/_metadata.json")
+for project in args.projects:
+    metadata = Metadata.from_json_path(f"html/{project}/_metadata.json")
     search_terms = []
     search_terms.append(f"title:{metadata.title}")
     search_terms.append(f"author:{metadata.author}")
-    ebook_file = f"./epub/{arg}.epub"
+    ebook_file = f"./epub/{project}.epub"
     book_ids = calibredb.search(
         search_expression_=" ".join(search_terms),
         portable=PORTABLE,
@@ -35,7 +49,7 @@ for arg in sys.argv[1:]:
             with_library_=LIBRARY
         )
     else:
-        print(f"Skipping {arg} due to ambiguous metadata")
+        print(f"Skipping {project} due to ambiguous metadata")
 if new_books:
     calibredb.add(
         files_=new_books,
