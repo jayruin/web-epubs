@@ -1,6 +1,5 @@
 from pathlib import Path
 
-from core import constants
 from core.htmlparsers.indent_parser import IndentParser
 from core.package_copier import PackageCopier
 
