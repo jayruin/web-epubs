@@ -15,7 +15,6 @@ A collection of various documents for personal use, written in HTML, which are t
 - [Public Repository](https://github.com/jayruin/web-epubs-public)
 - [Public Releases](https://github.com/jayruin/web-epubs-public/releases)
 - [Github Pages Of This Repository](https://jayruin.github.io/web-epubs-public)
-- [GitHub Wiki](https://github.com/jayruin/web-epubs-public/wiki)
 - [Private Repository](https://github.com/jayruin/web-epubs-private)
 - [Private Releases](https://github.com/jayruin/web-epubs-private/releases)
 
@@ -31,4 +30,3 @@ A collection of various documents for personal use, written in HTML, which are t
 
 - [Web built using self](https://jayruin.github.io/web-epubs-public/epub/Documentation/OEBPS/_nav.xhtml)
 - [ePub built using self](https://github.com/jayruin/web-epubs-public/releases/latest/download/Documentation.epub)
-- [GitHub Wiki](https://github.com/jayruin/web-epubs-public/wiki)
