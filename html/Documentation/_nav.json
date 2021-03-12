@@ -32,6 +32,13 @@
                         "plugins.xhtml#calibre-sync": []
                     }
                 ]
+            },
+            {
+                "plugins.xhtml#comicbook": [
+                    {
+                        "plugins.xhtml#comicbook-imports": []
+                    }
+                ]
             }
         ]
     }

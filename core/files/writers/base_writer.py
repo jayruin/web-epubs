@@ -9,3 +9,10 @@ class BaseWriter(ABC):
         content: str
     ) -> None:
         pass
+
+    @abstractmethod
+    def append(
+        path: Path,
+        content: str
+    ) -> None:
+        pass

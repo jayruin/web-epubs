@@ -17,3 +17,11 @@ class TextWriter(BaseWriter):
     ) -> str:
         with open(path, "w", encoding=self.encoding) as f:
             return f.write(content)
+
+    def append(
+        self,
+        path: Path,
+        content: str
+    ) -> str:
+        with open(path, "a", encoding=self.encoding) as f:
+            return f.write(content)
