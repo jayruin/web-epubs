@@ -27,9 +27,9 @@
     {
         "plugins.xhtml": [
             {
-                "plugins.xhtml#sync": [
+                "plugins.xhtml#calibre": [
                     {
-                        "plugins.xhtml#syncing-with-calibre": []
+                        "plugins.xhtml#calibre-sync": []
                     }
                 ]
             }
