@@ -3,10 +3,10 @@ import sys
 
 from core.config.metadata import Metadata
 from core.files.readers import Utf8Reader
-from plugins.calibrecli import calibredb
+from plugins.calibre.cli import calibredb
 
 
-settings_file = "./plugins/sync/calibre/settings.json"
+settings_file = "./plugins/calibre/sync/settings.json"
 reader = Utf8Reader()
 plugin_settings = json.loads(reader.read(settings_file))
 PORTABLE = plugin_settings["PORTABLE"]
