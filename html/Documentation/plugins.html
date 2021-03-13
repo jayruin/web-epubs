@@ -15,15 +15,13 @@
 
 <p>Syncs projects with Calibre. Make sure you have Calibre installed.</p>
 
-<pre>
-usage: python -m plugins.calibre.sync [-h] projects [projects ...]
+<pre>usage: python -m plugins.calibre.sync [-h] projects [projects ...]
 
 positional arguments:
 projects    List of projects. Each project should be a subdirectory of the html directory.
 
 optional arguments:
--h, --help  show this help message and exit
-</pre>
+-h, --help  show this help message and exit</pre>
 
 <p>Settings:</p>
 
@@ -34,12 +32,35 @@ optional arguments:
 
 <h2 id="comicbook">Comicbook</h2>
 
+<p>Comic book projects are assumed to have a special structure.</p>
+
+<p>The general storage structure is "./html/{PROJECT}/{VOLUME}/{CHAPTER}/{PAGE}", where each page is an image file.</p>
+
+<p>For each chapter, there is a corresponding HTML file "./html/{PROJECT}/{VOLUME}/{CHAPTER}.html" which includes all the pages of that chapter.</p>
+
+<p>The <code>_nav.json</code> has a special organization as well:</p>
+
+<pre><code>[
+    {
+        "Volume1/FirstChapterOfVolume.xhtml": [
+            {
+                "Volume1/Chapter2.xhtml": []
+            },
+            {
+                "Volume1/Chapter3.xhtml": []
+            }
+        ]
+    },
+    {
+        "Volume2/OnlyChapterOfVolume.xhtml": []
+    }
+]</code></pre>
+
 <h3 id="comicbook-imports">Imports</h3>
 
 <p>Imports a comic book chapter into a project.</p>
 
-<pre>
-usage: python -m plugins.comicbook.imports [-h] [-n] project volume chapter
+<pre>usage: python -m plugins.comicbook.imports [-h] [-n] project volume chapter
 
 positional arguments:
   project           Project to add to. Project should be a subdirectory of the html directory.
@@ -48,5 +69,4 @@ positional arguments:
 
 optional arguments:
   -h, --help        show this help message and exit
-  -n, --new-volume  Specifies that the volume does not currently exist. A new volume will be created.
-</pre>
+  -n, --new-volume  Specifies that the volume does not currently exist. A new volume will be created.</pre>
