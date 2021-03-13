@@ -3,6 +3,7 @@ import math
 import os
 from pathlib import Path
 import shutil
+import zipfile
 
 from core import constants
 from core.files.readers import Utf8Reader
@@ -67,7 +68,7 @@ class ComicbookProject:
             )
             if not chapter_exists:
                 self._add_chapter_to_nav(volume_name, chapter.name)
-        elif chapter.name.endswith(".cbz"):
+        elif chapter.suffix == ".cbz":
             pages = self._copy_pages_from_cbz(volume_name, chapter)
             chapter_exists = self._write_chapter_html(
                 volume_name,
@@ -120,8 +121,29 @@ class ComicbookProject:
         chapter: Path
     ) -> list[str]:
         copied_pages = []
-        new_chapter = Path(self.project_directory, volume_name, chapter.name)
+        new_chapter = Path(self.project_directory, volume_name, chapter.stem)
         new_chapter.mkdir()
+        with zipfile.ZipFile(chapter, "r") as z:
+            root_zipfile_path = zipfile.Path(z)
+            pages = sorted(
+                child.name
+                for child in root_zipfile_path.iterdir()
+                if child.is_file()
+            )
+            digits = self._get_digits_needed(len(pages))
+            page_number = 1
+            for page in pages:
+                new_page_name = "".join(
+                    [
+                        f"{str(page_number).zfill(digits)}",
+                        f"{Path(page).suffix}"
+                    ]
+                )
+                page_zip_info = z.getinfo(page)
+                page_zip_info.filename = new_page_name
+                z.extract(page_zip_info, new_chapter)
+                copied_pages.append(new_page_name)
+                page_number += 1
         return copied_pages
 
     def _write_chapter_html(
@@ -154,7 +176,14 @@ class ComicbookProject:
                 "\n".join(
                     [
                         "<div class=\"cb-page\">",
-                        f"{constants.INDENT}<img src=\"{page}\" />",
+                        "".join(
+                            [
+                                constants.INDENT,
+                                "<img src=\"",
+                                Path(chapter_name, page).as_posix(),
+                                "\" />"
+                            ]
+                        ),
                         "</div>"
                     ]
                 )

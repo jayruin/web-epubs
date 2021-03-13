@@ -54,5 +54,5 @@ args = parser.parse_args()
 
 comicbook_project = ComicbookProject(args.project)
 if args.new_volume:
-    comicbook_project.create_volume(args.volume, Path(args.chapter).name)
+    comicbook_project.create_volume(args.volume, Path(args.chapter).stem)
 comicbook_project.import_chapter(args.volume, Path(args.chapter))
