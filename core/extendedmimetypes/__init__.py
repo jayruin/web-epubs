@@ -2,6 +2,7 @@ import json
 import mimetypes
 import os
 
+
 with os.scandir("./core/extendedmimetypes/") as it:
     for entry in it:
         if entry.is_file() and entry.name.endswith(".json"):

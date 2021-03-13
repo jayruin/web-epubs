@@ -36,4 +36,4 @@ def ebook_viewer(
     if version_:
         args.append("--version")
     args.append(file_)
-    result = subprocess.run(args, check=True)
+    subprocess.run(args, check=True)
