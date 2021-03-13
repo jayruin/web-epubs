@@ -13,17 +13,35 @@
             </header>
             <h1>Building ePubs</h1>
             
-            <p>Manually building:</p>
+            <h2>Manually Building</h2>
             
-            <p>Install or update EPUBCheck.</p>
+            <h3>Install or update EPUBCheck</h3>
 <pre><code>python -m epub.check</code></pre>
             
-            <p>Create ePub contents from template. The .xhtml files can be deployed on the web (Github Pages) without any modification.</p>
-<pre><code>python -m templates.simple "Hello World" "My Other Book"</code></pre>
+            <h3>Create ePub contents from template</h3>
+            <p>The .xhtml files can be deployed on the web (Github Pages) without any modification.</p>
+<pre>usage: python -m templates.simple [-h] projects [projects ...]
+
+Create ePub contents from template.
+
+positional arguments:
+    projects    List of projects. Each project should be a subdirectory of the html directory.
+
+optional arguments:
+    -h, --help  show this help message and exit</pre>
             
-            <p>Zip ePub contents into a single .epub file.</p>
-<pre><code>python -m epub.zipping "Hello World" "My Other Book"</code></pre>
+            <h3>Zip ePub contents into a single .epub file</h3>
+<pre>usage: python -m epub.zipping [-h] projects [projects ...]
+
+Zip ePub contents into a single .epub file.
+
+positional arguments:
+    projects    List of projects. Each project should be a subdirectory of the html directory.
+
+optional arguments:
+    -h, --help  show this help message and exit</pre>
             
+            <h2>Automated Building</h2>
             <p>There is also a GitHub Workflow <code>Create Release ePubs</code> found in <code>create-release-epubs.yml</code> which will automatically build ePubs when unzipped files are uploaded to <code>epub/</code>.</p>
         </section>
     </body>

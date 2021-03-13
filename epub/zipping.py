@@ -5,6 +5,7 @@ from pathlib import Path
 import sys
 
 from core import constants
+from core.argparsers import parser_projects_only
 from core.epubs import EPUBCheck, EPUBFile
 
 
@@ -18,9 +19,12 @@ def main():
     if not ec.exists():
         sys.exit("EPUBCheck not installed!")
 
-    epubs_to_build = sys.argv[1:]
-    if not epubs_to_build:
-        epubs_to_build = [line.strip() for line in sys.stdin]
+    module_name = "epub.zipping"
+    description = "Zip ePub contents into a single .epub file."
+    parser = parser_projects_only(module_name, description, False)
+    args = parser.parse_args()
+    epubs_to_build = args.projects
+
     epubs_to_build = [
         name if len(Path(name).parts) != 1
         else os.path.join(constants.EPUB_DIRECTORY, name)

@@ -13,15 +13,15 @@
 
 <h3 id="calibre-sync">Sync</h3>
 
-<p>Syncs projects with Calibre. Make sure you have Calibre installed.</p>
-
 <pre>usage: python -m plugins.calibre.sync [-h] projects [projects ...]
 
+Sync projects with Calibre. Make sure you have Calibre installed.
+
 positional arguments:
-projects    List of projects. Each project should be a subdirectory of the html directory.
+    projects    List of projects. Each project should be a subdirectory of the html directory.
 
 optional arguments:
--h, --help  show this help message and exit</pre>
+    -h, --help  show this help message and exit</pre>
 
 <p>Settings:</p>
 
@@ -58,15 +58,15 @@ optional arguments:
 
 <h3 id="comicbook-imports">Imports</h3>
 
-<p>Imports a comic book chapter into a project.</p>
-
 <pre>usage: python -m plugins.comicbook.imports [-h] [-n] project volume chapter
 
+Imports a comic book chapter into a project.
+
 positional arguments:
-  project           Project to add to. Project should be a subdirectory of the html directory.
-  volume            Volume in the project to add to. Volume should be a subdirectory of the project directory.
-  chapter           Chapter to add. Chapter is a path to a directory of images or a .cbz file.
+    project           Project to add to. Project should be a subdirectory of the html directory.
+    volume            Volume in the project to add to. Volume should be a subdirectory of the project directory.
+    chapter           Chapter to add. Chapter is a path to a directory of images or a .cbz file.
 
 optional arguments:
-  -h, --help        show this help message and exit
-  -n, --new-volume  Specifies that the volume does not currently exist. A new volume will be created.</pre>
+    -h, --help        show this help message and exit
+    -n, --new-volume  Specifies that the volume does not currently exist. A new volume will be created.</pre>

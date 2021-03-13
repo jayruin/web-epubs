@@ -1,6 +1,6 @@
-import argparse
 import json
 
+from core.argparsers import parser_projects_only
 from core.config.metadata import Metadata
 from core.files.readers import Utf8Reader
 from plugins.calibre.cli import calibredb
@@ -13,17 +13,14 @@ PORTABLE = plugin_settings["PORTABLE"]
 LIBRARY = plugin_settings["LIBRARY"]
 
 
-parser = argparse.ArgumentParser()
-parser.add_argument(
-    "projects",
-    help=" ".join(
-        [
-            "List of projects.",
-            "Each project should be a subdirectory of the html directory."
-        ]
-    ),
-    nargs="+"
+module_name = "plugins.calibre.sync"
+description = " ".join(
+    [
+        "Sync projects with Calibre.",
+        "Make sure you have Calibre installed."
+    ]
 )
+parser = parser_projects_only(module_name, description, False)
 args = parser.parse_args()
 
 

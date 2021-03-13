@@ -11,7 +11,9 @@ reader = Utf8Reader()
 plugin_settings = json.loads(reader.read(settings_file))
 
 
-parser = argparse.ArgumentParser()
+prog = "python -m plugins.comicbook.imports"
+description = "Imports a comic book chapter into a project."
+parser = argparse.ArgumentParser(prog=prog, description=description)
 parser.add_argument(
     "project",
     help=" ".join(
