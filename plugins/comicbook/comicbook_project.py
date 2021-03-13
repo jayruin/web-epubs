@@ -52,7 +52,10 @@ class ComicbookProject:
         )
         nav = json.loads(self.reader.read(self.nav_file))
         nav.append({volume_xhtml: []})
-        self.writer.write(self.nav_file, json.dumps(nav, indent=4))
+        self.writer.write(
+            self.nav_file,
+            json.dumps(nav, indent=4, ensure_ascii=False)
+        )
 
     def import_chapter(
         self,
@@ -207,7 +210,10 @@ class ComicbookProject:
             for key in nav_dict.keys():
                 if key.split("/")[0] == volume_name:
                     nav_dict[key].append({chapter_xhtml: []})
-                    self.writer.write(self.nav_file, json.dumps(nav, indent=4))
+                    self.writer.write(
+                        self.nav_file,
+                        json.dumps(nav, indent=4, ensure_ascii=False)
+                    )
                     return nav
 
     @staticmethod
