@@ -3,8 +3,8 @@ from typing import Optional
 
 import os.path
 
-from .. import constants
 from .base_formatter import BaseFormatter
+from core import constants
 
 
 class CsslinksFormatter(BaseFormatter):

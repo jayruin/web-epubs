@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 import shutil
 
-from core.formatters import CsslinksFormatter
+from core.formatters.csslinks_formatter import CsslinksFormatter
 from core.htmlparsers.tag_name_parser import TagNameParser
 
 

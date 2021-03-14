@@ -2,8 +2,8 @@ import itertools
 from pathlib import Path
 from typing import Optional
 
-from .. import constants
 from .base_formatter import BaseFormatter
+from core import constants
 
 
 class SpineitemrefsFormatter(BaseFormatter):

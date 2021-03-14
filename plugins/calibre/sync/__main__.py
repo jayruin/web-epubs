@@ -1,7 +1,7 @@
 import json
 
 from core.argparsers import parser_projects_only
-from core.config.metadata import Metadata
+from core.config import Metadata
 from core.files.readers import Utf8Reader
 from plugins.calibre.cli import calibredb
 

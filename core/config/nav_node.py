@@ -1,10 +1,10 @@
 import itertools
 from pathlib import Path
 
-from .. import constants
-from ..htmlparsers.id_parser import IdParser
 from .node import Node
-from ..htmlparsers.tag_name_parser import TagNameParser
+from core import constants
+from core.htmlparsers.id_parser import IdParser
+from core.htmlparsers.tag_name_parser import TagNameParser
 
 
 class NavNode(Node):

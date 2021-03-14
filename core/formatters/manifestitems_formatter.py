@@ -1,8 +1,8 @@
 from pathlib import Path
 from typing import Optional
 
-from .. import constants
 from .base_formatter import BaseFormatter
+from core import constants
 from core.extendedmimetypes import mimetypes
 
 

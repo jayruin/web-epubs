@@ -2,16 +2,16 @@ from abc import ABC, abstractmethod
 import shutil
 from typing import Type
 
-from core.files.readers import TextReader, Utf8Reader
-from core.files.writers import TextWriter, Utf8Writer
-from core.formatters import (
-    CsslinksFormatter,
-    LanguagesFormatter,
-    ManifestitemsFormatter,
-    NavlisFormatter,
-    SpineitemrefsFormatter
-)
 from .package_contents import PackageContents
+from core.files.readers.text_reader import TextReader
+from core.files.readers.utf8_reader import Utf8Reader
+from core.files.writers.text_writer import TextWriter
+from core.files.writers.utf8_writer import Utf8Writer
+from core.formatters.csslinks_formatter import CsslinksFormatter
+from core.formatters.languages_formatter import LanguagesFormatter
+from core.formatters.manifestitems_formatter import ManifestitemsFormatter
+from core.formatters.navlis_formatter import NavlisFormatter
+from core.formatters.spineitemrefs_formatter import SpineitemrefsFormatter
 
 
 class PackageBuilder(ABC):

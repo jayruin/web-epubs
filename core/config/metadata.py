@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 import json
 from pathlib import Path
 
-from .. import constants
+from core import constants
 
 
 @dataclass
