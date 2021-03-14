@@ -37,6 +37,9 @@
                 "plugins.xhtml#comicbook": [
                     {
                         "plugins.xhtml#comicbook-imports": []
+                    },
+                    {
+                        "plugins.xhtml#comicbook-exports": []
                     }
                 ]
             }

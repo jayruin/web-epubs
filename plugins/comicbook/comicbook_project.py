@@ -3,6 +3,7 @@ import math
 import os
 from pathlib import Path
 import shutil
+from typing import Optional
 import zipfile
 
 from core import constants
@@ -20,8 +21,8 @@ class ComicbookProject:
             project_name
         )
         self.nav_file: Path = Path(self.project_directory, constants.NAV_JSON)
-        self.reader = Utf8Reader()
-        self.writer = Utf8Writer()
+        self.reader: Utf8Reader = Utf8Reader()
+        self.writer: Utf8Writer = Utf8Writer()
 
     def create_volume(
         self,
@@ -82,6 +83,28 @@ class ComicbookProject:
                 self._add_chapter_to_nav(volume_name, chapter.stem)
         else:
             raise ValueError("Invalid chapter to import from!")
+
+    def export(
+        self,
+        destination: Path,
+        volume_name: Optional[str] = None,
+        chapter_name: Optional[str] = None,
+        compress_level: Optional[int] = None
+    ) -> None:
+        if destination.suffix != ".cbz":
+            raise ValueError("Must export as cbz!")
+        if volume_name and chapter_name:
+            pages = self._get_chapter_pages_for_export(
+                volume_name,
+                chapter_name
+            )
+        elif volume_name and not chapter_name:
+            pages = self._get_volume_pages_for_export(volume_name)
+        elif not volume_name and chapter_name:
+            raise ValueError("Ambiguous chapter name without volume name!")
+        elif not volume_name and not chapter_name:
+            pages = self._get_project_pages_for_export()
+        self._export_pages(destination, pages, compress_level)
 
     def _copy_pages_from_directory(
         self,
@@ -215,6 +238,87 @@ class ComicbookProject:
                         json.dumps(nav, indent=4, ensure_ascii=False)
                     )
                     return nav
+
+    def _export_pages(
+        self,
+        destination: Path,
+        pages: list[Path],
+        compress_level: Optional[int] = None
+    ) -> None:
+        digits = self._get_digits_needed(len(pages))
+        page_number = 1
+        with zipfile.ZipFile(
+            destination,
+            "w",
+            compression=zipfile.ZIP_DEFLATED,
+            compresslevel=compress_level
+        ) as z:
+            for page in pages:
+                z.write(
+                    page,
+                    "".join(
+                        [
+                            f"{str(page_number).zfill(digits)}",
+                            f"{page.suffix}"
+                        ]
+                    )
+                )
+                page_number += 1
+
+    def _get_project_pages_for_export(
+        self
+    ) -> list[Path]:
+        pages = []
+        nav = json.loads(self.reader.read(self.nav_file))
+        for volume_dict in nav:
+            current_volume = os.path.splitext(
+                next(iter(volume_dict))
+            )[0].split("/")[0]
+            pages.extend(self._get_volume_pages_for_export(current_volume))
+        return pages
+
+    def _get_volume_pages_for_export(
+        self,
+        volume_name: str
+    ) -> list[Path]:
+        pages = []
+        nav = json.loads(self.reader.read(self.nav_file))
+        for volume_dict in nav:
+            volume_first_chapter = next(iter(volume_dict))
+            currrent_volume, current_chapter = os.path.splitext(
+                volume_first_chapter
+            )[0].split("/")
+            if volume_name == currrent_volume:
+                pages.extend(
+                    self._get_chapter_pages_for_export(
+                        volume_name,
+                        current_chapter
+                    )
+                )
+                for chapter_dict in volume_dict[volume_first_chapter]:
+                    pages.extend(
+                        self._get_chapter_pages_for_export(
+                            volume_name,
+                            os.path.splitext(
+                                next(iter(chapter_dict))
+                            )[0].split("/")[1]
+                        )
+                    )
+                break
+        return pages
+
+    def _get_chapter_pages_for_export(
+        self,
+        volume_name: str,
+        chapter_name: str
+    ) -> list[Path]:
+        pages = []
+        chapter_path = Path(self.project_directory, volume_name, chapter_name)
+        with os.scandir(chapter_path) as it_page:
+            for entry_page in it_page:
+                if entry_page.is_file():
+                    pages.append(Path(entry_page.path))
+        return pages
 
     @staticmethod
     def _get_digits_needed(
