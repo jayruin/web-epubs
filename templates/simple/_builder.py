@@ -28,7 +28,9 @@ class SimpleBuilder(PackageBuilder):
             dst=str(Path(self.dst, constants.ROOT_PATH_DIR)),
             template_str=template_str,
             template_indents=3,
-            csslinks_formatter=self.csslinks_formatter
+            csslinks_formatter=self.csslinks_formatter,
+            reader=self.reader,
+            writer=self.writer
         )
 
         self.template_copier: SimpleCopier = SimpleCopier(
@@ -36,7 +38,9 @@ class SimpleBuilder(PackageBuilder):
             dst=self.dst,
             template_str=template_str,
             template_indents=3,
-            csslinks_formatter=self.csslinks_formatter
+            csslinks_formatter=self.csslinks_formatter,
+            reader=self.reader,
+            writer=self.writer
         )
 
     def _write_contents_from_template(

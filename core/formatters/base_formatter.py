@@ -1,16 +1,16 @@
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Optional
-
-from core.packaging.package_contents import PackageContents
+from typing import Optional, TYPE_CHECKING
+if TYPE_CHECKING:
+    from core.packaging.package_contents import PackageContents
 
 
 class BaseFormatter(ABC):
     def __init__(
         self,
-        package_contents: PackageContents
+        package_contents: "PackageContents"
     ) -> None:
-        self.package_contents: PackageContents = package_contents
+        self.package_contents: "PackageContents" = package_contents
 
     @abstractmethod
     def run(

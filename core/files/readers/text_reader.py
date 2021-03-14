@@ -16,3 +16,10 @@ class TextReader(BaseReader):
     ) -> str:
         with open(path, "r", encoding=self.encoding) as f:
             return f.read()
+
+    def readlines(
+        self,
+        path: Path
+    ) -> list[str]:
+        with open(path, "r", encoding=self.encoding) as f:
+            return f.readlines()

@@ -1,0 +1,28 @@
+.cb-page {
+    /* Pagination */
+    page-break-before: always;
+    page-break-after: always;
+    page-break-inside: avoid;
+    break-before: page;
+    break-after: page;
+    break-inside: avoid-page;
+    clear: both;
+    /* Sizing */
+    height: 100vh;
+    padding: 0px;
+    margin: 0px;
+    /* Centering */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.cb-page img {
+    page-break-inside: avoid;
+    break-inside: avoid-page;
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}

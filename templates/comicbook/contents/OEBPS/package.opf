@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package xml:lang="en" xmlns="http://www.idpf.org/2007/opf" unique-identifier="publication-id" version="3.0">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <dc:identifier id="publication-id">urn:uuid:00000000-0000-0000-0000-000000000000</dc:identifier>
+        {languages}
+
+        <dc:title id="title-id">{title}</dc:title>
+        <meta refines="#title-id" property="title-type">main</meta>
+
+        <dc:creator id="author-id">{author}</dc:creator>
+        <meta refines="#author-id" property="role" scheme="marc:relators">aut</meta>
+
+        <dc:date>{date}</dc:date>
+        <meta property="dcterms:modified">{modified}</meta>
+    </metadata>
+
+    <manifest>
+        <item href="_cover.xhtml" id="cover_xhtml" media-type="application/xhtml+xml"/>
+        <item href="_toc.xhtml" id="toc" media-type="application/xhtml+xml"/>
+        <item href="_nav.xhtml" id="nav" media-type="application/xhtml+xml" properties="nav"/>
+        <item href="css/cb.css" id="stylesheet" media-type="text/css"/>
+        <item href="{cover_file}" id="cover" media-type="{cover_media_type}" properties="cover-image"/>
+        {manifest}
+    </manifest>
+
+    <spine page-progression-direction="ltr">
+        <itemref idref="cover_xhtml" linear="yes"/>
+        <itemref idref="toc" linear="yes"/>
+        {spine}
+    </spine>
+</package>

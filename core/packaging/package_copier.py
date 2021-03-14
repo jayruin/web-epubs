@@ -2,7 +2,10 @@ from abc import ABC, abstractmethod
 import os
 from pathlib import Path
 import shutil
+from typing import Type
 
+from core.files.readers.text_reader import TextReader
+from core.files.writers.text_writer import TextWriter
 from core.formatters.csslinks_formatter import CsslinksFormatter
 from core.htmlparsers.tag_name_parser import TagNameParser
 
@@ -14,15 +17,18 @@ class PackageCopier(ABC):
         dst: str,
         template_str: str,
         template_indents: int,
-        csslinks_formatter: CsslinksFormatter
+        csslinks_formatter: CsslinksFormatter,
+        reader: Type[TextReader],
+        writer: Type[TextWriter]
     ) -> None:
         self.src_path: Path = Path(src)
         self.dst_path: Path = Path(dst)
         self.template_str: str = template_str
         self.template_indents: int = template_indents
         self.title_parser: TagNameParser = TagNameParser("title")
-        self.h1_parser: TagNameParser = TagNameParser("h1")
-        self.csslinks_formatter = csslinks_formatter
+        self.csslinks_formatter: CsslinksFormatter = csslinks_formatter
+        self.reader: Type[TextReader] = reader
+        self.writer: Type[TextWriter] = writer
 
         os.makedirs(self.dst_path, exist_ok=True)
 
