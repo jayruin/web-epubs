@@ -1,74 +1,20 @@
-import json
 from pathlib import Path
-import shutil
-from typing import Type
 
 from ._copier import SimpleCopier
 from core import constants
-from core.config.metadata import Metadata
-from core.config.nav_node import NavNode
 from core.cover import fill_blank_cover
 from core.extendedmimetypes import mimetypes
-from core.files.readers import TextReader, Utf8Reader
-from core.files.writers import TextWriter, Utf8Writer
-from core.formatters import (
-    CsslinksFormatter,
-    LanguagesFormatter,
-    ManifestitemsFormatter,
-    NavlisFormatter,
-    SpineitemrefsFormatter
-)
-from core.package_contents import PackageContents
+from core.packaging import PackageBuilder
 
 
-class SimpleBuilder:
+class SimpleBuilder(PackageBuilder):
     def __init__(
         self,
         src: str,
         dst: str,
         template_dir: str
     ) -> None:
-        self.package_contents: PackageContents = PackageContents(
-            src=src,
-            template_dir=template_dir
-        )
-        self.csslinks_formatter: CsslinksFormatter
-        self.languages_formatter: LanguagesFormatter
-        self.manifestitems_formatter: ManifestitemsFormatter
-        self.navlis_formatter: NavlisFormatter
-        self.spineitemrefs_formatter: SpineitemrefsFormatter
-
-        self.csslinks_formatter = CsslinksFormatter(
-            self.package_contents
-        )
-        self.languages_formatter = LanguagesFormatter(
-            self.package_contents
-        )
-        self.manifestitems_formatter = ManifestitemsFormatter(
-            self.package_contents
-        )
-        self.navlis_formatter = NavlisFormatter(
-            self.package_contents
-        )
-        self.spineitemrefs_formatter = SpineitemrefsFormatter(
-            self.package_contents
-        )
-
-        self.reader: Type[TextReader] = Utf8Reader()
-        self.writer: Type[TextWriter] = Utf8Writer()
-
-        self.src: str = src
-        self.dst: str = dst
-        self.template_dir: str = template_dir
-
-        self.metadata: Metadata = Metadata.from_json_path(
-            Path(
-                self.src,
-                constants.METADATA_JSON
-            )
-        )
-
-        shutil.rmtree(self.dst, ignore_errors=True)
+        super(SimpleBuilder, self).__init__(src, dst, template_dir)
 
         template_str = self.reader.read(
             Path(
@@ -92,17 +38,6 @@ class SimpleBuilder:
             template_indents=3,
             csslinks_formatter=self.csslinks_formatter
         )
-
-        content = self.reader.read(
-            Path(
-                self.src,
-                constants.NAV_JSON
-            )
-        )
-        self.nav_nodes: list[NavNode] = [
-            NavNode.from_dict(d)
-            for d in json.loads(content)
-        ]
 
     def _write_contents_from_template(
         self
@@ -172,7 +107,7 @@ class SimpleBuilder:
         )
         content = self.reader.read(cover_src)
         content = content.format(
-            cover_file=self.metadata.cover,
+            cover_file=self.package_contents.metadata.cover,
             css=self.csslinks_formatter.run(
                 indents=2,
                 target=constants.COVER_XHTML
@@ -192,12 +127,14 @@ class SimpleBuilder:
         )
         content = content.format(
             languages=self.languages_formatter.run(indents=2),
-            title=self.metadata.title,
-            author=self.metadata.author,
-            date=self.metadata.date,
+            title=self.package_contents.metadata.title,
+            author=self.package_contents.metadata.author,
+            date=self.package_contents.metadata.date,
             modified=constants.BUILD_TIME,
-            cover_file=self.metadata.cover,
-            cover_media_type=mimetypes.guess_type(self.metadata.cover)[0],
+            cover_file=self.package_contents.metadata.cover,
+            cover_media_type=mimetypes.guess_type(
+                self.package_contents.metadata.cover
+            )[0],
             manifest=self.manifestitems_formatter.run(indents=2),
             spine=self.spineitemrefs_formatter.run(indents=2)
         )
@@ -216,7 +153,7 @@ class SimpleBuilder:
         cover_path = Path(
             self.dst,
             constants.ROOT_PATH_DIR,
-            self.metadata.cover
+            self.package_contents.metadata.cover
         )
 
         fill_blank_cover(cover_path)

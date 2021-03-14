@@ -3,8 +3,8 @@ import os
 from pathlib import Path
 
 from core import constants
-from .config.metadata import Metadata
-from .config.nav_node import NavNode
+from core.config.metadata import Metadata
+from core.config.nav_node import NavNode
 
 
 class PackageContents:

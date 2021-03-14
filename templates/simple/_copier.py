@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from core.htmlparsers.indent_parser import IndentParser
-from core.package_copier import PackageCopier
+from core.packaging import PackageCopier
 
 
 class SimpleCopier(PackageCopier):
