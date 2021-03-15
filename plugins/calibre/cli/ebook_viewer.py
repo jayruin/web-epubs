@@ -5,7 +5,7 @@ from typing import Optional
 
 def ebook_viewer(
     file_: str,
-    portable: Optional[str] = "",
+    portable: str = "",
     continue_: Optional[bool] = None,
     detach_: Optional[bool] = None,
     force_reload_: Optional[bool] = None,

@@ -17,6 +17,7 @@ def main():
     parent_parser = parser_projects_only(module_name, description, True)
     parser = argparse.ArgumentParser(parents=[parent_parser])
     parser.prog = parent_parser.prog
+    parser.description = parent_parser.description
     parser.add_argument(
         "-c",
         "--compress-level",

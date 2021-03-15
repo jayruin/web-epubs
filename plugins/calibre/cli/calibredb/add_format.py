@@ -6,7 +6,7 @@ from typing import Optional
 def add_format(
     id_: str,
     ebook_file_: str,
-    portable: Optional[str] = "",
+    portable: str = "",
     help_: Optional[bool] = None,
     with_library_: Optional[str] = None,
     password_: Optional[str] = None,

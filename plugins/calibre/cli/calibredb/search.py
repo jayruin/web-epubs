@@ -5,7 +5,7 @@ from typing import Optional
 
 def search(
     search_expression_: str,
-    portable: Optional[str] = "",
+    portable: str = "",
     help_: Optional[bool] = None,
     with_library_: Optional[str] = None,
     password_: Optional[str] = None,

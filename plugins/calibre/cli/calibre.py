@@ -5,7 +5,7 @@ from typing import Optional
 
 def calibre(
     path_to_ebook_: Optional[str] = None,
-    portable: Optional[str] = "",
+    portable: str = "",
     detach_: Optional[bool] = None,
     help_: Optional[bool] = None,
     ignore_plugins_: Optional[bool] = None,
