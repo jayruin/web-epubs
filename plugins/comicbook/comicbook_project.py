@@ -89,7 +89,7 @@ class ComicbookProject:
         destination: Path,
         volume_name: Optional[str] = None,
         chapter_name: Optional[str] = None,
-        compress_level: Optional[int] = None
+        compress_level: Optional[int] = 0
     ) -> None:
         if destination.suffix != ".cbz":
             raise ValueError("Must export as cbz!")
@@ -243,7 +243,7 @@ class ComicbookProject:
         self,
         destination: Path,
         pages: list[Path],
-        compress_level: Optional[int] = None
+        compress_level: Optional[int] = 0
     ) -> None:
         digits = self._get_digits_needed(len(pages))
         page_number = 1

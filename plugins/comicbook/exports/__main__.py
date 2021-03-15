@@ -60,10 +60,12 @@ parser.add_argument(
     "--compress-level",
     help=" ".join(
         [
-            "Compression level to use for the destination .cbz file."
+            "Compression level to use for the destination .cbz file.",
+            "Default value is 0: no compression."
         ]
     ),
     nargs="?",
+    default=0,
     type=int,
     choices=range(10)
 )
