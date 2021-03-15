@@ -31,15 +31,18 @@ optional arguments:
     -h, --help  show this help message and exit</pre>
             
             <h3>Zip ePub contents into a single .epub file</h3>
-<pre>usage: python -m epub.zipping [-h] projects [projects ...]
+<pre>usage: python -m epub.zipping [-h] [-c [{0,1,2,3,4,5,6,7,8,9}]] [-s] projects [projects ...]
 
 Zip ePub contents into a single .epub file.
 
 positional arguments:
-    projects    List of projects. Each project should be a subdirectory of the html directory.
+    projects              List of projects. Each project should be a subdirectory of the html directory.
 
 optional arguments:
-    -h, --help  show this help message and exit</pre>
+    -h, --help            show this help message and exit
+    -c [{0,1,2,3,4,5,6,7,8,9}], --compress-level [{0,1,2,3,4,5,6,7,8,9}]
+                          Compression level to use for the output .epub file. Default value is 0: no compression.
+    -s, --skip-epubcheck  Skip epubcheck for the output .epub files. Default is false. It is highly recommended to run epubcheck.</pre>
             
             <h2>Automated Building</h2>
             <p>There is also a GitHub Workflow <code>Create Release ePubs</code> found in <code>create-release-epubs.yml</code> which will automatically build ePubs when unzipped files are uploaded to <code>epub/</code>.</p>

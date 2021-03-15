@@ -1,6 +1,7 @@
 from __future__ import annotations
 import os
 from pathlib import Path
+from typing import Optional
 import zipfile
 from zipfile import ZipFile
 
@@ -9,11 +10,17 @@ class EPUBFile:
     def __init__(
         self,
         directory_str: str,
-        destination_str: str
+        destination_str: str,
+        compress_level: Optional[int] = 0
     ) -> None:
         self.directory_path = Path(directory_str)
         self.destination_path = Path(destination_str)
-        with ZipFile(self.destination_path, "w") as z:
+        with ZipFile(
+            self.destination_path,
+            "w",
+            compression=zipfile.ZIP_DEFLATED,
+            compresslevel=compress_level
+        ) as z:
             z.write(
                 Path(self.directory_path, "mimetype"),
                 "mimetype", zipfile.ZIP_STORED
@@ -39,6 +46,7 @@ class EPUBFile:
     @classmethod
     def zip_directory(
         cls,
-        directory_str: str
+        directory_str: str,
+        compress_level: Optional[int] = 0
     ) -> EPUBFile:
-        return cls(directory_str, f"{directory_str}.epub")
+        return cls(directory_str, f"{directory_str}.epub", compress_level)
