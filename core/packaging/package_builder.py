@@ -7,6 +7,7 @@ from core.files.readers.text_reader import TextReader
 from core.files.readers.utf8_reader import Utf8Reader
 from core.files.writers.text_writer import TextWriter
 from core.files.writers.utf8_writer import Utf8Writer
+from core.formatters.creators_formatter import CreatorsFormatter
 from core.formatters.csslinks_formatter import CsslinksFormatter
 from core.formatters.languages_formatter import LanguagesFormatter
 from core.formatters.manifestitems_formatter import ManifestitemsFormatter
@@ -29,12 +30,16 @@ class PackageBuilder(ABC):
             src=src,
             template_dir=template_dir
         )
+        self.creators_formatter: CreatorsFormatter
         self.csslinks_formatter: CsslinksFormatter
         self.languages_formatter: LanguagesFormatter
         self.manifestitems_formatter: ManifestitemsFormatter
         self.navlis_formatter: NavlisFormatter
         self.spineitemrefs_formatter: SpineitemrefsFormatter
 
+        self.creators_formatter = CreatorsFormatter(
+            self.package_contents
+        )
         self.csslinks_formatter = CsslinksFormatter(
             self.package_contents
         )

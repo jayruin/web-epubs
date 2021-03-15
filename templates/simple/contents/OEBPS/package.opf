@@ -7,8 +7,7 @@
         <dc:title id="title-id">{title}</dc:title>
         <meta refines="#title-id" property="title-type">main</meta>
 
-        <dc:creator id="author-id">{author}</dc:creator>
-        <meta refines="#author-id" property="role" scheme="marc:relators">aut</meta>
+        {creators}
 
         <dc:date>{date}</dc:date>
         <meta property="dcterms:modified">{modified}</meta>

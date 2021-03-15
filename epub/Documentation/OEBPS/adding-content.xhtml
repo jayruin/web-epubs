@@ -28,12 +28,23 @@
             
 <pre><code>{
     "title": "My Title",
-    "author": "The Author",
+    "creators": {
+        "The Author": "aut",
+        "Another Author": "aut",
+        "The Illustrator": "ill",
+        "Creator With No Role": null
+    }
     "languages": [
         "en",
         "some other language"
     ]
 }</code></pre>
+            
+            <p><code>creators</code> is a key value mapping where keys define creator names and values define creator roles. Key value pairs in <code>creators</code> will be inserted into the ePub in the order they are listed.</p>
+            
+            <p>Creator roles must be 3 character <a href="http://id.loc.gov/vocabulary/relators.html">MARC codes</a>. Creator roles are optional: a value of <code>null</code> may be assigned,</p>
+            
+            <p>Each language in <code>languages</code> must conform to the requirements defined by the ePub specs.</p>
             
             <p>Optional parameters:</p>
             

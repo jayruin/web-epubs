@@ -29,7 +29,8 @@ for project in args.projects:
     metadata = Metadata.from_json_path(f"html/{project}/_metadata.json")
     search_terms = []
     search_terms.append(f"title:{metadata.title}")
-    search_terms.append(f"author:{metadata.author}")
+    for creator_name in metadata.creators:
+        search_terms.append(f"author:{creator_name}")
     ebook_file = f"./epub/{project}.epub"
     book_ids = calibredb.search(
         search_expression_=" ".join(search_terms),

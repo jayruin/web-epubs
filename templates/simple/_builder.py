@@ -132,7 +132,7 @@ class SimpleBuilder(PackageBuilder):
         content = content.format(
             languages=self.languages_formatter.run(indents=2),
             title=self.package_contents.metadata.title,
-            author=self.package_contents.metadata.author,
+            creators=self.creators_formatter.run(indents=2),
             date=self.package_contents.metadata.date,
             modified=constants.BUILD_TIME,
             cover_file=self.package_contents.metadata.cover,

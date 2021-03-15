@@ -1,6 +1,8 @@
 {
     "title": "Documentation",
-    "author": "jayruin",
+    "creators": {
+        "jayruin": "aut"
+    },
     "languages": [
         "en"
     ],

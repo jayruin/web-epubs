@@ -1,6 +1,8 @@
 {
     "title": "Hello World",
-    "author": "jayruin",
+    "creators": {
+        "jayruin": null
+    },
     "languages": [
         "en"
     ],
