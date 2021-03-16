@@ -3,12 +3,22 @@ import datetime
 
 INDENT: str = " " * 4
 
-HTML_EMPTY_ELEMENTS: list[str] = [
+# https://html.spec.whatwg.org/#void-elements
+HTML_VOID_ELEMENTS: list[str] = [
+    "area",
+    "base",
     "br",
+    "col",
+    "embed"
     "hr",
     "img",
+    "input",
     "link",
-    "meta"
+    "meta",
+    "param",
+    "source",
+    "track",
+    "wbr"
 ]
 
 BUILD_TIME: str = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")

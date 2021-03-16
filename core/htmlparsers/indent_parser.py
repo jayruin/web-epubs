@@ -20,7 +20,7 @@ class IndentParser(CopyParser):
         if tag == "pre":
             self.should_indent = False
             self.content = self.content.rstrip(" ")
-        if tag in constants.HTML_EMPTY_ELEMENTS:
+        if tag in constants.HTML_VOID_ELEMENTS:
             super(IndentParser, self).handle_startendtag(tag, attrs)
         else:
             super(IndentParser, self).handle_starttag(tag, attrs)
