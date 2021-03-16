@@ -1,8 +1,8 @@
 import os
 
+from ._builder import SimpleBuilder
 from core import constants
 from core.argparsers import parser_projects_only
-from templates.simple._builder import SimpleBuilder
 
 
 module_name = "templates.simple"
