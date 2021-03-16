@@ -83,6 +83,19 @@ def main():
             constants.EPUBCHECK_SUMMARY_JSON,
             json.dumps(summary, indent=4)
         )
+        print(
+            " ".join(
+                [
+                    "EPUBCheck Results:",
+                    str(summary["fatals"]),
+                    "fatals",
+                    str(summary["errors"]),
+                    "errors",
+                    str(summary["warnings"]),
+                    "warnings"
+                ]
+            )
+        )
 
 
 if __name__ == "__main__":
