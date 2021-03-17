@@ -23,7 +23,7 @@ class NovelBuilder(SimpleBuilder):
         )
         self.html_copier: NovelCopier = NovelCopier(
             src=self.src,
-            dst=str(Path(self.dst, constants.ROOT_PATH_DIR)),
+            dst=Path(self.dst, constants.ROOT_PATH_DIR).as_posix(),
             template_str=template_str,
             template_indents=3,
             csslinks_formatter=self.csslinks_formatter,

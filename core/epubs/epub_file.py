@@ -38,7 +38,7 @@ class EPUBFile:
         if file_or_dir.is_file() and file_or_dir.name != "mimetype":
             z.write(
                 file_or_dir,
-                str(file_or_dir.relative_to(self.directory_path))
+                file_or_dir.relative_to(self.directory_path).as_posix()
             )
         elif file_or_dir.is_dir():
             with os.scandir(file_or_dir) as it:
