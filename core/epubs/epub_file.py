@@ -14,6 +14,9 @@ class EPUBFile:
     ) -> None:
         self.directory_path = Path(directory_str)
         self.destination_path = Path(destination_str)
+        mimetype_path = Path(self.directory_path, "mimetype")
+        if not mimetype_path.exists():
+            raise ValueError("Could not find mimetype file!")
         with ZipFile(
             self.destination_path,
             "w",
@@ -21,8 +24,9 @@ class EPUBFile:
             compresslevel=compress_level
         ) as z:
             z.write(
-                Path(self.directory_path, "mimetype"),
-                "mimetype", zipfile.ZIP_STORED
+                mimetype_path,
+                "mimetype",
+                zipfile.ZIP_STORED
             )
             self._add(z, self.directory_path)
 
@@ -34,8 +38,7 @@ class EPUBFile:
         if file_or_dir.is_file() and file_or_dir.name != "mimetype":
             z.write(
                 file_or_dir,
-                str(file_or_dir.relative_to(self.directory_path)),
-                zipfile.ZIP_STORED
+                str(file_or_dir.relative_to(self.directory_path))
             )
         elif file_or_dir.is_dir():
             with os.scandir(file_or_dir) as it:
