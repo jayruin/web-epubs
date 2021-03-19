@@ -31,6 +31,7 @@ NAV_XHTML: str = "_nav.xhtml"
 PACKAGE_OPF: str = "package.opf"
 ROOT_PATH_DIR: str = "OEBPS"
 TEMPLATE_XHTML: str = "_template.xhtml"
+TOC_NCX: str = "toc.ncx"
 TOC_XHTML: str = "_toc.xhtml"
 
 EPUBCHECK_DOWNLOAD_URL: str = (
