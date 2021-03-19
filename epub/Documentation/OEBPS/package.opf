@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <package xml:lang="en" xmlns="http://www.idpf.org/2007/opf" unique-identifier="publication-id" version="3.0">
     <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
         <dc:identifier id="publication-id">urn:uuid:00000000-0000-0000-0000-000000000000</dc:identifier>
@@ -11,7 +11,7 @@
         <meta refines="#creator-id-0" property="role" scheme="marc:relators">aut</meta>
 
         <dc:date>2020-08-26T00:00:00Z</dc:date>
-        <meta property="dcterms:modified">2021-03-15T13:05:21Z</meta>
+        <meta property="dcterms:modified">2021-03-19T13:48:05Z</meta>
     </metadata>
 
     <manifest>
