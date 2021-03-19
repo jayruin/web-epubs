@@ -65,3 +65,40 @@ class NavNode(Node):
             for child in self.children
         ]))
         return hrefs
+
+    def get_ncx_navpoint(
+        self,
+        indents: int,
+        root_dir: str,
+        navpoint_id: str
+    ) -> str:
+        href = self.value
+        content = self.get_content(root_dir)
+
+        navpoint = constants.INDENT * indents
+        navpoint += f"<navPoint id=\"{navpoint_id}\">\n"
+
+        navpoint += constants.INDENT * (indents + 1)
+        navpoint += "<navLabel>\n"
+        navpoint += constants.INDENT * (indents + 2)
+        navpoint += f"<text>{content}</text>\n"
+        navpoint += constants.INDENT * (indents + 1)
+        navpoint += "</navLabel>\n"
+
+        navpoint += constants.INDENT * (indents + 1)
+        navpoint += f"<content src=\"{href}\"/>\n"
+
+        if self.children:
+            navpoint += "".join([
+                child.get_ncx_navpoint(
+                    indents + 1,
+                    root_dir,
+                    navpoint_id + f"-{count}"
+                )
+                for count, child in enumerate(self.children, start=1)
+            ])
+
+        navpoint += constants.INDENT * indents
+        navpoint += "</navPoint>\n"
+
+        return navpoint

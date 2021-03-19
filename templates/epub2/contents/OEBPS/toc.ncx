@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="en">
+    <head>
+        <meta name="dtb:uid" content="urn:uuid:00000000-0000-0000-0000-000000000000"/>
+    </head>
+    <docTitle>
+        <text>{title}</text>
+    </docTitle>
+    <navMap>
+        <navPoint id="cover">
+            <navLabel>
+                <text>Cover</text>
+            </navLabel>
+            <content src="_cover.xhtml"/>
+        </navPoint>
+        <navPoint id="toc">
+            <navLabel>
+                <text>Contents</text>
+            </navLabel>
+            <content src="_toc.xhtml"/>
+        </navPoint>
+        {nav}
+    </navMap>
+</ncx>

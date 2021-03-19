@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="publication-id" version="2.0">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+        <dc:identifier id="publication-id">urn:uuid:00000000-0000-0000-0000-000000000000</dc:identifier>
+        {languages}
+
+        <dc:title id="title-id">{title}</dc:title>
+
+        {creators}
+
+        <dc:date>{date}</dc:date>
+    </metadata>
+
+    <manifest>
+        <item href="_cover.xhtml" id="cover_xhtml" media-type="application/xhtml+xml"/>
+        <item href="_toc.xhtml" id="toc" media-type="application/xhtml+xml"/>
+        <item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml"/>
+        <item href="css/stylesheet.css" id="stylesheet" media-type="text/css"/>
+        <item href="{cover_file}" id="cover" media-type="{cover_media_type}"/>
+        {manifest}
+    </manifest>
+
+    <spine toc="ncx">
+        <itemref idref="cover_xhtml" linear="yes"/>
+        <itemref idref="toc" linear="yes"/>
+        {spine}
+    </spine>
+
+    <guide>
+        <reference type="cover" href="_cover.xhtml"/>
+        <reference type="toc" href="_toc.xhtml"/>
+    </guide>
+</package>
