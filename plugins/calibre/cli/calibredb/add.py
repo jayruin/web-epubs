@@ -12,6 +12,7 @@ def add(
     username_: Optional[str] = None,
     version_: Optional[bool] = None,
     authors_: Optional[str] = None,
+    automerge_: Optional[str] = None,
     cover_: Optional[str] = None,
     duplicates_: Optional[bool] = None,
     empty_: Optional[bool] = None,
@@ -44,6 +45,8 @@ def add(
         args.append("--version")
     if authors_:
         args.extend(["--authors", authors_])
+    if automerge_:
+        args.extend(["--automerge", automerge_])
     if cover_:
         args.extend(["--cover", cover_])
     if duplicates_:
