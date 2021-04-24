@@ -38,10 +38,11 @@ jobs:
             assets+=("-a" "$asset");
           done;
           assets+=("-a" "./epubcheck.summary.json");
-          tag_name="release-$RUN_ID";
-          release_name="Release $RUN_ID";
-          body="Automated ePub release";
+          tag_name="github-actions-release";
+          release_name="GitHub Actions Release";
+          body="Automated ePub release using GitHub Actions";
           message=$(printf "${release_name}\n\n${body}");
+          hub release delete "$tag_name" || true;
           hub release create "${assets[@]}" -m "$message" "$tag_name";
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
