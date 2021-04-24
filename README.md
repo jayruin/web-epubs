@@ -1,8 +1,8 @@
-[![Create Release ePubs Badge](https://github.com/jayruin/web-epubs-public/workflows/Create%20Release%20ePubs/badge.svg)](https://github.com/jayruin/web-epubs-public/actions?query=workflow%3A%22Create+Release+ePubs%22)
+[![Create Release ePubs Badge](https://github.com/jayruin/web-epubs/workflows/Create%20Release%20ePubs/badge.svg)](https://github.com/jayruin/web-epubs/actions?query=workflow%3A%22Create+Release+ePubs%22)
 
-![EPUBCheck Fatals](https://img.shields.io/badge/dynamic/json?label=EPUBCheck&prefix=Fatals%3A&query=fatals&url=https%3A%2F%2Fgithub.com%2Fjayruin%2Fweb-epubs-public%2Freleases%2Flatest%2Fdownload%2Fepubcheck.summary.json)
-![EPUBCheck Errors](https://img.shields.io/badge/dynamic/json?label=EPUBCheck&prefix=Errors%3A&query=errors&url=https%3A%2F%2Fgithub.com%2Fjayruin%2Fweb-epubs-public%2Freleases%2Flatest%2Fdownload%2Fepubcheck.summary.json)
-![EPUBCheck Warnings](https://img.shields.io/badge/dynamic/json?label=EPUBCheck&prefix=Warnings%3A&query=warnings&url=https%3A%2F%2Fgithub.com%2Fjayruin%2Fweb-epubs-public%2Freleases%2Flatest%2Fdownload%2Fepubcheck.summary.json)
+![EPUBCheck Fatals](https://img.shields.io/badge/dynamic/json?label=EPUBCheck&prefix=Fatals%3A&query=fatals&url=https%3A%2F%2Fgithub.com%2Fjayruin%2Fweb-epubs%2Freleases%2Flatest%2Fdownload%2Fepubcheck.summary.json)
+![EPUBCheck Errors](https://img.shields.io/badge/dynamic/json?label=EPUBCheck&prefix=Errors%3A&query=errors&url=https%3A%2F%2Fgithub.com%2Fjayruin%2Fweb-epubs%2Freleases%2Flatest%2Fdownload%2Fepubcheck.summary.json)
+![EPUBCheck Warnings](https://img.shields.io/badge/dynamic/json?label=EPUBCheck&prefix=Warnings%3A&query=warnings&url=https%3A%2F%2Fgithub.com%2Fjayruin%2Fweb-epubs%2Freleases%2Flatest%2Fdownload%2Fepubcheck.summary.json)
 
 # web-epubs
 
@@ -12,9 +12,9 @@ A collection of various documents for personal use, written in HTML, which are t
 
 ### Repository Links
 
-- [Public Repository](https://github.com/jayruin/web-epubs-public)
-- [Public Releases](https://github.com/jayruin/web-epubs-public/releases)
-- [Github Pages Of This Repository](https://jayruin.github.io/web-epubs-public)
+- [Public Repository](https://github.com/jayruin/web-epubs)
+- [Public Releases](https://github.com/jayruin/web-epubs/releases)
+- [Github Pages Of This Repository](https://jayruin.github.io/web-epubs)
 - [Private Repository](https://github.com/jayruin/web-epubs-private)
 - [Private Releases](https://github.com/jayruin/web-epubs-private/releases)
 
@@ -28,5 +28,5 @@ A collection of various documents for personal use, written in HTML, which are t
 
 ### Documentation
 
-- [Web built using self](https://jayruin.github.io/web-epubs-public/epub/Documentation/OEBPS/_nav.xhtml)
-- [ePub built using self](https://github.com/jayruin/web-epubs-public/releases/latest/download/Documentation.epub)
+- [Web built using self](https://jayruin.github.io/web-epubs/epub/Documentation/OEBPS/_nav.xhtml)
+- [ePub built using self](https://github.com/jayruin/web-epubs/releases/latest/download/Documentation.epub)
