@@ -14,10 +14,16 @@ class Epub2CreatorsFormatter(BaseFormatter):
         assert target is None
         creators = self.package_contents.metadata.creators
         result = ""
+        creator_number = 1
         for creator_name in creators:
-            result += constants.INDENT * indents
-            result += "<dc:creator"
-            if creators[creator_name]:
-                result += " opf:role=\"aut\""
-            result += f">{creator_name}</dc:creator>\n"
+            for creator_role in creators[creator_name]:
+                result += "".join(
+                    [
+                        constants.INDENT * indents,
+                        f"<dc:creator id=\"creator-id-{creator_number}\"",
+                        f" opf:role=\"{creator_role}\"",
+                        f">{creator_name}</dc:creator>\n"
+                    ]
+                )
+                creator_number += 1
         return result.strip()
