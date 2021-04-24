@@ -13,10 +13,10 @@ class CreatorsFormatter(BaseFormatter):
     ) -> str:
         assert target is None
         creators = self.package_contents.metadata.creators
-        content = ""
+        result = ""
         creator_number = 1
         # for creator_name in creators:
-        #     content += "".join(
+        #     result += "".join(
         #         [
         #             f"{constants.INDENT * indents}",
         #             f"<dc:creator id=\"creator-id-{creator_number}\">",
@@ -24,7 +24,7 @@ class CreatorsFormatter(BaseFormatter):
         #         ]
         #     )
         #     for creator_role in creators[creator_name]:
-        #         content += "".join(
+        #         result += "".join(
         #             [
         #                 f"{constants.INDENT * indents}"
         #                 f"<meta refines=\"#creator-id-{creator_number}\""
@@ -40,14 +40,14 @@ class CreatorsFormatter(BaseFormatter):
         # This is being fixed in https://github.com/w3c/epubcheck/issues/1230
         for creator_name in creators:
             for creator_role in creators[creator_name]:
-                content += "".join(
+                result += "".join(
                     [
                         f"{constants.INDENT * indents}",
                         f"<dc:creator id=\"creator-id-{creator_number}\">",
                         f"{creator_name}</dc:creator>\n"
                     ]
                 )
-                content += "".join(
+                result += "".join(
                     [
                         f"{constants.INDENT * indents}"
                         f"<meta refines=\"#creator-id-{creator_number}\""
@@ -56,4 +56,4 @@ class CreatorsFormatter(BaseFormatter):
                     ]
                 )
                 creator_number += 1
-        return content.strip()
+        return result.strip()
