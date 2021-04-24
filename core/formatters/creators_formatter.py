@@ -23,14 +23,14 @@ class CreatorsFormatter(BaseFormatter):
                     f"{creator_name}</dc:creator>\n"
                 ]
             )
-            if creators[creator_name]:
-                for creator_role in creators[creator_name]:
-                    content += "".join(
-                        [
-                            f"{constants.INDENT * indents}"
-                            f"<meta refines=\"#creator-id-{creator_number}\""
-                            " property=\"role\" scheme=\"marc:relators\">",
-                            f"{creator_role}</meta>\n"
-                        ]
-                    )
+            for creator_role in creators[creator_name]:
+                content += "".join(
+                    [
+                        f"{constants.INDENT * indents}"
+                        f"<meta refines=\"#creator-id-{creator_number}\""
+                        " property=\"role\" scheme=\"marc:relators\">",
+                        f"{creator_role}</meta>\n"
+                    ]
+                )
+            creator_number += 1
         return content.strip()
