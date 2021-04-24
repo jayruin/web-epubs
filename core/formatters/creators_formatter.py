@@ -15,15 +15,38 @@ class CreatorsFormatter(BaseFormatter):
         creators = self.package_contents.metadata.creators
         content = ""
         creator_number = 1
+        # for creator_name in creators:
+        #     content += "".join(
+        #         [
+        #             f"{constants.INDENT * indents}",
+        #             f"<dc:creator id=\"creator-id-{creator_number}\">",
+        #             f"{creator_name}</dc:creator>\n"
+        #         ]
+        #     )
+        #     for creator_role in creators[creator_name]:
+        #         content += "".join(
+        #             [
+        #                 f"{constants.INDENT * indents}"
+        #                 f"<meta refines=\"#creator-id-{creator_number}\""
+        #                 " property=\"role\" scheme=\"marc:relators\">",
+        #                 f"{creator_role}</meta>\n"
+        #             ]
+        #         )
+        #     creator_number += 1
+
+        # The following is a temporary workaround for EPUBCheck reporting:
+        # Property "role" cannot be declared more than once to refine
+        # a single "creator" or "contributor" property.
+        # This is being fixed in https://github.com/w3c/epubcheck/issues/1230
         for creator_name in creators:
-            content += "".join(
-                [
-                    f"{constants.INDENT * indents}",
-                    f"<dc:creator id=\"creator-id-{creator_number}\">",
-                    f"{creator_name}</dc:creator>\n"
-                ]
-            )
             for creator_role in creators[creator_name]:
+                content += "".join(
+                    [
+                        f"{constants.INDENT * indents}",
+                        f"<dc:creator id=\"creator-id-{creator_number}\">",
+                        f"{creator_name}</dc:creator>\n"
+                    ]
+                )
                 content += "".join(
                     [
                         f"{constants.INDENT * indents}"
@@ -32,5 +55,5 @@ class CreatorsFormatter(BaseFormatter):
                         f"{creator_role}</meta>\n"
                     ]
                 )
-            creator_number += 1
+                creator_number += 1
         return content.strip()

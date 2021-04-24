@@ -9,10 +9,11 @@
 
         <dc:creator id="creator-id-1">jayruin</dc:creator>
         <meta refines="#creator-id-1" property="role" scheme="marc:relators">aut</meta>
-        <meta refines="#creator-id-1" property="role" scheme="marc:relators">pbl</meta>
+        <dc:creator id="creator-id-2">jayruin</dc:creator>
+        <meta refines="#creator-id-2" property="role" scheme="marc:relators">pbl</meta>
 
         <dc:date>2020-08-26T00:00:00Z</dc:date>
-        <meta property="dcterms:modified">2021-04-24T10:46:32Z</meta>
+        <meta property="dcterms:modified">2021-04-24T11:04:47Z</meta>
     </metadata>
 
     <manifest>
