@@ -9,7 +9,7 @@ from core import constants
 @dataclass
 class Metadata:
     title: str
-    creators: dict[str, str]
+    creators: dict[str, list[str]]
     languages: list[str]
     cover: str = "img/cover.jpg"
     css: list[str] = field(default_factory=list)

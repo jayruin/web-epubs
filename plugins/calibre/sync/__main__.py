@@ -29,8 +29,8 @@ for project in args.projects:
     metadata = Metadata.from_json_path(f"html/{project}/_metadata.json")
     search_terms = []
     search_terms.append(f"title:\"={metadata.title}\"")
-    for creator_name, creator_role in metadata.creators.items():
-        if not creator_role or creator_role == "aut":
+    for creator_name, creator_roles in metadata.creators.items():
+        if not creator_roles or "aut" in creator_roles:
             search_terms.append(f"author:\"={creator_name}\"")
     ebook_file = f"./epub/{project}.epub"
     book_ids = calibredb.search(
