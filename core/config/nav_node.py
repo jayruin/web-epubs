@@ -1,13 +1,36 @@
+from __future__ import annotations
 import itertools
 from pathlib import Path
+from typing import Any
 
-from .node import Node
 from core import constants
 from core.htmlparsers.id_parser import IdParser
 from core.htmlparsers.tag_name_parser import TagNameParser
 
 
-class NavNode(Node):
+class NavNode:
+    def __init__(
+        self,
+        value: str,
+        children: list[NavNode]
+    ) -> None:
+        self.value: str = value
+        self.children: list[NavNode] = children
+
+    @classmethod
+    def from_dict(
+        cls,
+        nd: Any
+    ) -> NavNode:
+        value = next(iter(nd))
+        return cls(
+            value=value,
+            children=[
+                cls.from_dict(child)
+                for child in nd[value]
+            ]
+        )
+
     def get_nav_li(
         self,
         indents: int,

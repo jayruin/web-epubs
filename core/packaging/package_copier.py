@@ -18,8 +18,8 @@ class PackageCopier(ABC):
         template_str: str,
         template_indents: int,
         csslinks_formatter: CsslinksFormatter,
-        reader: Type[TextReader],
-        writer: Type[TextWriter]
+        reader: TextReader,
+        writer: TextWriter
     ) -> None:
         self.src_path: Path = Path(src)
         self.dst_path: Path = Path(dst)
@@ -27,8 +27,8 @@ class PackageCopier(ABC):
         self.template_indents: int = template_indents
         self.title_parser: TagNameParser = TagNameParser("title")
         self.csslinks_formatter: CsslinksFormatter = csslinks_formatter
-        self.reader: Type[TextReader] = reader
-        self.writer: Type[TextWriter] = writer
+        self.reader: TextReader = reader
+        self.writer: TextWriter = writer
 
         os.makedirs(self.dst_path, exist_ok=True)
 

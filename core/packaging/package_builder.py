@@ -56,8 +56,8 @@ class PackageBuilder(ABC):
             self.package_contents
         )
 
-        self.reader: Type[TextReader] = Utf8Reader()
-        self.writer: Type[TextWriter] = Utf8Writer()
+        self.reader: TextReader = Utf8Reader()
+        self.writer: TextWriter = Utf8Writer()
 
         shutil.rmtree(self.dst, ignore_errors=True)
 
