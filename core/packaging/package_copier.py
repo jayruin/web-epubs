@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 import os
 from pathlib import Path
 import shutil
-from typing import Type
 
 from core.files.readers.text_reader import TextReader
 from core.files.writers.text_writer import TextWriter

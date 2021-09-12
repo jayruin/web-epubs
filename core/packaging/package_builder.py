@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 import shutil
-from typing import Type
 
 from .package_contents import PackageContents
 from core.files.readers.text_reader import TextReader
