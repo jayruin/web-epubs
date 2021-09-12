@@ -1,7 +1,10 @@
 import datetime
+from enum import Enum
 
 
 INDENT: str = " " * 4
+
+NEWLINE: str = "\n"
 
 # https://html.spec.whatwg.org/#void-elements
 HTML_VOID_ELEMENTS: list[str] = [
@@ -20,6 +23,28 @@ HTML_VOID_ELEMENTS: list[str] = [
     "track",
     "wbr"
 ]
+
+
+class Encoding(Enum):
+    UTF_8 = "UTF-8"
+    ASCII = "ASCII"
+
+
+class Namespace(Enum):
+    CONTAINER = "urn:oasis:names:tc:opendocument:xmlns:container"
+    EPUB = "http://www.idpf.org/2007/ops"
+    XHTML = "http://www.w3.org/1999/xhtml"
+
+
+XML_HEADER: str = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+DOCTYPE_HTML_EPUB3: str = "<!DOCTYPE html>"
+DOCTYPE_HTML_EPUB2: str = " ".join(
+    [
+        "<!DOCTYPE html PUBLIC",
+        "\"-//W3C//DTD XHTML 1.1//EN\"",
+        "\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">"
+    ]
+)
 
 BUILD_TIME: str = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 COVER_XHTML: str = "_cover.xhtml"
