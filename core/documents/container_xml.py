@@ -12,9 +12,8 @@ class ContainerXML(EPUB3Document, EPUB2Document):
     https://www.w3.org/publishing/epub3/epub-ocf.html#sec-container-metainf-container.xml
     An XML document corresponding to the container.xml file.
     """
-    def __init__(self, resources_directory: str, package_opf: str) -> None:
-        self.resources_directory = resources_directory
-        self.package_opf = package_opf
+    def __init__(self, package_document: Path) -> None:
+        self.package_document = package_document
 
     def epub3(self, path: Path) -> None:
         container = etree.Element(
@@ -29,9 +28,7 @@ class ContainerXML(EPUB3Document, EPUB2Document):
         rootfile = etree.Element(
             "rootfile",
             attrib={
-                "full-path": Path(
-                    self.resources_directory, self.package_opf
-                ).as_posix(),
+                "full-path": self.package_document.as_posix(),
                 "media-type": "application/oebps-package+xml"
             }
         )
