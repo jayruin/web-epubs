@@ -8,6 +8,10 @@ from core.constants import Namespace
 
 
 class EPUB3Template(XHTMLTemplate):
+    """
+    https://www.w3.org/publishing/epub3/epub-contentdocs.html#sec-xhtml
+    Template for an EPUB3 XHTML content document.
+    """
     def __init__(self, css_files: list[Path], js_files: list[Path]) -> None:
         self.css_files = css_files
         self.js_files = js_files

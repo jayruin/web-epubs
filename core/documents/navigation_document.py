@@ -37,9 +37,11 @@ def nav_tree_to_li(nav_tree: Tree[Anchor]) -> Element:
     return li
 
 
-class NavXHTML(EPUB3Document, EPUB2Document):
+class NavigationDocument(EPUB3Document, EPUB2Document):
     """
-    An XHTML document corresponding to the nav/toc file.
+    https://www.w3.org/publishing/epub3/epub-packages.html#sec-package-nav
+    An XHTML document corresponding to the EPUB Navigation Document.
+    May also be used as an inline table of contents.
     """
     def __init__(
         self,
