@@ -5,14 +5,13 @@ from lxml import etree
 from .epub3document import EPUB3Document
 from .epub2document import EPUB2Document
 from core.constants import (
-    DOCTYPE_HTML_EPUB3,
     DOCTYPE_HTML_EPUB2,
     Encoding,
     INDENT,
     Namespace,
     XML_HEADER
 )
-from core.templates import EPUB3Template
+from core.templates import EPUB3Template, write_epub3_xhtml_element
 
 
 class CoverXHTML(EPUB3Document, EPUB2Document):
@@ -60,15 +59,7 @@ class CoverXHTML(EPUB3Document, EPUB2Document):
         )
         div.append(img)
 
-        etree.indent(html, space=INDENT)
-        with open(path, "wb") as f:
-            f.write(
-                etree.tostring(
-                    html,
-                    encoding=Encoding.UTF_8.value,
-                    doctype="\n".join([XML_HEADER, DOCTYPE_HTML_EPUB3])
-                )
-            )
+        write_epub3_xhtml_element(html, path)
 
     def epub2(self, path: Path) -> None:
         html = etree.Element("html", nsmap={None: Namespace.XHTML.value})

@@ -1,7 +1,9 @@
 from dataclasses import dataclass
+from typing import Optional
 
 
 @dataclass
 class Anchor:
-    href: str
     text: str
+    href: str
+    type: Optional[str] = None

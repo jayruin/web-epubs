@@ -1,20 +1,14 @@
 from pathlib import Path
+from typing import Optional
 
 from lxml import etree
 from lxml.etree import _Element as Element
 
 from .epub3document import EPUB3Document
 from .epub2document import EPUB2Document
-from core.constants import (
-    DOCTYPE_HTML_EPUB3,
-    # DOCTYPE_HTML_EPUB2,
-    Encoding,
-    INDENT,
-    Namespace,
-    XML_HEADER
-)
+from core.constants import Namespace
 from core.project import Anchor, Tree
-from core.templates import EPUB3Template
+from core.templates import EPUB3Template, write_epub3_xhtml_element
 
 
 def nav_tree_to_li(nav_tree: Tree[Anchor]) -> Element:
@@ -46,14 +40,16 @@ class NavigationDocument(EPUB3Document, EPUB2Document):
     def __init__(
         self,
         nav_trees: list[Tree[Anchor]],
-        css_files: list[Path]
+        css_files: list[Path],
+        landmarks: Optional[list[Anchor]] = None
     ) -> None:
         self.nav_trees = nav_trees
         self.css_files = css_files
+        self.landmarks = landmarks
 
     def epub3(self, path: Path) -> None:
         template = EPUB3Template(self.css_files, [])
-        html = template.generate_root_element("Contents")
+        html = template.generate_root_element("Navigation")
         body = html.find("body")
         assert body is not None
 
@@ -65,17 +61,30 @@ class NavigationDocument(EPUB3Document, EPUB2Document):
         )
         body.append(section)
 
+        h1 = etree.Element("h1")
+        h1.text = "Navigation"
+        section.append(h1)
+
+        toc_nav = self.epub3_generate_toc_element()
+        section.append(toc_nav)
+
+        landmarks_nav = self.epub3_generate_landmarks_element()
+        if landmarks_nav is not None:
+            section.append(landmarks_nav)
+
+        write_epub3_xhtml_element(html, path)
+
+    def epub3_generate_toc_element(self) -> Element:
         nav = etree.Element(
             "nav",
             attrib={
                 etree.QName(Namespace.EPUB.value, "type"): "toc"
             }
         )
-        section.append(nav)
 
-        h1 = etree.Element("h1")
-        h1.text = "Contents"
-        nav.append(h1)
+        h2 = etree.Element("h2")
+        h2.text = "Table of Contents"
+        nav.append(h2)
 
         ol = etree.Element(
             "ol",
@@ -88,15 +97,47 @@ class NavigationDocument(EPUB3Document, EPUB2Document):
         for nav_tree in self.nav_trees:
             ol.append(nav_tree_to_li(nav_tree))
 
-        etree.indent(html, space=INDENT)
-        with open(path, "wb") as f:
-            f.write(
-                etree.tostring(
-                    html,
-                    encoding=Encoding.UTF_8.value,
-                    doctype="\n".join([XML_HEADER, DOCTYPE_HTML_EPUB3])
-                )
+        return nav
+
+    def epub3_generate_landmarks_element(self) -> Optional[Element]:
+        if self.landmarks:
+            nav = etree.Element(
+                "nav",
+                attrib={
+                    etree.QName(Namespace.EPUB.value, "type"): "landmarks",
+                    "hidden": "hidden"
+                }
             )
+
+            h2 = etree.Element("h2")
+            h2.text = "Landmarks"
+            nav.append(h2)
+
+            ol = etree.Element(
+                "ol",
+                attrib={
+                    etree.QName(Namespace.EPUB.value, "type"): "list"
+                }
+            )
+            nav.append(ol)
+
+            for anchor in self.landmarks:
+                assert anchor.type
+
+                li = etree.Element("li")
+                ol.append(li)
+
+                a = etree.Element(
+                    "a",
+                    attrib={
+                        etree.QName(Namespace.EPUB.value, "type"): anchor.type,
+                        "href": anchor.href
+                    }
+                )
+                a.text = anchor.text
+                li.append(a)
+
+            return nav
 
     def epub2(self, path: Path) -> None:
         pass

@@ -4,7 +4,25 @@ from lxml import etree
 from lxml.etree import _Element as Element
 
 from .xhtml_template import XHTMLTemplate
-from core.constants import Namespace
+from core.constants import (
+    DOCTYPE_HTML_EPUB3,
+    Encoding,
+    INDENT,
+    Namespace,
+    XML_HEADER
+)
+
+
+def write_epub3_xhtml_element(root_element: Element, path: Path) -> None:
+    etree.indent(root_element, space=INDENT)
+    with open(path, "wb") as f:
+        f.write(
+            etree.tostring(
+                root_element,
+                encoding=Encoding.UTF_8.value,
+                doctype="\n".join([XML_HEADER, DOCTYPE_HTML_EPUB3])
+            )
+        )
 
 
 class EPUB3Template(XHTMLTemplate):
