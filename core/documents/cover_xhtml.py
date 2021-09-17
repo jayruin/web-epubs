@@ -26,8 +26,9 @@ class CoverXHTML(EPUB3Document, EPUB2Document):
     def epub3(self, path: Path) -> None:
         template = EPUB3Template(self.css_files, [])
         html = template.generate_root_element("Cover")
-        body = html.find("body")
-        assert body is not None
+
+        body = etree.Element("body")
+        html.append(body)
 
         section = etree.Element(
             "section",

@@ -67,7 +67,4 @@ class EPUB3Template(XHTMLTemplate):
             script.text = ""
             head.append(script)
 
-        body = etree.Element("body")
-        html.append(body)
-
         return html
