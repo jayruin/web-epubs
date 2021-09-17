@@ -32,10 +32,13 @@ class Encoding(Enum):
 
 class Namespace(Enum):
     CONTAINER = "urn:oasis:names:tc:opendocument:xmlns:container"
+    DC = "http://purl.org/dc/elements/1.1/"
     EPUB = "http://www.idpf.org/2007/ops"
+    OPF = "http://www.idpf.org/2007/opf"
     XHTML = "http://www.w3.org/1999/xhtml"
 
 
+UUID_NAMESPACE = "00000000-0000-0000-0000-000000000000"
 BUILD_TIME: str = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 COVER_XHTML: str = "_cover.xhtml"
 EPUB_DIRECTORY: str = "./epub"

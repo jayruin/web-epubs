@@ -1,7 +1,8 @@
 from pathlib import Path
 from typing import Optional, Union
+import uuid
 
-from core.constants import BUILD_TIME
+from core.constants import BUILD_TIME, UUID_NAMESPACE
 
 
 class Metadata:
@@ -13,7 +14,8 @@ class Metadata:
         cover: Optional[str] = None,
         css: list[Union[Path, str]] = [],
         js: list[Union[Path, str]] = [],
-        date: str = BUILD_TIME
+        date: str = BUILD_TIME,
+        identifier: Optional[str] = None
     ) -> None:
         self.title: str = title
         self.creators: dict[str, list[str]] = creators
@@ -30,3 +32,10 @@ class Metadata:
             for js_file in js
         ]
         self.date: str = date
+        self.identifier: str = (
+            identifier
+            or uuid.uuid5(
+                uuid.UUID(UUID_NAMESPACE),
+                " ".join([title, str(creators), str(languages)])
+            ).urn
+        )
