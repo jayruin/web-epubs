@@ -1,7 +1,6 @@
 from pathlib import Path
 
 from lxml import etree
-from lxml.etree import _Element as Element
 
 from .xhtml_template import XHTMLTemplate
 from core.constants import Namespace
@@ -19,7 +18,7 @@ class EPUB3Template(XHTMLTemplate):
     def fill(self, html_file: Path, xhtml_file: Path) -> None:
         pass
 
-    def generate_root_element(self, title_text: str) -> Element:
+    def generate_root_element(self, title_text: str) -> etree._Element:
         html = etree.Element(
             "html",
             nsmap={

@@ -2,7 +2,6 @@ from pathlib import Path
 from typing import Optional
 
 from lxml import etree
-from lxml.etree import _Element as Element
 
 from .epub3document import EPUB3Document
 from .epub2document import EPUB2Document
@@ -12,12 +11,12 @@ from core.serialize import write_epub3_xhtml_element
 from core.templates import EPUB3Template
 
 
-def nav_tree_to_li(nav_tree: Tree[Anchor]) -> Element:
+def nav_tree_to_li(nav_tree: Tree[Anchor]) -> etree._Element:
     li = etree.Element("li")
     a = etree.Element(
         "a",
         attrib={
-            "href": nav_tree.value.href
+            "href": nav_tree.value.href.as_posix()
         }
     )
     a.text = nav_tree.value.text
@@ -76,7 +75,7 @@ class NavigationDocument(EPUB3Document, EPUB2Document):
 
         write_epub3_xhtml_element(html, path)
 
-    def epub3_generate_toc_element(self) -> Element:
+    def epub3_generate_toc_element(self) -> etree._Element:
         nav = etree.Element(
             "nav",
             attrib={
@@ -101,7 +100,7 @@ class NavigationDocument(EPUB3Document, EPUB2Document):
 
         return nav
 
-    def epub3_generate_landmarks_element(self) -> Optional[Element]:
+    def epub3_generate_landmarks_element(self) -> Optional[etree._Element]:
         if self.landmarks:
             nav = etree.Element(
                 "nav",
@@ -133,7 +132,7 @@ class NavigationDocument(EPUB3Document, EPUB2Document):
                     "a",
                     attrib={
                         etree.QName(Namespace.EPUB.value, "type"): anchor.type,
-                        "href": anchor.href
+                        "href": anchor.href.as_posix()
                     }
                 )
                 a.text = anchor.text

@@ -5,6 +5,7 @@ from .anchor import Anchor
 from .metadata import Metadata
 from .tree import Tree
 from core.config import NavNode
+from core.deserialize import read_metadata
 from core.legacy import navnode_to_tree
 
 
@@ -21,7 +22,7 @@ class EPUBProject:
         self.name: str = name
         self.source: Path = Path(self.HTML_DIRECTORY, name)
 
-        self.metadata: Metadata = Metadata.from_json_path(
+        self.metadata: Metadata = read_metadata(
             Path(self.source, self.METADATA_JSON)
         )
 

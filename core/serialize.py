@@ -1,6 +1,5 @@
 from pathlib import Path
 from lxml import etree
-from lxml.etree import _Element as Element
 
 from core.constants import Encoding, INDENT
 
@@ -22,7 +21,10 @@ def get_xml_header(encoding: str) -> str:
     return f"<?xml version=\"1.0\" encoding=\"{encoding}\"?>"
 
 
-def write_epub3_xhtml_element(root_element: Element, path: Path) -> None:
+def write_epub3_xhtml_element(
+    root_element: etree._Element,
+    path: Path
+) -> None:
     etree.indent(root_element, space=INDENT)
     with open(path, "wb") as f:
         f.write(
@@ -39,7 +41,10 @@ def write_epub3_xhtml_element(root_element: Element, path: Path) -> None:
         )
 
 
-def write_epub2_xhtml_element(root_element: Element, path: Path) -> None:
+def write_epub2_xhtml_element(
+    root_element: etree._Element,
+    path: Path
+) -> None:
     etree.indent(root_element, space=INDENT)
     with open(path, "wb") as f:
         f.write(
@@ -56,7 +61,10 @@ def write_epub2_xhtml_element(root_element: Element, path: Path) -> None:
         )
 
 
-def write_xml_element(root_element: Element, path: Path) -> None:
+def write_xml_element(
+    root_element: etree._Element,
+    path: Path
+) -> None:
     etree.indent(root_element, space=INDENT)
     with open(path, "wb") as f:
         f.write(
