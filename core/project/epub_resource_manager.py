@@ -14,7 +14,7 @@ class EPUBResourceManager:
 
     def clear(self) -> None:
         """
-        Clear all resources and deletes added files.
+        Clear all resources and delete already added files.
         """
         self.resources.clear()
         self.xhtml_to_html.clear()

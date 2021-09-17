@@ -8,7 +8,8 @@ from .epub3document import EPUB3Document
 from .epub2document import EPUB2Document
 from core.constants import Namespace
 from core.project import Anchor, Tree
-from core.templates import EPUB3Template, write_epub3_xhtml_element
+from core.serialize import write_epub3_xhtml_element
+from core.templates import EPUB3Template
 
 
 def nav_tree_to_li(nav_tree: Tree[Anchor]) -> Element:
