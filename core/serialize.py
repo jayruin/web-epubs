@@ -54,3 +54,15 @@ def write_epub2_xhtml_element(root_element: Element, path: Path) -> None:
                 )
             )
         )
+
+
+def write_xml_element(root_element: Element, path: Path) -> None:
+    etree.indent(root_element, space=INDENT)
+    with open(path, "wb") as f:
+        f.write(
+            etree.tostring(
+                root_element,
+                encoding=Encoding.UTF_8.value,
+                doctype=get_xml_header(Encoding.UTF_8.value)
+            )
+        )

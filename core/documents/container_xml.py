@@ -4,7 +4,8 @@ from lxml import etree
 
 from .epub3document import EPUB3Document
 from .epub2document import EPUB2Document
-from core.constants import Encoding, INDENT, Namespace, XML_HEADER
+from core.constants import Namespace
+from core.serialize import write_xml_element
 
 
 class ContainerXML(EPUB3Document, EPUB2Document):
@@ -34,15 +35,7 @@ class ContainerXML(EPUB3Document, EPUB2Document):
         )
         rootfiles.append(rootfile)
 
-        etree.indent(container, space=INDENT)
-        with open(path, "wb") as f:
-            f.write(
-                etree.tostring(
-                    container,
-                    encoding=Encoding.UTF_8.value,
-                    doctype=XML_HEADER
-                )
-            )
+        write_xml_element(container, path)
 
     def epub2(self, path: Path) -> None:
         self.epub3(path)
