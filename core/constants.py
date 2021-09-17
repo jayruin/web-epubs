@@ -36,16 +36,6 @@ class Namespace(Enum):
     XHTML = "http://www.w3.org/1999/xhtml"
 
 
-XML_HEADER: str = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-DOCTYPE_HTML_EPUB3: str = "<!DOCTYPE html>"
-DOCTYPE_HTML_EPUB2: str = " ".join(
-    [
-        "<!DOCTYPE html PUBLIC",
-        "\"-//W3C//DTD XHTML 1.1//EN\"",
-        "\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">"
-    ]
-)
-
 BUILD_TIME: str = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 COVER_XHTML: str = "_cover.xhtml"
 EPUB_DIRECTORY: str = "./epub"
