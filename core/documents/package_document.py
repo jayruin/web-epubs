@@ -18,10 +18,12 @@ class EPUB3PackageDocument(EPUB3Document):
     def __init__(
         self,
         epub_metadata: EPUBMetadata,
-        resources: dict[Path, EPUBResource]
+        resources: dict[Path, EPUBResource],
+        progression: list[Path]
     ) -> None:
         self.epub_metadata = epub_metadata
         self.resources = resources
+        self.progression = progression
 
     def epub3(self, path: Path) -> None:
         """
@@ -30,6 +32,7 @@ class EPUB3PackageDocument(EPUB3Document):
         package = make_epub3_package_element(
             self.epub_metadata,
             self.resources,
+            self.progression,
             self.UNIQUE_IDENTIFIER_ID
         )
 
@@ -46,6 +49,7 @@ class EPUB2PackageDocument(EPUB2Document):
 def make_epub3_package_element(
     epub_metadata: EPUBMetadata,
     resources: dict[Path, EPUBResource],
+    progression: list[Path],
     UNIQUE_IDENTIFIER_ID: str
 ) -> etree._Element:
     package = etree.Element(
@@ -67,6 +71,9 @@ def make_epub3_package_element(
 
     manifest = make_epub3_manifest_element(resources)
     package.append(manifest)
+
+    spine = make_epub3_spine_element(resources, progression)
+    package.append(spine)
 
     return package
 
@@ -174,3 +181,22 @@ def make_epub3_manifest_element(
         manifest.append(item)
 
     return manifest
+
+
+def make_epub3_spine_element(
+    resources: dict[Path, EPUBResource],
+    progression: list[Path]
+) -> etree._Element:
+    spine = etree.Element("spine")
+
+    for path in progression:
+        item = etree.Element(
+            "item",
+            attrib={
+                "idref": resources[path].manifest_id,
+                "linear": "yes"
+            }
+        )
+        spine.append(item)
+
+    return spine
