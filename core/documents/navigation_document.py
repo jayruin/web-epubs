@@ -42,7 +42,7 @@ class NavigationDocument(EPUB3Document, EPUB2Document):
         pass
 
 
-def nav_tree_to_li(nav_tree: Tree[Anchor]) -> etree._Element:
+def make_li_element(nav_tree: Tree[Anchor]) -> etree._Element:
     li = etree.Element("li")
     a = etree.Element(
         "a",
@@ -57,7 +57,7 @@ def nav_tree_to_li(nav_tree: Tree[Anchor]) -> etree._Element:
         ol = etree.Element("ol")
         li.append(ol)
         for child in nav_tree.children:
-            ol.append(nav_tree_to_li(child))
+            ol.append(make_li_element(child))
 
     return li
 
@@ -66,7 +66,7 @@ def make_ol_element(nav_trees: list[Tree[Anchor]]) -> etree._Element:
     ol = etree.Element("ol")
 
     for nav_tree in nav_trees:
-        ol.append(nav_tree_to_li(nav_tree))
+        ol.append(make_li_element(nav_tree))
 
     return ol
 
