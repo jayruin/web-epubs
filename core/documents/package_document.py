@@ -9,7 +9,7 @@ from core.project import EPUBMetadata
 from core.serialize import write_xml_element
 
 
-class PackageDocument(EPUB3Document, EPUB2Document):
+class EPUB3PackageDocument(EPUB3Document):
     """
     An XML document corresponding to the EPUB Package Document.
     """
@@ -29,7 +29,12 @@ class PackageDocument(EPUB3Document, EPUB2Document):
 
         write_xml_element(package, path)
 
-    def epub2(self, path: Path) -> None: ...
+
+class EPUB2PackageDocument(EPUB2Document):
+    """
+    An XML document corresponding to the EPUB Package Document.
+    """
+    pass
 
 
 def make_epub3_package_element(
