@@ -5,13 +5,12 @@ from typing import Generic, Iterable, TypeVar
 T = TypeVar("T")
 
 
-def depth_first_traversal(tree: Tree[T]) -> Iterable[T]:
-    yield tree.value
-    for child in tree.children:
-        yield from depth_first_traversal(child)
-
-
 @dataclass
 class Tree(Generic[T]):
     value: T
     children: list[Tree[T]]
+
+    def depth_first_traversal(self) -> Iterable[T]:
+        yield self.value
+        for child in self.children:
+            yield from child.depth_first_traversal()
