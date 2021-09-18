@@ -62,6 +62,15 @@ def nav_tree_to_li(nav_tree: Tree[Anchor]) -> etree._Element:
     return li
 
 
+def make_ol_element(nav_trees: list[Tree[Anchor]]) -> etree._Element:
+    ol = etree.Element("ol")
+
+    for nav_tree in nav_trees:
+        ol.append(nav_tree_to_li(nav_tree))
+
+    return ol
+
+
 def make_epub3_body_element(
     nav_trees: list[Tree[Anchor]],
     landmarks: Optional[list[Anchor]] = None
@@ -90,9 +99,7 @@ def make_epub3_body_element(
     return body
 
 
-def make_epub3_toc_element(
-    nav_trees: list[Tree[Anchor]]
-) -> etree._Element:
+def make_epub3_toc_element(nav_trees: list[Tree[Anchor]]) -> etree._Element:
     nav = etree.Element(
         "nav",
         attrib={
@@ -104,23 +111,13 @@ def make_epub3_toc_element(
     h2.text = "Table of Contents"
     nav.append(h2)
 
-    ol = etree.Element(
-        "ol",
-        attrib={
-            etree.QName(Namespace.EPUB.value, "type"): "list"
-        }
-    )
+    ol = make_ol_element(nav_trees)
     nav.append(ol)
-
-    for nav_tree in nav_trees:
-        ol.append(nav_tree_to_li(nav_tree))
 
     return nav
 
 
-def make_epub3_landmarks_element(
-    landmarks: list[Anchor]
-) -> etree._Element:
+def make_epub3_landmarks_element(landmarks: list[Anchor]) -> etree._Element:
     nav = etree.Element(
         "nav",
         attrib={
