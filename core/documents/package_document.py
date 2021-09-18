@@ -5,7 +5,7 @@ from lxml import etree
 from .epub3document import EPUB3Document
 from .epub2document import EPUB2Document
 from core.constants import BUILD_TIME, Namespace
-from core.project import EPUBMetadata
+from core.project import EPUBMetadata, EPUBResource
 from core.serialize import write_xml_element
 
 
@@ -15,8 +15,13 @@ class EPUB3PackageDocument(EPUB3Document):
     """
     UNIQUE_IDENTIFIER_ID = "publication-id"
 
-    def __init__(self, epub_metadata: EPUBMetadata) -> None:
+    def __init__(
+        self,
+        epub_metadata: EPUBMetadata,
+        resources: dict[Path, EPUBResource]
+    ) -> None:
         self.epub_metadata = epub_metadata
+        self.resources = resources
 
     def epub3(self, path: Path) -> None:
         """
@@ -24,6 +29,7 @@ class EPUB3PackageDocument(EPUB3Document):
         """
         package = make_epub3_package_element(
             self.epub_metadata,
+            self.resources,
             self.UNIQUE_IDENTIFIER_ID
         )
 
@@ -39,6 +45,7 @@ class EPUB2PackageDocument(EPUB2Document):
 
 def make_epub3_package_element(
     epub_metadata: EPUBMetadata,
+    resources: dict[Path, EPUBResource],
     UNIQUE_IDENTIFIER_ID: str
 ) -> etree._Element:
     package = etree.Element(
@@ -57,6 +64,9 @@ def make_epub3_package_element(
         UNIQUE_IDENTIFIER_ID
     )
     package.append(metadata)
+
+    manifest = make_epub3_manifest_element(resources)
+    package.append(manifest)
 
     return package
 
@@ -142,3 +152,25 @@ def make_epub3_metadata_element(
     metadata.append(meta_modified)
 
     return metadata
+
+
+def make_epub3_manifest_element(
+    resources: dict[Path, EPUBResource]
+) -> etree._Element:
+    manifest = etree.Element("manifest")
+
+    for path in sorted(resources, key=lambda p: p.as_posix()):
+        epub_resource = resources[path]
+        item = etree.Element(
+            "item",
+            attrib={
+                "href": epub_resource.href.as_posix(),
+                "id": epub_resource.manifest_id,
+                "media-type": epub_resource.mimetype
+            }
+        )
+        if epub_resource.properties:
+            item.set("properties", epub_resource.properties)
+        manifest.append(item)
+
+    return manifest

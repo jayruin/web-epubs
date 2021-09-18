@@ -1,14 +1,14 @@
 from .container_xml import ContainerXML
 from .cover_xhtml import CoverXHTML
 from .mimetype_file import MimetypeFile
-from .navigation_document import nav_tree_to_li, NavigationDocument
-from .package_document import PackageDocument
+from .navigation_document import NavigationDocument
+from .package_document import EPUB2PackageDocument, EPUB3PackageDocument
 
 __all__ = [
     "ContainerXML",
     "CoverXHTML",
+    "EPUB2PackageDocument",
+    "EPUB3PackageDocument",
     "MimetypeFile",
-    "nav_tree_to_li",
-    "NavigationDocument",
-    "PackageDocument"
+    "NavigationDocument"
 ]
