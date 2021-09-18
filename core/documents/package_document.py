@@ -4,7 +4,7 @@ from lxml import etree
 
 from .epub3document import EPUB3Document
 from .epub2document import EPUB2Document
-from core.constants import Namespace
+from core.constants import BUILD_TIME, Namespace
 from core.project import Metadata
 from core.serialize import write_xml_element
 
@@ -77,6 +77,41 @@ class PackageDocument(EPUB3Document, EPUB2Document):
         )
         dc_title_meta.text = "main"
         metadata.append(dc_title_meta)
+
+        for id_counter, creator in enumerate(self.metadata.creators, start=1):
+            roles = self.metadata.creators[creator]
+            dc_creator = etree.Element(
+                etree.QName(Namespace.DC.value, "creator").text,
+                attrib={
+                    "id": f"creator-id-{id_counter}"
+                }
+            )
+            dc_creator.text = creator
+            metadata.append(dc_creator)
+            for role in roles:
+                dc_creator_meta = etree.Element(
+                    "meta",
+                    attrib={
+                        "refines": f"#creator-id-{id_counter}",
+                        "property": "role",
+                        "scheme": "marc:relators"
+                    }
+                )
+                dc_creator_meta.text = role
+                metadata.append(dc_creator_meta)
+
+        dc_date = etree.Element(etree.QName(Namespace.DC.value, "date").text)
+        dc_date.text = self.metadata.date
+        metadata.append(dc_date)
+
+        meta_modified = etree.Element(
+            "meta",
+            attrib={
+                "property": "dcterms:modified"
+            }
+        )
+        meta_modified.text = BUILD_TIME
+        metadata.append(meta_modified)
 
         return metadata
 
