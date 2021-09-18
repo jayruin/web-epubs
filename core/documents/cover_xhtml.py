@@ -27,40 +27,10 @@ class CoverXHTML(EPUB3Document, EPUB2Document):
         template = EPUB3Template(self.css_files, [])
         html = template.generate_root_element("Cover")
 
-        body = self.epub3_generate_body_element()
+        body = epub3_generate_body_element(self.cover_file, self.css_class)
         html.append(body)
 
         write_epub3_xhtml_element(html, path)
-
-    def epub3_generate_body_element(self) -> etree._Element:
-        body = etree.Element("body")
-
-        section = etree.Element(
-            "section",
-            attrib={
-                etree.QName(Namespace.EPUB.value, "type"): "cover"
-            }
-        )
-        body.append(section)
-
-        div = etree.Element(
-            "div",
-            attrib={
-                "class": self.css_class
-            }
-        )
-        section.append(div)
-
-        img = etree.Element(
-            "img",
-            attrib={
-                "alt": "Cover",
-                "src": self.cover_file.as_posix()
-            }
-        )
-        div.append(img)
-
-        return body
 
     def epub2(self, path: Path) -> None:
         html = etree.Element("html", nsmap={None: Namespace.XHTML.value})
@@ -97,3 +67,37 @@ class CoverXHTML(EPUB3Document, EPUB2Document):
         div.append(img)
 
         write_epub2_xhtml_element(html, path)
+
+
+def epub3_generate_body_element(
+    cover_file: Path,
+    css_class: str
+) -> etree._Element:
+    body = etree.Element("body")
+
+    section = etree.Element(
+        "section",
+        attrib={
+            etree.QName(Namespace.EPUB.value, "type"): "cover"
+        }
+    )
+    body.append(section)
+
+    div = etree.Element(
+        "div",
+        attrib={
+            "class": css_class
+        }
+    )
+    section.append(div)
+
+    img = etree.Element(
+        "img",
+        attrib={
+            "alt": "Cover",
+            "src": cover_file.as_posix()
+        }
+    )
+    div.append(img)
+
+    return body

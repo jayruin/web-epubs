@@ -5,7 +5,7 @@ import uuid
 from core.constants import BUILD_TIME, UUID_NAMESPACE
 
 
-class Metadata:
+class EPUBMetadata:
     def __init__(
         self,
         title: str,

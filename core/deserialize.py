@@ -1,9 +1,9 @@
 import json
 from pathlib import Path
 
-from core.project.metadata import Metadata
+from core.project.epub_metadata import EPUBMetadata
 
 
-def read_metadata(path: Path) -> Metadata:
+def read_epub_metadata(path: Path) -> EPUBMetadata:
     with open(path, "rb") as f:
-        return Metadata(**json.load(f))
+        return EPUBMetadata(**json.load(f))

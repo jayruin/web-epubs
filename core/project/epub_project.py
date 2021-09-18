@@ -2,10 +2,10 @@ import json
 from pathlib import Path
 
 from .anchor import Anchor
-from .metadata import Metadata
+from .epub_metadata import EPUBMetadata
 from .tree import Tree
 from core.config import NavNode
-from core.deserialize import read_metadata
+from core.deserialize import read_epub_metadata
 from core.legacy import navnode_to_tree
 
 
@@ -22,7 +22,7 @@ class EPUBProject:
         self.name: str = name
         self.source: Path = Path(self.HTML_DIRECTORY, name)
 
-        self.metadata: Metadata = read_metadata(
+        self.epub_metadata: EPUBMetadata = read_epub_metadata(
             Path(self.source, self.METADATA_JSON)
         )
 
