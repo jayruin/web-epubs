@@ -20,6 +20,11 @@ class PackageDocument(EPUB3Document, EPUB2Document):
         self.metadata = metadata
 
     def epub3(self, path: Path) -> None:
+        package = self.epub3_generate_package_element()
+
+        write_xml_element(package, path)
+
+    def epub3_generate_package_element(self) -> etree._Element:
         package = etree.Element(
             "package",
             attrib={
@@ -34,7 +39,7 @@ class PackageDocument(EPUB3Document, EPUB2Document):
         metadata = self.epub3_generate_metadata_element()
         package.append(metadata)
 
-        write_xml_element(package, path)
+        return package
 
     def epub3_generate_metadata_element(self) -> etree._Element:
         metadata = etree.Element(

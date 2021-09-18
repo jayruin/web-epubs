@@ -16,7 +16,7 @@ class ContainerXML(EPUB3Document, EPUB2Document):
     def __init__(self, package_document: Path) -> None:
         self.package_document = package_document
 
-    def epub3(self, path: Path) -> None:
+    def generate_container_element(self) -> etree._Element:
         container = etree.Element(
             "container",
             attrib={"version": "1.0"},
@@ -34,6 +34,11 @@ class ContainerXML(EPUB3Document, EPUB2Document):
             }
         )
         rootfiles.append(rootfile)
+
+        return container
+
+    def epub3(self, path: Path) -> None:
+        container = self.generate_container_element()
 
         write_xml_element(container, path)
 

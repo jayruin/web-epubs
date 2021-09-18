@@ -51,8 +51,13 @@ class NavigationDocument(EPUB3Document, EPUB2Document):
         template = EPUB3Template(self.css_files, [])
         html = template.generate_root_element("Navigation")
 
-        body = etree.Element("body")
+        body = self.epub3_generate_body_element()
         html.append(body)
+
+        write_epub3_xhtml_element(html, path)
+
+    def epub3_generate_body_element(self) -> etree._Element:
+        body = etree.Element("body")
 
         section = etree.Element(
             "section",
@@ -73,7 +78,7 @@ class NavigationDocument(EPUB3Document, EPUB2Document):
         if landmarks_nav is not None:
             section.append(landmarks_nav)
 
-        write_epub3_xhtml_element(html, path)
+        return body
 
     def epub3_generate_toc_element(self) -> etree._Element:
         nav = etree.Element(
