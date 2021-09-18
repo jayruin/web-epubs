@@ -33,7 +33,7 @@ class NavigationDocument(EPUB3Document, EPUB2Document):
         template = EPUB3Template(self.css_files, [])
         html = template.generate_root_element("Navigation")
 
-        body = epub3_generate_body_element(self.nav_trees, self.landmarks)
+        body = make_epub3_body_element(self.nav_trees, self.landmarks)
         html.append(body)
 
         write_epub3_xhtml_element(html, path)
@@ -62,7 +62,7 @@ def nav_tree_to_li(nav_tree: Tree[Anchor]) -> etree._Element:
     return li
 
 
-def epub3_generate_body_element(
+def make_epub3_body_element(
     nav_trees: list[Tree[Anchor]],
     landmarks: Optional[list[Anchor]] = None
 ) -> etree._Element:
@@ -80,17 +80,17 @@ def epub3_generate_body_element(
     h1.text = "Navigation"
     section.append(h1)
 
-    toc_nav = epub3_generate_toc_element(nav_trees)
+    toc_nav = make_epub3_toc_element(nav_trees)
     section.append(toc_nav)
 
     if landmarks is not None:
-        landmarks_nav = epub3_generate_landmarks_element(landmarks)
+        landmarks_nav = make_epub3_landmarks_element(landmarks)
         section.append(landmarks_nav)
 
     return body
 
 
-def epub3_generate_toc_element(
+def make_epub3_toc_element(
     nav_trees: list[Tree[Anchor]]
 ) -> etree._Element:
     nav = etree.Element(
@@ -118,7 +118,7 @@ def epub3_generate_toc_element(
     return nav
 
 
-def epub3_generate_landmarks_element(
+def make_epub3_landmarks_element(
     landmarks: list[Anchor]
 ) -> etree._Element:
     nav = etree.Element(

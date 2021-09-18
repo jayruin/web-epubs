@@ -22,7 +22,7 @@ class PackageDocument(EPUB3Document, EPUB2Document):
         """
         https://www.w3.org/publishing/epub3/epub-packages.html#sec-package-doc
         """
-        package = epub3_generate_package_element(
+        package = make_epub3_package_element(
             self.epub_metadata,
             self.UNIQUE_IDENTIFIER_ID
         )
@@ -32,7 +32,7 @@ class PackageDocument(EPUB3Document, EPUB2Document):
     def epub2(self, path: Path) -> None: ...
 
 
-def epub3_generate_package_element(
+def make_epub3_package_element(
     epub_metadata: EPUBMetadata,
     UNIQUE_IDENTIFIER_ID: str
 ) -> etree._Element:
@@ -47,7 +47,7 @@ def epub3_generate_package_element(
         }
     )
 
-    metadata = epub3_generate_metadata_element(
+    metadata = make_epub3_metadata_element(
         epub_metadata,
         UNIQUE_IDENTIFIER_ID
     )
@@ -56,7 +56,7 @@ def epub3_generate_package_element(
     return package
 
 
-def epub3_generate_metadata_element(
+def make_epub3_metadata_element(
     epub_metadata: EPUBMetadata,
     UNIQUE_IDENTIFIER_ID: str
 ) -> etree._Element:

@@ -19,7 +19,7 @@ class ContainerXML(EPUB3Document, EPUB2Document):
         """
         https://www.w3.org/publishing/epub3/epub-ocf.html#sec-container-metainf-container.xml
         """
-        container = generate_container_element(self.package_document)
+        container = make_container_element(self.package_document)
 
         write_xml_element(container, path)
 
@@ -30,7 +30,7 @@ class ContainerXML(EPUB3Document, EPUB2Document):
         self.epub3(path)
 
 
-def generate_container_element(package_document: Path) -> etree._Element:
+def make_container_element(package_document: Path) -> etree._Element:
     container = etree.Element(
         "container",
         attrib={"version": "1.0"},

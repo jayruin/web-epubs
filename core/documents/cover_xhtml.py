@@ -27,7 +27,7 @@ class CoverXHTML(EPUB3Document, EPUB2Document):
         template = EPUB3Template(self.css_files, [])
         html = template.generate_root_element("Cover")
 
-        body = epub3_generate_body_element(self.cover_file, self.css_class)
+        body = make_epub3_body_element(self.cover_file, self.css_class)
         html.append(body)
 
         write_epub3_xhtml_element(html, path)
@@ -69,7 +69,7 @@ class CoverXHTML(EPUB3Document, EPUB2Document):
         write_epub2_xhtml_element(html, path)
 
 
-def epub3_generate_body_element(
+def make_epub3_body_element(
     cover_file: Path,
     css_class: str
 ) -> etree._Element:
