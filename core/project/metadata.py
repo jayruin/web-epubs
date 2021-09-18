@@ -10,7 +10,7 @@ class Metadata:
         self,
         title: str,
         creators: dict[str, list[str]],
-        languages: list[str],
+        languages: list[str] = ["en"],
         cover: Optional[str] = None,
         css: list[Union[Path, str]] = [],
         js: list[Union[Path, str]] = [],
