@@ -23,9 +23,11 @@ def get_xml_header(encoding: str) -> str:
 
 def write_epub3_xhtml_element(
     root_element: etree._Element,
-    path: Path
+    path: Path,
+    indent: bool = True
 ) -> None:
-    etree.indent(root_element, space=INDENT)
+    if indent:
+        etree.indent(root_element, space=INDENT)
     with open(path, "wb") as f:
         f.write(
             etree.tostring(
@@ -43,9 +45,11 @@ def write_epub3_xhtml_element(
 
 def write_epub2_xhtml_element(
     root_element: etree._Element,
-    path: Path
+    path: Path,
+    indent: bool = True
 ) -> None:
-    etree.indent(root_element, space=INDENT)
+    if indent:
+        etree.indent(root_element, space=INDENT)
     with open(path, "wb") as f:
         f.write(
             etree.tostring(
@@ -63,9 +67,11 @@ def write_epub2_xhtml_element(
 
 def write_xml_element(
     root_element: etree._Element,
-    path: Path
+    path: Path,
+    indent: bool = True
 ) -> None:
-    etree.indent(root_element, space=INDENT)
+    if indent:
+        etree.indent(root_element, space=INDENT)
     with open(path, "wb") as f:
         f.write(
             etree.tostring(

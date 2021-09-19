@@ -22,7 +22,7 @@ class EPUB3Template(XHTMLTemplate):
         body = source_html.find("body")
         html_root = self.generate_root_element(title.text)
         html_root.append(body)
-        write_epub3_xhtml_element(html_root, xhtml_file)
+        write_epub3_xhtml_element(html_root, xhtml_file, indent=False)
 
     def generate_root_element(self, title_text: str) -> etree._Element:
         html_root = etree.Element(
