@@ -1,5 +1,6 @@
 from pathlib import Path
 import shutil
+from typing import Optional
 
 from .epub_resource import EPUBResource
 from core.templates import XHTMLTemplate
@@ -23,15 +24,17 @@ class EPUBResourceManager:
 
     def import_resources(
         self,
-        root: Path,
         path: Path,
-        xhtml_template: XHTMLTemplate
+        root: Optional[Path] = None
     ) -> None:
         """
         Recursively copy resource files from the given path starting from root.
+        If root is not specified, then it defaults to path.
         Files beginning with underscore _ are skipped.
         Handling of HTML files is deferred until convert_html is called.
         """
+        if root is None:
+            root = path
         assert root.is_dir()
         if path.is_file():
             resource_path = path.relative_to(root)
@@ -49,7 +52,7 @@ class EPUBResourceManager:
                 shutil.copyfile(path, destination)
         elif path.is_dir():
             for child_path in path.iterdir():
-                self.import_resources(root, child_path, xhtml_template)
+                self.import_resources(child_path, root)
 
     def convert_html(self, xhtml_template: XHTMLTemplate) -> None:
         """
