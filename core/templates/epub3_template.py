@@ -1,9 +1,10 @@
 from pathlib import Path
 
-from lxml import etree
+from lxml import etree, html
 
 from .xhtml_template import XHTMLTemplate
 from core.constants import Namespace
+from core.serialize import write_epub3_xhtml_element
 
 
 class EPUB3Template(XHTMLTemplate):
@@ -16,10 +17,15 @@ class EPUB3Template(XHTMLTemplate):
         self.js_files = js_files
 
     def fill(self, html_file: Path, xhtml_file: Path) -> None:
-        pass
+        source_html = html.parse(html_file.as_posix())
+        title = source_html.find("head/title")
+        body = source_html.find("body")
+        html_root = self.generate_root_element(title.text)
+        html_root.append(body)
+        write_epub3_xhtml_element(html_root, xhtml_file)
 
     def generate_root_element(self, title_text: str) -> etree._Element:
-        html = etree.Element(
+        html_root = etree.Element(
             "html",
             nsmap={
                 None: Namespace.XHTML.value,
@@ -28,7 +34,7 @@ class EPUB3Template(XHTMLTemplate):
         )
 
         head = etree.Element("head")
-        html.append(head)
+        html_root.append(head)
 
         title = etree.Element("title")
         title.text = title_text
@@ -66,4 +72,4 @@ class EPUB3Template(XHTMLTemplate):
             script.text = ""
             head.append(script)
 
-        return html
+        return html_root

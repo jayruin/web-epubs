@@ -10,28 +10,29 @@ from core.legacy import navnode_to_tree
 
 
 class EPUBProject:
+    CONTAINER_XML: str = "container.xml"
     COVER_CSS_CLASS: str = "cover-image"
-    HTML_DIRECTORY: str = "html"
+    META_INF = "META-INF"
     METADATA_JSON: str = "_metadata.json"
+    MIMETYPE_FILE: str = "mimetype"
     NAV_JSON: str = "_nav.json"
     PACKAGE_OPF: str = "_package.opf"
     RESOURCES_DIRECTORY: str = "OEBPS"
-    UNZIPPED_EPUBS_DIRECTORY: str = "docs"
 
-    def __init__(self, name: str) -> None:
-        self.name: str = name
-        self.source: Path = Path(self.HTML_DIRECTORY, name)
+    def __init__(self, root: Path) -> None:
+        self.root: Path = root
+        self.name: str = root.stem
 
         self.epub_metadata: EPUBMetadata = read_epub_metadata(
-            Path(self.source, self.METADATA_JSON)
+            Path(self.root, self.METADATA_JSON)
         )
 
         self.nav_trees: list[Tree[Anchor]] = []
-        with open(Path(self.source, self.NAV_JSON), "rb") as f:
+        with open(Path(self.root, self.NAV_JSON), "rb") as f:
             for d in json.load(f):
                 self.nav_trees.append(
                     navnode_to_tree(
                         NavNode.from_dict(d),
-                        self.source.as_posix()
+                        self.root.as_posix()
                     )
                 )
