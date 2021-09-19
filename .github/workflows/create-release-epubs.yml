@@ -6,7 +6,7 @@ on:
     paths:
       - "epub/**"
       - "!epub/zipping.py"
-      - "!epub/build"
+      - "!epub/build/**"
 
   workflow_dispatch:
 
