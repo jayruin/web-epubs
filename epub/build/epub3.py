@@ -115,10 +115,11 @@ class Builder:
             default_cover = Path("_cover.jpg")
             fill_blank_cover(Path(self.resource_manager.root, default_cover))
             self.project.epub_metadata.cover = default_cover
-            self.resource_manager.resources[default_cover] = EPUBResource(
-                default_cover,
-                properties="cover-image"
-            )
+        cover = self.project.epub_metadata.cover
+        self.resource_manager.resources[cover] = EPUBResource(
+            cover,
+            properties="cover-image"
+        )
         cover_xhtml = CoverXHTML(
             self.project.epub_metadata.cover,
             self.project.COVER_CSS_CLASS,
