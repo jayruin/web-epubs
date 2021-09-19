@@ -190,13 +190,13 @@ def make_epub3_spine_element(
     spine = etree.Element("spine")
 
     for path in progression:
-        item = etree.Element(
-            "item",
+        itemref = etree.Element(
+            "itemref",
             attrib={
                 "idref": resources[path].manifest_id,
                 "linear": "yes"
             }
         )
-        spine.append(item)
+        spine.append(itemref)
 
     return spine

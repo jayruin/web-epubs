@@ -130,12 +130,7 @@ def make_epub3_landmarks_element(landmarks: list[Anchor]) -> etree._Element:
     h2.text = "Landmarks"
     nav.append(h2)
 
-    ol = etree.Element(
-        "ol",
-        attrib={
-            etree.QName(Namespace.EPUB.value, "type"): "list"
-        }
-    )
+    ol = etree.Element("ol")
     nav.append(ol)
 
     for anchor in landmarks:

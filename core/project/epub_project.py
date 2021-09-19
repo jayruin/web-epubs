@@ -12,11 +12,13 @@ from core.legacy import navnode_to_tree
 class EPUBProject:
     CONTAINER_XML: str = "container.xml"
     COVER_CSS_CLASS: str = "cover-image"
+    COVER_XHTML: str = "_cover.xhtml"
     META_INF = "META-INF"
     METADATA_JSON: str = "_metadata.json"
     MIMETYPE_FILE: str = "mimetype"
     NAV_JSON: str = "_nav.json"
-    PACKAGE_OPF: str = "_package.opf"
+    NAVIGATION_DOCUMENT: str = "_nav.xhtml"
+    PACKAGE_DOCUMENT: str = "_package.opf"
     RESOURCES_DIRECTORY: str = "OEBPS"
 
     def __init__(self, root: Path) -> None:

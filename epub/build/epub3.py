@@ -1,8 +1,15 @@
 from pathlib import Path
 import shutil
 
-from core.documents import ContainerXML, MimetypeFile
-from core.project import EPUBProject, EPUBResourceManager
+from core.cover import fill_blank_cover
+from core.documents import (
+    ContainerXML,
+    CoverXHTML,
+    MimetypeFile,
+    NavigationDocument,
+    EPUB3PackageDocument
+)
+from core.project import Anchor, EPUBProject, EPUBResource, EPUBResourceManager
 from core.settings import Settings
 from core.templates import EPUB3Template
 from epub import make_project_argparser
@@ -36,6 +43,10 @@ class Builder:
         self.css_files: list[Path] = self.project.epub_metadata.css
         self.js_files: list[Path] = self.project.epub_metadata.js
 
+        self.progression: list[Path] = []
+
+        self.landmarks: list[Anchor] = []
+
     def clear(self) -> None:
         shutil.rmtree(self.destination, ignore_errors=True)
         self.destination.mkdir(parents=True, exist_ok=True)
@@ -47,6 +58,9 @@ class Builder:
         self.fill_meta_inf()
         self.import_resources(bundles)
         self.convert_html()
+        self.write_cover()
+        self.write_navigation_document()
+        self.write_package_document()
 
     def write_mimetype_file(self) -> None:
         mimetype_file = MimetypeFile()
@@ -57,7 +71,10 @@ class Builder:
         meta_inf_directory.mkdir()
 
         container_xml = ContainerXML(
-            Path(self.project.RESOURCES_DIRECTORY, self.project.PACKAGE_OPF)
+            Path(
+                self.project.RESOURCES_DIRECTORY,
+                self.project.PACKAGE_DOCUMENT
+            )
         )
         container_xml.epub3(
             Path(meta_inf_directory, self.project.CONTAINER_XML)
@@ -92,6 +109,74 @@ class Builder:
     def convert_html(self) -> None:
         template = EPUB3Template(self.css_files, self.js_files)
         self.resource_manager.convert_html(template)
+
+    def write_cover(self) -> None:
+        if not self.project.epub_metadata.cover:
+            default_cover = Path("_cover.jpg")
+            fill_blank_cover(Path(self.resource_manager.root, default_cover))
+            self.project.epub_metadata.cover = default_cover
+            self.resource_manager.resources[default_cover] = EPUBResource(
+                default_cover,
+                properties="cover-image"
+            )
+        cover_xhtml = CoverXHTML(
+            self.project.epub_metadata.cover,
+            self.project.COVER_CSS_CLASS,
+            self.css_files
+        )
+        cover_xhtml.epub3(
+            Path(self.resource_manager.root, self.project.COVER_XHTML)
+        )
+        cover_xhtml_path = Path(self.project.COVER_XHTML)
+        self.resource_manager.resources[cover_xhtml_path] = EPUBResource(
+            cover_xhtml_path
+        )
+        self.progression.append(cover_xhtml_path)
+        self.landmarks.append(Anchor("Cover", cover_xhtml_path, "cover"))
+
+    def write_navigation_document(self) -> None:
+        document_path = Path(self.project.NAVIGATION_DOCUMENT)
+        self.resource_manager.resources[document_path] = EPUBResource(
+            document_path,
+            properties="nav"
+        )
+        self.landmarks.append(
+            Anchor("Table of Contents", document_path, "nav")
+        )
+        self.progression.append(document_path)
+        bodymatter_progression: list[Path] = []
+        for nav_tree in self.project.nav_trees:
+            for anchor in nav_tree.depth_first_traversal():
+                if len(anchor.href.name.split("#")) == 1:
+                    bodymatter_progression.append(anchor.href)
+        if len(bodymatter_progression) > 0:
+            self.landmarks.append(
+                Anchor(
+                    "Begin Reading",
+                    bodymatter_progression[0],
+                    "bodymatter"
+                )
+            )
+        self.progression.extend(bodymatter_progression)
+        navigation_document = NavigationDocument(
+            self.project.nav_trees,
+            self.css_files,
+            self.landmarks
+        )
+        navigation_document.epub3(
+            Path(self.resource_manager.root, document_path)
+        )
+
+    def write_package_document(self) -> None:
+        self.resource_manager.add_id_counts()
+        package_document = EPUB3PackageDocument(
+            self.project.epub_metadata,
+            self.resource_manager.resources,
+            self.progression
+        )
+        package_document.epub3(
+            Path(self.resource_manager.root, self.project.PACKAGE_DOCUMENT)
+        )
 
 
 def main() -> None:
