@@ -13,21 +13,19 @@ class CoverXHTML(EPUB3Document, EPUB2Document):
     """
     An XHTML document corresponding to the cover file.
     """
-    def __init__(
-        self,
-        cover_file: Path,
-        css_class: str,
-        css_files: list[Path]
-    ) -> None:
+    def __init__(self, cover_file: Path) -> None:
         self.cover_file = cover_file
-        self.css_class = css_class
-        self.css_files = css_files
 
     def epub3(self, path: Path) -> None:
-        template = EPUB3Template(self.css_files, [])
+        template = EPUB3Template([], [])
         html = template.generate_root_element("Cover")
 
-        body = make_epub3_body_element(self.cover_file, self.css_class)
+        head = html.find("head")
+        assert head is not None
+        style = make_style_element()
+        head.append(style)
+
+        body = make_epub3_body_element(self.cover_file)
         html.append(body)
 
         write_epub3_xhtml_element(html, path)
@@ -54,7 +52,7 @@ class CoverXHTML(EPUB3Document, EPUB2Document):
         body = etree.Element("body")
         html.append(body)
 
-        div = etree.Element("div", attrib={"class": self.css_class})
+        div = etree.Element("div", attrib={"class": "cover-container"})
         body.append(div)
 
         img = etree.Element(
@@ -69,10 +67,13 @@ class CoverXHTML(EPUB3Document, EPUB2Document):
         write_epub2_xhtml_element(html, path)
 
 
-def make_epub3_body_element(
-    cover_file: Path,
-    css_class: str
-) -> etree._Element:
+def make_style_element() -> etree._Element:
+    style = etree.Element("style")
+    style.text = CSS_STYLE
+    return style
+
+
+def make_epub3_body_element(cover_file: Path) -> etree._Element:
     body = etree.Element("body")
 
     section = etree.Element(
@@ -86,7 +87,7 @@ def make_epub3_body_element(
     div = etree.Element(
         "div",
         attrib={
-            "class": css_class
+            "class": "cover-container"
         }
     )
     section.append(div)
@@ -101,3 +102,25 @@ def make_epub3_body_element(
     div.append(img)
 
     return body
+
+
+CSS_STYLE = """
+            .cover-container {
+                /* Sizing */
+                height: 100%;
+                padding: 0px;
+                margin: 0px;
+                /* Centering */
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+
+            .cover-container img {
+                max-height: 100%;
+                max-width: 100%;
+                object-fit: contain;
+            }
+        """

@@ -120,11 +120,7 @@ class Builder:
             cover,
             properties="cover-image"
         )
-        cover_xhtml = CoverXHTML(
-            self.project.epub_metadata.cover,
-            self.project.COVER_CSS_CLASS,
-            self.css_files
-        )
+        cover_xhtml = CoverXHTML(self.project.epub_metadata.cover)
         cover_xhtml.epub3(
             Path(self.resource_manager.root, self.project.COVER_XHTML)
         )
@@ -161,7 +157,6 @@ class Builder:
         self.progression.extend(bodymatter_progression)
         navigation_document = NavigationDocument(
             self.project.nav_trees,
-            self.css_files,
             self.landmarks
         )
         navigation_document.epub3(

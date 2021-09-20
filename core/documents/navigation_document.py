@@ -19,19 +19,22 @@ class NavigationDocument(EPUB3Document, EPUB2Document):
     def __init__(
         self,
         nav_trees: list[Tree[Anchor]],
-        css_files: list[Path],
         landmarks: Optional[list[Anchor]] = None
     ) -> None:
         self.nav_trees = nav_trees
-        self.css_files = css_files
         self.landmarks = landmarks
 
     def epub3(self, path: Path) -> None:
         """
         https://www.w3.org/publishing/epub3/epub-packages.html#sec-package-nav
         """
-        template = EPUB3Template(self.css_files, [])
+        template = EPUB3Template([], [])
         html = template.generate_root_element("Navigation")
+
+        head = html.find("head")
+        assert head is not None
+        style = make_style_element()
+        head.append(style)
 
         body = make_epub3_body_element(self.nav_trees, self.landmarks)
         html.append(body)
@@ -150,3 +153,16 @@ def make_epub3_landmarks_element(landmarks: list[Anchor]) -> etree._Element:
         li.append(a)
 
     return nav
+
+
+def make_style_element() -> etree._Element:
+    style = etree.Element("style")
+    style.text = CSS_STYLE
+    return style
+
+
+CSS_STYLE = """
+            a {
+                text-decoration: none;
+            }
+        """
