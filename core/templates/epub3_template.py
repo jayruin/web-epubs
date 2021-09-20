@@ -1,4 +1,6 @@
+import os.path
 from pathlib import Path
+from typing import Iterable, Optional
 
 from lxml import etree, html
 
@@ -12,19 +14,45 @@ class EPUB3Template(XHTMLTemplate):
     https://www.w3.org/publishing/epub3/epub-contentdocs.html#sec-xhtml
     Template for an EPUB3 XHTML content document.
     """
-    def __init__(self, css_files: list[Path], js_files: list[Path]) -> None:
+    def __init__(
+        self,
+        css_files: list[Path],
+        js_files: list[Path],
+        base: Optional[Path] = None
+    ) -> None:
         self.css_files = css_files
         self.js_files = js_files
+        self.base = base
 
     def fill(self, html_file: Path, xhtml_file: Path) -> None:
         source_html = html.parse(html_file.as_posix())
         title = source_html.find("head/title")
         body = source_html.find("body")
-        html_root = self.generate_root_element(title.text)
+        html_root = self.generate_root_element(title.text, xhtml_file)
         html_root.append(body)
         write_epub3_xhtml_element(html_root, xhtml_file, indent=False)
 
-    def generate_root_element(self, title_text: str) -> etree._Element:
+    def relative_to(
+        self,
+        paths: list[Path],
+        xhtml_file: Optional[Path] = None
+    ) -> Iterable[Path]:
+        for path in paths:
+            if self.base and xhtml_file:
+                yield Path(
+                    os.path.relpath(
+                        path,
+                        xhtml_file.parent.relative_to(self.base)
+                    )
+                )
+            else:
+                yield path
+
+    def generate_root_element(
+        self,
+        title_text: str,
+        xhtml_file: Optional[Path] = None
+    ) -> etree._Element:
         html_root = etree.Element(
             "html",
             nsmap={
@@ -48,7 +76,7 @@ class EPUB3Template(XHTMLTemplate):
         )
         head.append(meta)
 
-        for css_file in self.css_files:
+        for css_file in self.relative_to(self.css_files, xhtml_file):
             link = etree.Element(
                 "link",
                 attrib={
@@ -59,7 +87,7 @@ class EPUB3Template(XHTMLTemplate):
             )
             head.append(link)
 
-        for js_file in self.js_files:
+        for js_file in self.relative_to(self.js_files, xhtml_file):
             script = etree.Element(
                 "script",
                 attrib={

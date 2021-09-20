@@ -107,7 +107,11 @@ class Builder:
         )
 
     def convert_html(self) -> None:
-        template = EPUB3Template(self.css_files, self.js_files)
+        template = EPUB3Template(
+            self.css_files,
+            self.js_files,
+            self.resource_manager.root
+        )
         self.resource_manager.convert_html(template)
 
     def write_cover(self) -> None:
