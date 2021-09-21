@@ -40,6 +40,10 @@ class Namespace(Enum):
 
 UUID_NAMESPACE = "00000000-0000-0000-0000-000000000000"
 BUILD_TIME: str = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
+EPUBCHECK_RELEASES_URL: str = (
+    "https://api.github.com/repos/w3c/epubcheck/releases/latest"
+)
+
 COVER_XHTML: str = "_cover.xhtml"
 EPUB_DIRECTORY: str = "./epub"
 HTML_DIRECTORY: str = "./html"
