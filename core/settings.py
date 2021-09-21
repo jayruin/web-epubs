@@ -11,6 +11,7 @@ class Settings:
     packaged_epubs_directory: Path = Path("dist")
     epubcheck_directory: Path = Path("epubcheck")
     logs_directory: Path = Path("log")
+    bundles_directory: Path = Path("bundles")
 
     @classmethod
     def from_namespace(cls, namespace: Namespace) -> Settings:
