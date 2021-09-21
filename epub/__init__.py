@@ -47,7 +47,7 @@ def make_project_argparser(description: str) -> ArgumentParser:
                 "Each project should be a subdirectory of PROJECTS_DIRECTORY."
             ]
         ),
-        nargs="+"
+        nargs="*"
     )
 
     return parser
