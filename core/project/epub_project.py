@@ -1,12 +1,9 @@
-import json
 from pathlib import Path
 
 from .anchor import Anchor
 from .epub_metadata import EPUBMetadata
 from .tree import Tree
-from core.config import NavNode
-from core.deserialize import read_epub_metadata
-from core.legacy import navnode_to_tree
+from core.deserialize import read_epub_metadata, read_nav
 
 
 class EPUBProject:
@@ -29,12 +26,6 @@ class EPUBProject:
             Path(self.root, self.METADATA_JSON)
         )
 
-        self.nav_trees: list[Tree[Anchor]] = []
-        with open(Path(self.root, self.NAV_JSON), "rb") as f:
-            for d in json.load(f):
-                self.nav_trees.append(
-                    navnode_to_tree(
-                        NavNode.from_dict(d),
-                        self.root.as_posix()
-                    )
-                )
+        self.nav_trees: list[Tree[Anchor]] = read_nav(
+            Path(self.root, self.NAV_JSON)
+        )
