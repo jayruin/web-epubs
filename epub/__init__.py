@@ -34,6 +34,10 @@ def make_project_argparser(description: str) -> ArgumentParser:
         "--logs-directory",
         type=Path
     )
+    parser.add_argument(
+        "--bundles-directory",
+        type=Path
+    )
 
     parser.add_argument(
         "projects",
