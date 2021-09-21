@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<title>Running</title>
+
+<h1>Running</h1>
+
+<h2 id="global-command-line-arguments">Global Command Line Arguments</h2>
+<dl>
+    <dt><code>--projects-directory</code></dt>
+    <dd>Defaults to <code>projects</code></dd>
+
+    <dt><code>--expanded_epubs_directory</code></dt>
+    <dd>Defaults to <code>docs</code></dd>
+
+    <dt><code>--packaged_epubs_directory</code></dt>
+    <dd>Defaults to <code>dist</code></dd>
+
+    <dt><code>--epubcheck-directory</code></dt>
+    <dd>Defaults to <code>epubcheck</code></dd>
+
+    <dt><code>--logs-directory</code></dt>
+    <dd>Defaults to <code>log</code></dd>
+
+    <dt><code>--bundles-directory</code></dt>
+    <dd>Defaults to <code>bundles</code></dd>
+
+    <dt>positionial argument <code>projects</code></dt>
+    <dd>List of strings of project names (defaults to empty list). Each project should be a subdirectory of <code>--projects-directory</code>.</dd>
+</dl>
+
+<h2 id="epub-build">epub.build</h2>
+<pre><code>python -m epub.build.{TYPE}</code></pre>
+<p>Create an expanded ePub of type {TYPE}. Types available by default are <code>epub3</code> and <code>epub2</code>.</p>
+<p>Additional command line arguments:</p>
+<dl>
+    <dt><code>-b</code>, <code>--bundles</code></dt>
+    <dd>List of strings of the bundles to include (defaults to empty list). Each bundle should a subdirectory of <code>--bundles-directory</code>. Bundles contain files to include in the output ePub, such as shared CSS and JS files.</dd>
+</dl>
+
+<h2 id="epub-pack">epub.pack</h2>
+<pre><code>python -m epub.pack</code></pre>
+<p>Packages ePubs in <code>--expanded_epubs_directory</code> and places the packaged ePubs in <code>--packaged_epubs_directory</code>.</p>
+<p>Additional command line arguments:</p>
+<dl>
+    <dt><code>-t</code>, <code>--type</code></dt>
+    <dd>Type (see <code>epub.build</code>) of the ePub to pack (defaults to <code>epub3</code>).</dd>
+
+    <dt><code>-c</code>, <code>--compression</code></dt>
+    <dd>Integer in range [0, 9] specifiying the compression level to use (defaults to 0, no compression).</dd>
+</dl>
+
+<h2 id="epub-check-install">epub.check.install</h2>
+<pre><code>python -m epub.check.install</code></pre>
+<p>Install EPUBCheck to the <code>--epubcheck-directory</code>.</p>
+
+<h2 id="epub-check">epub.check</h2>
+<pre><code>python -m epub.check</code></pre>
+<p>Validate the project ePubs using EPUBCheck and write the results to <code>--logs-directory</code>.</p>
+<p>Additional command line arguments:</p>
+<dl>
+    <dt><code>-t</code>, <code>--type</code></dt>
+    <dd>Type (see <code>epub.build</code>) of the ePub to check (defaults to <code>epub3</code>).</dd>
+</dl>

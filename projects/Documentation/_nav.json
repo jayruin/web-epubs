@@ -1,0 +1,69 @@
+[
+    {
+        "text": "Why HTML",
+        "href": "why-html.xhtml",
+        "children": []
+    },
+    {
+        "text": "Why ePub",
+        "href": "why-epub.xhtml",
+        "children": []
+    },
+    {
+        "text": "Requirements",
+        "href": "requirements.xhtml",
+        "children": []
+    },
+    {
+        "text": "Adding Content",
+        "href": "adding-content.xhtml",
+        "children": [
+            {
+                "text": "Minimal HTML",
+                "href": "adding-content.xhtml#minimal-html",
+                "children": []
+            },
+            {
+                "text": "_metadata.json",
+                "href": "adding-content.xhtml#metadata",
+                "children": []
+            },
+            {
+                "text": "_nav.json",
+                "href": "adding-content.xhtml#nav",
+                "children": []
+            }
+        ]
+    },
+    {
+        "text": "Running",
+        "href": "running.xhtml",
+        "children": [
+            {
+                "text": "Global Command Line Arguments",
+                "href": "running.xhtml#global-command-line-arguments",
+                "children": []
+            },
+            {
+                "text": "epub.build",
+                "href": "running.xhtml#epub-build",
+                "children": []
+            },
+            {
+                "text": "epub.pack",
+                "href": "running.xhtml#epub-pack",
+                "children": []
+            },
+            {
+                "text": "epub.check.install",
+                "href": "running.xhtml#epub-check-install",
+                "children": []
+            },
+            {
+                "text": "epub.check",
+                "href": "running.xhtml#epub-check",
+                "children": []
+            }
+        ]
+    }
+]
