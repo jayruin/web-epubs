@@ -52,7 +52,7 @@ class Builder:
         self.destination.mkdir(parents=True, exist_ok=True)
         self.resource_manager.clear()
 
-    def build(self, bundles: list[Path]) -> None:
+    def build(self, bundles: list[str]) -> None:
         self.clear()
         self.write_mimetype_file()
         self.fill_meta_inf()
@@ -80,9 +80,11 @@ class Builder:
             Path(meta_inf_directory, self.project.CONTAINER_XML)
         )
 
-    def import_resources(self, bundles: list[Path]) -> None:
+    def import_resources(self, bundles: list[str]) -> None:
         for bundle in bundles:
-            self.resource_manager.import_resources(bundle)
+            self.resource_manager.import_resources(
+                Path(self.settings.bundles_directory, bundle)
+            )
         self.resource_manager.import_resources(self.source)
         found_css_files: set[Path] = set()
         found_js_files: set[Path] = set()
@@ -179,19 +181,32 @@ class Builder:
         )
 
 
+def build(settings: Settings, projects: list[str], bundles: list[str]) -> None:
+    for project in projects:
+        builder = Builder(settings, project)
+        builder.build(bundles)
+
+
 def main() -> None:
     description = "Build epub3"
     parser = make_project_argparser(description)
     parser.add_argument(
         "-b", "--bundles",
         nargs="+",
-        default=[],
-        type=Path
+        default=[]
     )
     args = parser.parse_args()
     settings = Settings.from_namespace(args)
-    builder = Builder(settings, args.projects[0])
-    builder.build(args.bundles)
+    projects: list[str]
+    if args.all:
+        projects = [
+            path.name
+            for path in settings.projects_directory.iterdir()
+            if path.is_dir()
+        ]
+    else:
+        projects = args.projects
+    build(settings, projects, args.bundles)
 
 
 if __name__ == "__main__":

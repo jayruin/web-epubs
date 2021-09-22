@@ -50,4 +50,10 @@ def make_project_argparser(description: str) -> ArgumentParser:
         nargs="*"
     )
 
+    parser.add_argument(
+        "--all",
+        action="store_true",
+        help="Process all projects"
+    )
+
     return parser
