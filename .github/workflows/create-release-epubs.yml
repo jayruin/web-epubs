@@ -9,6 +9,7 @@ on:
       - "!epub/build/**"
       - "!epub/build/__init__.py"
       - "!epub/check/**"
+      - "!epub/pack.py"
 
   workflow_dispatch:
 
