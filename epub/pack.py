@@ -2,8 +2,8 @@ from pathlib import Path
 import shutil
 from zipfile import ZIP_DEFLATED, ZIP_STORED, ZipFile
 
-from core.settings import Settings
 from core.runner import make_project_argparser
+from core.settings import Settings
 
 
 def add_to_epub(epub_file: ZipFile, entry: Path, expanded: Path) -> None:

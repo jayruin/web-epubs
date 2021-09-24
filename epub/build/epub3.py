@@ -10,9 +10,9 @@ from core.documents import (
     EPUB3PackageDocument
 )
 from core.project import Anchor, EPUBProject, EPUBResource, EPUBResourceManager
+from core.runner import make_project_argparser
 from core.settings import Settings
 from core.templates import EPUB3Template
-from core.runner import make_project_argparser
 
 
 class Builder:
