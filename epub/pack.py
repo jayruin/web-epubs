@@ -36,7 +36,7 @@ def pack_projects(
     project_type: str,
     compression: int
 ) -> None:
-    packaged_type_directory = packaged = Path(
+    packaged_type_directory = Path(
         settings.packaged_epubs_directory,
         project_type
     )
