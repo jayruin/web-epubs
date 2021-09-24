@@ -8,7 +8,7 @@ from zipfile import ZipFile
 
 from core.constants import EPUBCHECK_RELEASES_URL
 from core.settings import Settings
-from epub import make_project_argparser
+from core.runner import make_project_argparser
 
 
 def install_epubcheck(directory: Path) -> None:

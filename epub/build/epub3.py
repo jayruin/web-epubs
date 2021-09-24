@@ -12,7 +12,7 @@ from core.documents import (
 from core.project import Anchor, EPUBProject, EPUBResource, EPUBResourceManager
 from core.settings import Settings
 from core.templates import EPUB3Template
-from epub import make_project_argparser
+from core.runner import make_project_argparser
 
 
 class Builder:
