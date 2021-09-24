@@ -11,10 +11,10 @@ from core.runner import make_project_argparser
 from core.settings import Settings
 
 
-def install_epubcheck(directory: Path) -> None:
+def install_epubcheck(settings: Settings) -> None:
     # Delete previous installation
-    shutil.rmtree(directory, ignore_errors=True)
-    directory.mkdir(parents=True, exist_ok=True)
+    shutil.rmtree(settings.epubcheck_directory, ignore_errors=True)
+    settings.epubcheck_directory.mkdir(parents=True, exist_ok=True)
 
     # Find download url for zip
     zip_download_url: Optional[str] = None
@@ -33,7 +33,7 @@ def install_epubcheck(directory: Path) -> None:
             for zip_info in z.infolist():
                 if not zip_info.is_dir():
                     destination = Path(
-                        directory,
+                        settings.epubcheck_directory,
                         *Path(zip_info.filename).parts[1:]
                     )
                     destination.parent.mkdir(parents=True, exist_ok=True)
@@ -47,7 +47,7 @@ def main() -> None:
     parser = make_project_argparser(description)
     args = parser.parse_args()
     settings = Settings.from_namespace(args)
-    install_epubcheck(settings.epubcheck_directory)
+    install_epubcheck(settings)
 
 
 if __name__ == "__main__":
