@@ -3,12 +3,12 @@ from typing import Optional
 
 from lxml import etree
 
-from .epub3document import EPUB3Document
 from .epub2document import EPUB2Document
+from .epub3document import EPUB3Document
 from core.constants import Namespace
 from core.project import Anchor, Tree
-from core.serialize import write_epub3_xhtml_element
-from core.templates import EPUB3Template
+from core.serialize import write_epub2_xhtml_element, write_epub3_xhtml_element
+from core.templates import EPUB2Template, EPUB3Template
 
 
 class NavigationDocument(EPUB3Document, EPUB2Document):
@@ -42,7 +42,18 @@ class NavigationDocument(EPUB3Document, EPUB2Document):
         write_epub3_xhtml_element(html, path)
 
     def epub2(self, path: Path) -> None:
-        pass
+        template = EPUB2Template([])
+        html = template.generate_root_element("Navigation")
+
+        head = html.find("head")
+        assert head is not None
+        style = make_style_element()
+        head.append(style)
+
+        body = make_epub2_body_element(self.nav_trees)
+        html.append(body)
+
+        write_epub2_xhtml_element(html, path)
 
 
 def make_li_element(nav_tree: Tree[Anchor]) -> etree._Element:
@@ -153,6 +164,19 @@ def make_epub3_landmarks_element(landmarks: list[Anchor]) -> etree._Element:
         li.append(a)
 
     return nav
+
+
+def make_epub2_body_element(nav_trees: list[Tree[Anchor]]) -> etree._Element:
+    body = etree.Element("body")
+
+    h1 = etree.Element("h1")
+    h1.text = "Navigation"
+    body.append(h1)
+
+    ol = make_ol_element(nav_trees)
+    body.append(ol)
+
+    return body
 
 
 def make_style_element() -> etree._Element:

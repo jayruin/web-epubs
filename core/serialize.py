@@ -8,13 +8,14 @@ def get_doctype_html(include_dtd: bool) -> str:
     if include_dtd:
         dtd = " ".join(
             [
+                "PUBLIC",
                 "\"-//W3C//DTD XHTML 1.1//EN\"",
                 "\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\""
             ]
         )
     else:
         dtd = ""
-    return f"<!DOCTYPE html{dtd}>"
+    return f"<!DOCTYPE html {dtd}>"
 
 
 def get_xml_header(encoding: str) -> str:
