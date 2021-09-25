@@ -62,12 +62,13 @@ def make_project_argparser(description: str) -> argparse.ArgumentParser:
     return parser
 
 
-def subprocess_run(args: list[str]) -> str:
+def subprocess_run(args: list[str], check_returncode: bool = False) -> str:
     completed_process = subprocess.run(
         args,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         encoding=Encoding.UTF_8.value
     )
-    completed_process.check_returncode()
+    if check_returncode:
+        completed_process.check_returncode()
     return completed_process.stdout

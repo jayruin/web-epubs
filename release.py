@@ -1,6 +1,5 @@
 import json
 from pathlib import Path
-import subprocess
 
 from core.constants import Encoding
 from core.runner import subprocess_run
@@ -39,10 +38,7 @@ def release(settings: Settings, project_type: str) -> None:
     tag = f"release-{project_type}"
 
     # Delete existing release if it exists
-    try:
-        subprocess_run(["hub", "release", "delete", tag])
-    except subprocess.CalledProcessError:
-        print(f"Release with tag {tag} does not exist!")
+    subprocess_run(["hub", "release", "delete", tag])
 
     # Create new release
     assets: list[Path] = []
@@ -104,10 +100,7 @@ def release_summary(summary_file: Path) -> None:
     tag = "summary"
 
     # Delete existing release if it exists
-    try:
-        subprocess_run(["hub", "release", "delete", tag])
-    except subprocess.CalledProcessError:
-        print(f"Release with tag {tag} does not exist!")
+    subprocess_run(["hub", "release", "delete", tag])
 
     # Create new release
     title = "GitHub Workflow Release EPUBCheck Summary"
