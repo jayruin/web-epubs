@@ -34,7 +34,7 @@ class EPUBCheckResults:
         )
 
 
-def pack_epub(
+def check_epub(
     packaged: Path,
     logs: Path,
     epubcheck_jar: Path
@@ -71,13 +71,13 @@ def check_projects(
         packaged = Path(
             settings.packaged_epubs_directory,
             project_type,
-            f"{project}.epub"
+            f"{project}.{project_type}.epub"
         )
         logs = Path(
             logs_type_directory,
             f"{project}.{project_type}.txt"
         )
-        epubcheck_results = pack_epub(packaged, logs, epubcheck_jar)
+        epubcheck_results = check_epub(packaged, logs, epubcheck_jar)
         fatals += epubcheck_results.fatals
         errors += epubcheck_results.errors
         warnings += epubcheck_results.warnings

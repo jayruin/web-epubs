@@ -17,7 +17,7 @@ def main() -> None:
     projects: list[str]
     if args.all:
         projects = [
-            ".".join(path.name.split(".")[:-1])
+            ".".join(path.stem.split(".")[:-1])
             for path in Path(
                 settings.packaged_epubs_directory,
                 args.type
