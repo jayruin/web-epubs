@@ -253,6 +253,7 @@ def make_epub2_package_element(
 
     metadata = make_epub2_metadata_element(
         epub_metadata,
+        resources,
         UNIQUE_IDENTIFIER_ID
     )
     package.append(metadata)
@@ -272,6 +273,7 @@ def make_epub2_package_element(
 
 def make_epub2_metadata_element(
     epub_metadata: EPUBMetadata,
+    resources: dict[Path, EPUBResource],
     UNIQUE_IDENTIFIER_ID: str
 ) -> etree._Element:
     metadata = etree.Element(
@@ -318,6 +320,16 @@ def make_epub2_metadata_element(
     dc_date = etree.Element(etree.QName(Namespace.DC.value, "date").text)
     dc_date.text = epub_metadata.date
     metadata.append(dc_date)
+
+    if epub_metadata.cover:
+        meta_cover = etree.Element(
+            "meta",
+            attrib={
+                "name": "cover",
+                "content": resources[epub_metadata.cover].manifest_id
+            }
+        )
+        metadata.append(meta_cover)
 
     return metadata
 
