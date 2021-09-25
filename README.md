@@ -1,4 +1,4 @@
-[![Create Release EPUBs Badge](https://github.com/jayruin/web-epubs/workflows/Create%20Release%20EPUBs/badge.svg)](https://github.com/jayruin/web-epubs/actions?query=workflow%3A%22Create+Release+EPUBs%22)
+[![Create Release EPUBs Badge](https://github.com/jayruin/web-epubs/workflows/Create%20Release%20EPUBs/badge.svg)](https://github.com/jayruin/web-epubs/actions/workflows/release.yml)
 
 ![EPUBCheck Fatals](https://img.shields.io/badge/dynamic/json?label=EPUBCheck&prefix=Fatals%3A&query=fatals&url=https%3A%2F%2Fgithub.com%2Fjayruin%2Fweb-epubs%2Freleases%2Flatest%2Fdownload%2Fepubcheck.summary.json)
 ![EPUBCheck Errors](https://img.shields.io/badge/dynamic/json?label=EPUBCheck&prefix=Errors%3A&query=errors&url=https%3A%2F%2Fgithub.com%2Fjayruin%2Fweb-epubs%2Freleases%2Flatest%2Fdownload%2Fepubcheck.summary.json)
