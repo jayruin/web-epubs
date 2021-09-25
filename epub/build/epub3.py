@@ -5,9 +5,9 @@ from core.cover import fill_blank_cover
 from core.documents import (
     ContainerXML,
     CoverXHTML,
+    EPUB3PackageDocument,
     MimetypeFile,
-    NavigationDocument,
-    EPUB3PackageDocument
+    NavigationDocument
 )
 from core.project import Anchor, EPUBProject, EPUBResource, EPUBResourceManager
 from core.runner import make_project_argparser
