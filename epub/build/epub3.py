@@ -144,7 +144,7 @@ class Builder:
             properties="nav"
         )
         self.landmarks.append(
-            Anchor("Table of Contents", document_path, "nav")
+            Anchor("Table of Contents", document_path, "toc")
         )
         self.progression.append(document_path)
         bodymatter_progression: list[Path] = []
