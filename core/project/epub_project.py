@@ -15,6 +15,7 @@ class EPUBProject:
     MIMETYPE_FILE: str = "mimetype"
     NAV_JSON: str = "_nav.json"
     NAVIGATION_DOCUMENT: str = "_nav.xhtml"
+    NCX_DOCUMENT: str = "_toc.ncx"
     PACKAGE_DOCUMENT: str = "_package.opf"
     RESOURCES_DIRECTORY: str = "OEBPS"
 
