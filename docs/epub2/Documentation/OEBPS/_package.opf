@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="publication-id" version="2.0">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+        <dc:identifier id="publication-id">urn:uuid:e9f10c01-d694-5541-a412-e3cee24ee8ae</dc:identifier>
+        <dc:language>en</dc:language>
+        <dc:title>Documentation</dc:title>
+        <dc:creator opf:role="aut">jayruin</dc:creator>
+        <dc:creator opf:role="pbl">jayruin</dc:creator>
+        <dc:date>2020-08-26T00:00:00Z</dc:date>
+        <meta name="cover" content="item-id-1"/>
+    </metadata>
+    <manifest>
+        <item href="_cover.jpg" id="item-id-1" media-type="image/jpeg"/>
+        <item href="_cover.xhtml" id="item-id-2" media-type="application/xhtml+xml"/>
+        <item href="_nav.xhtml" id="item-id-3" media-type="application/xhtml+xml"/>
+        <item href="_toc.ncx" id="item-id-4" media-type="application/x-dtbncx+xml"/>
+        <item href="adding-content.xhtml" id="item-id-5" media-type="application/xhtml+xml"/>
+        <item href="requirements.xhtml" id="item-id-6" media-type="application/xhtml+xml"/>
+        <item href="running.xhtml" id="item-id-7" media-type="application/xhtml+xml"/>
+        <item href="why-epub.xhtml" id="item-id-8" media-type="application/xhtml+xml"/>
+        <item href="why-html.xhtml" id="item-id-9" media-type="application/xhtml+xml"/>
+    </manifest>
+    <spine toc="item-id-4">
+        <itemref idref="item-id-2" linear="yes"/>
+        <itemref idref="item-id-3" linear="yes"/>
+        <itemref idref="item-id-9" linear="yes"/>
+        <itemref idref="item-id-8" linear="yes"/>
+        <itemref idref="item-id-6" linear="yes"/>
+        <itemref idref="item-id-5" linear="yes"/>
+        <itemref idref="item-id-7" linear="yes"/>
+    </spine>
+    <guide>
+        <reference type="cover" title="Cover" href="_cover.xhtml"/>
+        <reference type="toc" title="Table of Contents" href="_nav.xhtml"/>
+        <reference type="text" title="Begin Reading" href="why-html.xhtml"/>
+    </guide>
+</package>

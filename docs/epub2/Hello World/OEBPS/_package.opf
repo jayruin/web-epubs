@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="publication-id" version="2.0">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <dc:identifier id="publication-id">urn:uuid:9ecee3ee-cbca-5ef4-9ca1-b2bdc56722c9</dc:identifier>
+        <dc:language>en</dc:language>
+        <dc:title>Hello World</dc:title>
+        <dc:date>2020-07-19T00:00:00Z</dc:date>
+        <meta name="cover" content="item-id-1"/>
+    </metadata>
+    <manifest>
+        <item href="_cover.jpg" id="item-id-1" media-type="image/jpeg"/>
+        <item href="_cover.xhtml" id="item-id-2" media-type="application/xhtml+xml"/>
+        <item href="_nav.xhtml" id="item-id-3" media-type="application/xhtml+xml"/>
+        <item href="_toc.ncx" id="item-id-4" media-type="application/x-dtbncx+xml"/>
+        <item href="hi.xhtml" id="item-id-5" media-type="application/xhtml+xml"/>
+    </manifest>
+    <spine toc="item-id-4">
+        <itemref idref="item-id-2" linear="yes"/>
+        <itemref idref="item-id-3" linear="yes"/>
+        <itemref idref="item-id-5" linear="yes"/>
+    </spine>
+    <guide>
+        <reference type="cover" title="Cover" href="_cover.xhtml"/>
+        <reference type="toc" title="Table of Contents" href="_nav.xhtml"/>
+        <reference type="text" title="Begin Reading" href="hi.xhtml"/>
+    </guide>
+</package>

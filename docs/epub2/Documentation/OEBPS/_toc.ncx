@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+    <head>
+        <meta name="dtb:uid" content="urn:uuid:e9f10c01-d694-5541-a412-e3cee24ee8ae"/>
+    </head>
+    <docTitle>
+        <text>Documentation</text>
+    </docTitle>
+    <navMap>
+        <navPoint id="ncx-0">
+            <navLabel>
+                <text>Why HTML</text>
+            </navLabel>
+            <content src="why-html.xhtml"/>
+        </navPoint>
+        <navPoint id="ncx-1">
+            <navLabel>
+                <text>Why ePub</text>
+            </navLabel>
+            <content src="why-epub.xhtml"/>
+        </navPoint>
+        <navPoint id="ncx-2">
+            <navLabel>
+                <text>Requirements</text>
+            </navLabel>
+            <content src="requirements.xhtml"/>
+        </navPoint>
+        <navPoint id="ncx-3">
+            <navLabel>
+                <text>Adding Content</text>
+            </navLabel>
+            <content src="adding-content.xhtml"/>
+            <navPoint id="ncx-3-0">
+                <navLabel>
+                    <text>Minimal HTML</text>
+                </navLabel>
+                <content src="adding-content.xhtml#minimal-html"/>
+            </navPoint>
+            <navPoint id="ncx-3-1">
+                <navLabel>
+                    <text>_metadata.json</text>
+                </navLabel>
+                <content src="adding-content.xhtml#metadata"/>
+            </navPoint>
+            <navPoint id="ncx-3-2">
+                <navLabel>
+                    <text>_nav.json</text>
+                </navLabel>
+                <content src="adding-content.xhtml#nav"/>
+            </navPoint>
+        </navPoint>
+        <navPoint id="ncx-4">
+            <navLabel>
+                <text>Running</text>
+            </navLabel>
+            <content src="running.xhtml"/>
+            <navPoint id="ncx-4-0">
+                <navLabel>
+                    <text>Global Command Line Arguments</text>
+                </navLabel>
+                <content src="running.xhtml#global-command-line-arguments"/>
+            </navPoint>
+            <navPoint id="ncx-4-1">
+                <navLabel>
+                    <text>epub.build</text>
+                </navLabel>
+                <content src="running.xhtml#epub-build"/>
+            </navPoint>
+            <navPoint id="ncx-4-2">
+                <navLabel>
+                    <text>epub.pack</text>
+                </navLabel>
+                <content src="running.xhtml#epub-pack"/>
+            </navPoint>
+            <navPoint id="ncx-4-3">
+                <navLabel>
+                    <text>epub.check.install</text>
+                </navLabel>
+                <content src="running.xhtml#epub-check-install"/>
+            </navPoint>
+            <navPoint id="ncx-4-4">
+                <navLabel>
+                    <text>epub.check</text>
+                </navLabel>
+                <content src="running.xhtml#epub-check"/>
+            </navPoint>
+        </navPoint>
+    </navMap>
+</ncx>
