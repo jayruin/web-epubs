@@ -22,7 +22,7 @@ class CoverXHTML(EPUB3Document, EPUB2Document):
 
         head = html.find("head")
         assert head is not None
-        style = make_style_element()
+        style = make_epub3_style_element()
         head.append(style)
 
         body = make_epub3_body_element(self.cover_file)
@@ -36,19 +36,13 @@ class CoverXHTML(EPUB3Document, EPUB2Document):
 
         head = html.find("head")
         assert head is not None
-        style = make_style_element()
+        style = make_epub2_style_element()
         head.append(style)
 
         body = make_epub2_body_element(self.cover_file)
         html.append(body)
 
         write_epub2_xhtml_element(html, path)
-
-
-def make_style_element() -> etree._Element:
-    style = etree.Element("style")
-    style.text = CSS_STYLE
-    return style
 
 
 def make_epub3_body_element(cover_file: Path) -> etree._Element:
@@ -103,6 +97,23 @@ def make_epub2_body_element(cover_file: Path) -> etree._Element:
     div.append(img)
 
     return body
+
+
+def make_epub3_style_element() -> etree._Element:
+    style = etree.Element("style")
+    style.text = CSS_STYLE
+    return style
+
+
+def make_epub2_style_element() -> etree._Element:
+    style = etree.Element(
+        "style",
+        attrib={
+            "type": "text/css"
+        }
+    )
+    style.text = CSS_STYLE
+    return style
 
 
 CSS_STYLE = """
