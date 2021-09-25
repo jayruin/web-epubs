@@ -115,6 +115,10 @@ class Builder:
             self.resource_manager.root
         )
         self.resource_manager.convert_html(template)
+        for xhtml_file in self.resource_manager.xhtml_to_html:
+            self.resource_manager.resources[
+                xhtml_file.relative_to(self.resource_manager.root)
+            ].properties = "scripted"
 
     def write_cover(self) -> None:
         if not self.project.epub_metadata.cover:
