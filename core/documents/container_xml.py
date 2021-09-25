@@ -2,8 +2,8 @@ from pathlib import Path
 
 from lxml import etree
 
-from .epub3document import EPUB3Document
 from .epub2document import EPUB2Document
+from .epub3document import EPUB3Document
 from core.constants import Namespace
 from core.serialize import write_xml_element
 

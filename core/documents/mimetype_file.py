@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from .epub3document import EPUB3Document
 from .epub2document import EPUB2Document
+from .epub3document import EPUB3Document
 from core.constants import Encoding
 
 
