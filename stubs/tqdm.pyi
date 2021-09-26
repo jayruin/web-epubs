@@ -1,6 +1,14 @@
 from __future__ import annotations
 from types import TracebackType
-from typing import Generic, Iterable, Iterator, Optional, Type, TypeVar
+from typing import (
+    Generic,
+    Iterable,
+    Iterator,
+    NoReturn,
+    Optional,
+    Type,
+    TypeVar
+)
 
 _T = TypeVar("_T")
 
@@ -12,7 +20,7 @@ class tqdm(Generic[_T]):
         total: int = ...
     ) -> None: ...
 
-    def __enter__(self) -> tqdm[None]: ...
+    def __enter__(self) -> tqdm[NoReturn]: ...
 
     def __exit__(
         self, exc_type: Optional[Type[BaseException]],
