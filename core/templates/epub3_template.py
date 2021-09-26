@@ -1,6 +1,7 @@
+from collections.abc import Iterable
 import os.path
 from pathlib import Path
-from typing import Iterable, Optional
+from typing import Optional
 
 from lxml import etree, html
 
