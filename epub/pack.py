@@ -1,8 +1,9 @@
 from pathlib import Path
 import shutil
+from typing import Any
 from zipfile import ZIP_DEFLATED, ZIP_STORED, ZipFile
 
-from core.runner import make_project_argparser
+from core.runner import make_project_argparser, pool_run
 from core.settings import Settings
 
 
@@ -42,6 +43,8 @@ def pack_projects(
     )
     shutil.rmtree(packaged_type_directory, ignore_errors=True)
     packaged_type_directory.mkdir(parents=True, exist_ok=True)
+    args_collection: list[tuple[Path, Path, int]] = []
+    kwargs_collection: list[dict[str, Any]] = []
     for project in projects:
         expanded = Path(
             settings.expanded_epubs_directory,
@@ -52,7 +55,16 @@ def pack_projects(
             packaged_type_directory,
             f"{project}.{project_type}.epub"
         )
-        pack_epub(expanded, packaged, compression)
+        args_collection.append((expanded, packaged, compression))
+        kwargs_collection.append({})
+    for _ in pool_run(
+        pack_epub,
+        args_collection,
+        kwargs_collection,
+        "process",
+        show_progress=True
+    ):
+        pass
 
 
 def main() -> None:

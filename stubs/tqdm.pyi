@@ -1,19 +1,14 @@
 from __future__ import annotations
-from collections.abc import Iterable, Iterator
+from collections.abc import Iterable
 from types import TracebackType
-from typing import Generic, NoReturn, Optional, TypeVar
+from typing import Optional, overload, TypeVar
 
 _T = TypeVar("_T")
 
 
-class tqdm(Generic[_T]):
-    def __init__(
-        self,
-        iterable: Iterable[_T] = ...,
-        total: int = ...
-    ) -> None: ...
+class tqdm:
 
-    def __enter__(self) -> tqdm[NoReturn]: ...
+    def __enter__(self) -> tqdm: ...
 
     def __exit__(
         self, exc_type: Optional[type[BaseException]],
@@ -21,6 +16,10 @@ class tqdm(Generic[_T]):
         traceback: Optional[TracebackType]
     ) -> Optional[bool]: ...
 
-    def __iter__(self) -> Iterator[_T]: ...
+    @overload
+    def __new__(cls, iterable: Iterable[_T] = ...) -> Iterable[_T]: ...
+
+    @overload
+    def __new__(cls, total: int = ...) -> tqdm: ...
 
     def update(self, n: int = ...) -> None: ...
