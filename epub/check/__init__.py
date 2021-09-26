@@ -3,6 +3,8 @@ from dataclasses import dataclass
 from pathlib import Path
 import shutil
 
+from tqdm import tqdm
+
 from core.constants import Encoding, JAVA_EXECUTABLE
 from core.runner import subprocess_run
 from core.settings import Settings
@@ -67,7 +69,7 @@ def check_projects(
     fatals = 0
     errors = 0
     warnings = 0
-    for project in projects:
+    for project in tqdm(projects):
         packaged = Path(
             settings.packaged_epubs_directory,
             project_type,
