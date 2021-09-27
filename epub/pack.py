@@ -3,6 +3,8 @@ import shutil
 from typing import Any
 from zipfile import ZIP_DEFLATED, ZIP_STORED, ZipFile
 
+from more_itertools import consume
+
 from core.runner import make_project_argparser, pool_run
 from core.settings import Settings
 
@@ -57,14 +59,15 @@ def pack_projects(
         )
         args_collection.append((expanded, packaged, compression))
         kwargs_collection.append({})
-    for _ in pool_run(
-        pack_epub,
-        args_collection,
-        kwargs_collection,
-        "process",
-        show_progress=True
-    ):
-        pass
+    consume(
+        pool_run(
+            pack_epub,
+            args_collection,
+            kwargs_collection,
+            "process",
+            show_progress=True
+        )
+    )
 
 
 def main() -> None:

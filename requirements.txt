@@ -1,3 +1,4 @@
 lxml
 lxml-stubs
+more-itertools
 tqdm

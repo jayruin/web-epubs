@@ -85,7 +85,7 @@ def pool_run(
     max_workers: typing.Optional[int] = None,
     as_completed: bool = False,
     show_progress: bool = False
-) -> collections.abc.Iterable[_T]:
+) -> collections.abc.Generator[_T, None, None]:
     assert len(args_collection) == len(kwargs_collection)
     with contextlib.ExitStack() as stack:
         executor: concurrent.futures.Executor
