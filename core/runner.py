@@ -1,7 +1,6 @@
 import collections.abc
 import concurrent.futures
 import contextlib
-
 import subprocess
 import typing
 
@@ -28,7 +27,8 @@ def pool_run(
     as_completed: bool = False,
     show_progress: bool = False
 ) -> collections.abc.Generator[_T, None, None]:
-    assert len(args_collection) == len(kwargs_collection)
+    if len(args_collection) != len(kwargs_collection):
+        raise ValueError("Must have the same number of args and kwargs!")
     with contextlib.ExitStack() as stack:
         executor: concurrent.futures.Executor
         if executor_type == "process":
