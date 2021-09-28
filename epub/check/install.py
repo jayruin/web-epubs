@@ -6,9 +6,8 @@ from typing import Optional
 import urllib.request
 from zipfile import ZipFile
 
-from app import Settings
+from app import make_project_argparser, Settings
 from core.constants import EPUBCHECK_RELEASES_URL
-from core.runner import make_project_argparser
 
 
 def install_epubcheck(settings: Settings) -> None:

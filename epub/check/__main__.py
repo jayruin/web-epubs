@@ -1,7 +1,6 @@
 from pathlib import Path
 
-from app import Settings
-from core.runner import make_project_argparser
+from app import make_project_argparser, Settings
 from epub.check import check_projects
 
 

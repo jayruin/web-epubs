@@ -5,8 +5,8 @@ from zipfile import ZIP_DEFLATED, ZIP_STORED, ZipFile
 
 from more_itertools import consume
 
-from app import Settings
-from core.runner import make_project_argparser, pool_run
+from app import make_project_argparser, Settings
+from core.runner import pool_run
 
 
 def add_to_epub(epub_file: ZipFile, entry: Path, expanded: Path) -> None:
