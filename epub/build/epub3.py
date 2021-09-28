@@ -1,6 +1,7 @@
 from pathlib import Path
 import shutil
 
+from app import Settings
 from core.cover import fill_blank_cover
 from core.documents import (
     ContainerXML,
@@ -11,7 +12,6 @@ from core.documents import (
 )
 from core.project import Anchor, EPUBProject, EPUBResource, EPUBResourceManager
 from core.runner import make_project_argparser
-from core.settings import Settings
 from core.templates import EPUB3Template
 
 

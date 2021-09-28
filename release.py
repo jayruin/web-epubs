@@ -1,9 +1,9 @@
 import json
 from pathlib import Path
 
+from app import Settings
 from core.constants import Encoding
 from core.runner import subprocess_run
-from core.settings import Settings
 from epub.check import check_projects, EPUBCheckResults
 from epub.check.install import install_epubcheck
 from epub.pack import pack_projects

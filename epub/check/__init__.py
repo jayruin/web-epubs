@@ -5,9 +5,9 @@ import shutil
 
 from tqdm import tqdm
 
+from app import Settings
 from core.constants import Encoding, JAVA_EXECUTABLE
 from core.runner import subprocess_run
-from core.settings import Settings
 
 
 @dataclass
