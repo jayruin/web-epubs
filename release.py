@@ -1,11 +1,10 @@
 import json
 from pathlib import Path
 
-from app import Settings
-from app.workers import Packer
+from app import EPUBCheckResults, Settings
+from app.workers import Checker, Packer
 from core.constants import Encoding
 from core.runner import subprocess_run
-from epub.check import check_projects, EPUBCheckResults
 from epub.check.install import install_epubcheck
 
 
@@ -32,7 +31,8 @@ def check_all(settings: Settings, project_type: str) -> None:
         ).iterdir()
         if path.is_file() and path.suffix == ".epub"
     ]
-    check_projects(settings, projects, project_type)
+    checker = Checker(settings)
+    checker.check_projects(projects, project_type)
 
 
 def release(settings: Settings, project_type: str) -> None:
