@@ -1,7 +1,8 @@
 from __future__ import annotations
 from collections.abc import Iterable
+from contextlib import AbstractContextManager
 from types import TracebackType
-from typing import Optional, overload, TypeVar
+from typing import BinaryIO, Literal, Optional, overload, TypeVar, Union
 
 _T = TypeVar("_T")
 
@@ -23,3 +24,11 @@ class tqdm:
     def __new__(cls, total: int = ...) -> tqdm: ...
 
     def update(self, n: int = ...) -> None: ...
+
+    @classmethod
+    def wrapattr(
+        cls,
+        stream: BinaryIO,
+        method: Union[Literal["read"], Literal["write"]],
+        total: Optional[int] = ...
+    ) -> AbstractContextManager[BinaryIO]: ...
