@@ -32,8 +32,8 @@ class Installer(AppWorker):
             raise Exception("Could not find zip download URL!")
 
         # Download zip file into memory and extract to directory
-        with download_to_memory(zip_download_url) as zip_data:
-            with ZipFile(zip_data) as z:
+        with download_to_memory(zip_download_url, show_progress=True) as data:
+            with ZipFile(data) as z:
                 for zip_info in z.infolist():
                     if not zip_info.is_dir():
                         destination = Path(
@@ -47,7 +47,10 @@ class Installer(AppWorker):
 
 
 @contextmanager
-def download_to_memory(url: str) -> Generator[BytesIO, None, None]:
+def download_to_memory(
+    url: str,
+    show_progress: bool = False
+) -> Generator[BytesIO, None, None]:
     stack = ExitStack()
     try:
         response = stack.enter_context(urllib.request.urlopen(url))
@@ -55,15 +58,16 @@ def download_to_memory(url: str) -> Generator[BytesIO, None, None]:
             total = int(response.getheader("Content-Length"))
         except (TypeError, ValueError):
             total = None
-        wrapped_response = stack.enter_context(
-            tqdm.wrapattr(
-                response,
-                "read",
-                total=total
+        if show_progress:
+            response = stack.enter_context(
+                tqdm.wrapattr(
+                    response,
+                    "read",
+                    total=total
+                )
             )
-        )
         memory_stream = stack.enter_context(BytesIO())
-        shutil.copyfileobj(wrapped_response, memory_stream)
+        shutil.copyfileobj(response, memory_stream)
         yield memory_stream
     finally:
         stack.close()

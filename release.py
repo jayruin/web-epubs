@@ -2,10 +2,9 @@ import json
 from pathlib import Path
 
 from app import EPUBCheckResults, Settings
-from app.workers import Checker, Packer
+from app.workers import Checker, Installer, Packer
 from core.constants import Encoding
 from core.runner import subprocess_run
-from epub.check.install import install_epubcheck
 
 
 def pack_all(settings: Settings, project_type: str) -> None:
@@ -115,7 +114,8 @@ def release_summary(summary_file: Path) -> None:
 
 def main() -> None:
     default_settings = Settings()
-    install_epubcheck(default_settings)
+    installer = Installer(default_settings)
+    installer.install_epubcheck()
     project_types = sorted(
         path.name
         for path in default_settings.expanded_epubs_directory.iterdir()
