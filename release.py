@@ -2,11 +2,11 @@ import json
 from pathlib import Path
 
 from app import Settings
+from app.workers import Packer
 from core.constants import Encoding
 from core.runner import subprocess_run
 from epub.check import check_projects, EPUBCheckResults
 from epub.check.install import install_epubcheck
-from epub.pack import pack_projects
 
 
 def pack_all(settings: Settings, project_type: str) -> None:
@@ -19,7 +19,8 @@ def pack_all(settings: Settings, project_type: str) -> None:
         if path.is_dir()
     ]
     compression = 0
-    pack_projects(settings, projects, project_type, compression)
+    packer = Packer(settings)
+    packer.pack_projects(projects, project_type, compression)
 
 
 def check_all(settings: Settings, project_type: str) -> None:
