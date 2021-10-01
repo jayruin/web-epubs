@@ -13,7 +13,12 @@ def make_project_argparser(description: str) -> ArgumentParser:
         prog=f"python -m {module}",
         description=description
     )
+    add_project_argparser_args(parser)
 
+    return parser
+
+
+def add_project_argparser_args(parser: ArgumentParser) -> None:
     parser.add_argument(
         "--projects-directory",
         type=Path
@@ -55,5 +60,3 @@ def make_project_argparser(description: str) -> ArgumentParser:
         action="store_true",
         help="Process all projects"
     )
-
-    return parser
