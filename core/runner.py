@@ -12,7 +12,7 @@ _T = typing.TypeVar("_T")
 
 
 def pool_run(
-    function: typing.Callable[..., _T],
+    function: collections.abc.Callable[..., _T],
     args_collection: collections.abc.Collection[
         collections.abc.Iterable[typing.Any]
     ],
