@@ -1,8 +1,8 @@
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
 
+from . import calibredb
 from app import add_project_argparser_args, Settings
-from plugins.calibre import calibredb
 from core.project import EPUBProject
 
 
