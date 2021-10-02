@@ -1,6 +1,7 @@
 from collections.abc import Callable, Collection, Iterable, Mapping
 from functools import wraps
 from inspect import Parameter, signature
+from subprocess import CalledProcessError
 from typing import Any, cast, Optional, TypeVar
 
 from .processing import identity
@@ -17,8 +18,8 @@ def command(
     flag_overrides: Mapping[str, str] = {},
     flag_repeats: Collection[str] = set(),
     processing: Callable[[str], _R] = identity
-) -> Callable[[Callable[..., None]], Callable[..., _R]]:
-    def decorator(function: Callable[..., None]) -> Callable[..., _R]:
+) -> Callable[[Callable[..., _R]], Callable[..., _R]]:
+    def decorator(function: Callable[..., _R]) -> Callable[..., _R]:
         @wraps(function)
         def decorated(*args: Any, **kwargs: Any) -> _R:
             subprocess_args: list[str] = list(executable)
@@ -39,11 +40,14 @@ def command(
                         flag_repeat
                     )
                 )
-            command_output = subprocess_run(
-                subprocess_args,
-                check_returncode=True
-            )
-            return processing(command_output)
+            try:
+                command_output = subprocess_run(
+                    subprocess_args,
+                    check_returncode=True
+                )
+                return processing(command_output)
+            except CalledProcessError:
+                return function(*args, **kwargs)
         return decorated
     return decorator
 
