@@ -59,6 +59,8 @@ def format_arg(
     flag_override: Optional[str] = None,
     flag_repeat: bool = False
 ) -> Iterable[str]:
+    if not value:
+        return
     if positional:
         flag = None
     elif flag_override:
