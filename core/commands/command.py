@@ -13,7 +13,7 @@ _R = TypeVar("_R")
 # TODO: python 3.10+ use typing.ParamSpec
 # See https://www.python.org/dev/peps/pep-0612/
 def command(
-    executable: str,
+    executable: Iterable[str],
     flag_overrides: Mapping[str, str] = {},
     flag_repeats: Collection[str] = set(),
     processing: Callable[[str], _R] = identity
@@ -21,12 +21,11 @@ def command(
     def decorator(function: Callable[..., None]) -> Callable[..., _R]:
         @wraps(function)
         def decorated(*args: Any, **kwargs: Any) -> _R:
-            subprocess_args: list[str] = [executable]
+            subprocess_args: list[str] = list(executable)
             sig = signature(function)
             ba = sig.bind(*args, **kwargs)
             ba.apply_defaults()
             for name, value in ba.arguments.items():
-                print(name, value)
                 param = sig.parameters[name]
                 positional = param.kind == Parameter.POSITIONAL_ONLY
                 flag_override = flag_overrides.get(name)
