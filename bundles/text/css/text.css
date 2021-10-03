@@ -1,0 +1,32 @@
+/* Space formatting */
+
+hr {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.space-break {
+    margin-top: 2em;
+}
+
+/* Text formatting */
+
+h1 {
+    text-align: center;
+}
+
+p {
+    text-indent: 1em;
+}
+
+.font-size-larger {
+    font-size: larger;
+}
+
+.font-size-smaller {
+    font-size: smaller;
+}
+
+.text-align-center {
+    text-align: center;
+}
