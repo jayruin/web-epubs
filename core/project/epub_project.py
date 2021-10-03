@@ -11,9 +11,9 @@ class EPUBProject:
     COVER_CSS_CLASS: str = "cover-image"
     COVER_XHTML: str = "_cover.xhtml"
     META_INF = "META-INF"
-    METADATA_JSON: str = "_metadata.json"
+    METADATA: str = "_metadata"
     MIMETYPE_FILE: str = "mimetype"
-    NAV_JSON: str = "_nav.json"
+    NAV: str = "_nav"
     NAVIGATION_DOCUMENT: str = "_nav.xhtml"
     NCX_DOCUMENT: str = "_toc.ncx"
     PACKAGE_DOCUMENT: str = "_package.opf"
@@ -25,13 +25,13 @@ class EPUBProject:
         self.name: str = root.stem
 
         self.epub_metadata: EPUBMetadata = read_any(
-            Path(self.root, self.METADATA_JSON),
+            Path(self.root, self.METADATA),
             read_epub_metadata,
             self.SUPPORTED_SUFFIXES
         )
 
         self.nav_trees: list[Tree[Anchor]] = read_any(
-            Path(self.root, self.NAV_JSON),
+            Path(self.root, self.NAV),
             read_nav,
             self.SUPPORTED_SUFFIXES
         )
