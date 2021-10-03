@@ -6,24 +6,6 @@ INDENT: str = " " * 4
 
 NEWLINE: str = "\n"
 
-# https://html.spec.whatwg.org/#void-elements
-HTML_VOID_ELEMENTS: list[str] = [
-    "area",
-    "base",
-    "br",
-    "col",
-    "embed"
-    "hr",
-    "img",
-    "input",
-    "link",
-    "meta",
-    "param",
-    "source",
-    "track",
-    "wbr"
-]
-
 
 class Encoding(Enum):
     UTF_8 = "UTF-8"
