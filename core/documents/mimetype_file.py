@@ -13,8 +13,7 @@ class MimetypeFile(EPUB3Document, EPUB2Document):
         """
         https://www.w3.org/publishing/epub3/epub-ocf.html#sec-zip-container-mime
         """
-        with open(path, "w", encoding=Encoding.ASCII.value) as f:
-            f.write("application/epub+zip")
+        path.write_text("application/epub+zip", encoding=Encoding.ASCII.value)
 
     def epub2(self, path: Path) -> None:
         """
