@@ -4,8 +4,8 @@ from pathlib import Path
 from typing import Any
 
 from core import constants
-from core.htmlparsers.id_parser import IdParser
-from core.htmlparsers.tag_name_parser import TagNameParser
+from ..htmlparsers.id_parser import IdParser
+from ..htmlparsers.tag_name_parser import TagNameParser
 
 
 class NavNode:

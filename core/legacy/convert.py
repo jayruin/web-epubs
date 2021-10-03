@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from core.config import NavNode
+from .config import NavNode
 from core.project.anchor import Anchor
 from core.project.tree import Tree
 
