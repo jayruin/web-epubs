@@ -7,7 +7,11 @@ import sys
 def make_project_argparser(description: str) -> ArgumentParser:
     cwd = Path(os.getcwd())
     script = Path(sys.argv[0])
-    module_parts = script.relative_to(cwd).with_suffix("").parts
+    relative_script = script.relative_to(cwd)
+    if relative_script.name == "__main__.py":
+        module_parts = relative_script.parent.parts
+    else:
+        module_parts = relative_script.with_suffix("").parts
     module = ".".join(module_parts)
     parser = ArgumentParser(
         prog=f"python -m {module}",
