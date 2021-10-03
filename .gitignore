@@ -1,11 +1,11 @@
 # Compiled bytecode
 __pycache__/
 
-# ePub output
-/epub/*.epub
-/epub/*.txt
-/epub/*.json
-/epubcheck.summary.json
+# .epub files
+/dist/
+
+# EPUBCheck results
+/log/
 
 # Local cached copy of epubcheck
 /epubcheck/
