@@ -24,12 +24,12 @@
                 "children": []
             },
             {
-                "text": "_metadata.json",
+                "text": "_metadata",
                 "href": "adding-content.xhtml#metadata",
                 "children": []
             },
             {
-                "text": "_nav.json",
+                "text": "_nav",
                 "href": "adding-content.xhtml#nav",
                 "children": []
             }
