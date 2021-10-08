@@ -74,12 +74,6 @@
             </navPoint>
             <navPoint id="ncx-4-3">
                 <navLabel>
-                    <text>epub.check.install</text>
-                </navLabel>
-                <content src="running.xhtml#epub-check-install"/>
-            </navPoint>
-            <navPoint id="ncx-4-4">
-                <navLabel>
                     <text>epub.check</text>
                 </navLabel>
                 <content src="running.xhtml#epub-check"/>

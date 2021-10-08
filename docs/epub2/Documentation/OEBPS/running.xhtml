@@ -22,38 +22,45 @@
     <dt><code>--bundles-directory</code></dt>
     <dd>Defaults to <code>bundles</code></dd>
 
-    <dt>positionial argument <code>projects</code></dt>
+    <dt>positional argument <code>projects</code></dt>
     <dd>List of strings of project names (defaults to empty list). Each project should be a subdirectory of <code>--projects-directory</code>.</dd>
 
     <dt><code>--all</code></dt>
     <dd>Boolean flag (which defaults to false if absent). If present, <code>projects</code> will be ignored and all possible projects will be processed within the context of the running module.</dd>
 
     <dt><code>-t</code>, <code>--type</code></dt>
-    <dd>Type of the ePub to process (defaults to <code>epub3</code> if not specified). Possible values are: <code>epub2</code>, <code>epub3</code>.</dd>
+    <dd>
+        Type of the EPUB to process. Possible values are:
+        <ul>
+            <li><code>epub2</code></li>
+            <li><code>epub3</code> (default if not specified)</li>
+        </ul>
+    </dd>
 </dl>
 
-<h2 id="epub-build">epub.build</h2>
-<pre><code>python -m epub.build.{TYPE}</code></pre>
-<p>Create an expanded ePub of type {TYPE}. Types available by default are <code>epub3</code> and <code>epub2</code>.</p>
+<h2 id="epub-build">build</h2>
+<pre><code>python -m app.run build</code></pre>
+<p>Create an expanded EPUB of given type <code>--type</code>.</p>
 <p>Additional command line arguments:</p>
 <dl>
     <dt><code>-b</code>, <code>--bundles</code></dt>
-    <dd>List of strings of the bundles to include (defaults to empty list). Each bundle should a subdirectory of <code>--bundles-directory</code>. Bundles contain files to include in the output ePub, such as shared CSS and JS files.</dd>
+    <dd>List of strings of the bundles to include (defaults to empty list). Each bundle should a subdirectory of <code>--bundles-directory</code>. Bundles contain files to include in the output EPUB, such as shared CSS and JS files.</dd>
 </dl>
 
-<h2 id="epub-pack">epub.pack</h2>
-<pre><code>python -m epub.pack</code></pre>
-<p>Packages ePubs in <code>--expanded_epubs_directory</code> and places the packaged ePubs in <code>--packaged_epubs_directory</code>.</p>
+<h2 id="epub-pack">pack</h2>
+<pre><code>python -m app.run pack</code></pre>
+<p>Packages EPUBs in <code>--expanded_epubs_directory</code> and places the packaged EPUBs in <code>--packaged_epubs_directory</code>.</p>
 <p>Additional command line arguments:</p>
 <dl>
     <dt><code>-c</code>, <code>--compression</code></dt>
     <dd>Integer in range [0, 9] specifiying the compression level to use (defaults to 0, no compression).</dd>
 </dl>
 
-<h2 id="epub-check-install">epub.check.install</h2>
-<pre><code>python -m epub.check.install</code></pre>
-<p>Install EPUBCheck to the <code>--epubcheck-directory</code>.</p>
-
-<h2 id="epub-check">epub.check</h2>
-<pre><code>python -m epub.check</code></pre>
-<p>Validate the project ePubs using EPUBCheck and write the results to <code>--logs-directory</code>.</p></body></html>
+<h2 id="epub-check">check</h2>
+<pre><code>python -m app.run check</code></pre>
+<p>Validate the project EPUBs using EPUBCheck and write the results to <code>--logs-directory</code>.</p>
+<p>Additional command line arguments:</p>
+<dl>
+    <dt><code>-i</code>, <code>--install</code></dt>
+    <dd>Boolean flag (which defaults to false if absent). If present, the latest version of EPUBCheck will be installed to <code>--epubcheck-directory</code> before validating the EPUBs.</dd>
+</dl></body></html>
