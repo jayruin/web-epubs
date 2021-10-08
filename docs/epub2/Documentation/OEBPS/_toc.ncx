@@ -62,21 +62,21 @@
             </navPoint>
             <navPoint id="ncx-4-1">
                 <navLabel>
-                    <text>epub.build</text>
+                    <text>build</text>
                 </navLabel>
-                <content src="running.xhtml#epub-build"/>
+                <content src="running.xhtml#build"/>
             </navPoint>
             <navPoint id="ncx-4-2">
                 <navLabel>
-                    <text>epub.pack</text>
+                    <text>pack</text>
                 </navLabel>
-                <content src="running.xhtml#epub-pack"/>
+                <content src="running.xhtml#pack"/>
             </navPoint>
             <navPoint id="ncx-4-3">
                 <navLabel>
-                    <text>epub.check</text>
+                    <text>check</text>
                 </navLabel>
-                <content src="running.xhtml#epub-check"/>
+                <content src="running.xhtml#check"/>
             </navPoint>
         </navPoint>
     </navMap>

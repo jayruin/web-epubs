@@ -38,7 +38,7 @@
     </dd>
 </dl>
 
-<h2 id="epub-build">build</h2>
+<h2 id="build">build</h2>
 <pre><code>python -m app.run build</code></pre>
 <p>Create an expanded EPUB of given type <code>--type</code>.</p>
 <p>Additional command line arguments:</p>
@@ -47,7 +47,7 @@
     <dd>List of strings of the bundles to include (defaults to empty list). Each bundle should a subdirectory of <code>--bundles-directory</code>. Bundles contain files to include in the output EPUB, such as shared CSS and JS files.</dd>
 </dl>
 
-<h2 id="epub-pack">pack</h2>
+<h2 id="pack">pack</h2>
 <pre><code>python -m app.run pack</code></pre>
 <p>Packages EPUBs in <code>--expanded_epubs_directory</code> and places the packaged EPUBs in <code>--packaged_epubs_directory</code>.</p>
 <p>Additional command line arguments:</p>
@@ -56,7 +56,7 @@
     <dd>Integer in range [0, 9] specifiying the compression level to use (defaults to 0, no compression).</dd>
 </dl>
 
-<h2 id="epub-check">check</h2>
+<h2 id="check">check</h2>
 <pre><code>python -m app.run check</code></pre>
 <p>Validate the project EPUBs using EPUBCheck and write the results to <code>--logs-directory</code>.</p>
 <p>Additional command line arguments:</p>

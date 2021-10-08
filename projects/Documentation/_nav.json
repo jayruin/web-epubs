@@ -45,18 +45,18 @@
                 "children": []
             },
             {
-                "text": "epub.build",
-                "href": "running.xhtml#epub-build",
+                "text": "build",
+                "href": "running.xhtml#build",
                 "children": []
             },
             {
-                "text": "epub.pack",
-                "href": "running.xhtml#epub-pack",
+                "text": "pack",
+                "href": "running.xhtml#pack",
                 "children": []
             },
             {
-                "text": "epub.check",
-                "href": "running.xhtml#epub-check",
+                "text": "check",
+                "href": "running.xhtml#check",
                 "children": []
             }
         ]
