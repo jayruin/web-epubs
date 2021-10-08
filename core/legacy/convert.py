@@ -1,6 +1,7 @@
 from argparse import ArgumentParser
 import json
 from pathlib import Path
+from typing import Any
 
 from .nav_node import NavNode
 from core.project.anchor import Anchor
@@ -17,6 +18,17 @@ def navnode_to_tree(navnode: NavNode, root_dir: str) -> Tree[Anchor]:
     return Tree[Anchor](anchor, children)
 
 
+def simplify(nav_tree: Tree[Anchor]) -> Any:
+    simplified: Any = {}
+    simplified["text"] = nav_tree.value.text
+    simplified["href"] = nav_tree.value.href.as_posix()
+    simplified["children"] = [
+        simplify(child_tree)
+        for child_tree in nav_tree.children
+    ]
+    return simplified
+
+
 def main() -> None:
     parser = ArgumentParser()
     parser.add_argument("--old", type=Path, required=True)
@@ -29,7 +41,10 @@ def main() -> None:
         for nav_node in nav_nodes
     ]
     with open(args.new, "w", encoding="utf-8") as f:
-        json.dump(nav_trees, f, ensure_ascii=False, indent=4)
+        json.dump(
+            [simplify(nav_tree) for nav_tree in nav_trees],
+            f, ensure_ascii=False, indent=4
+        )
 
 
 if __name__ == "__main__":
