@@ -5,7 +5,7 @@ from typing import Optional
 
 from .epub_type import EPUBType
 from .epub_version import EPUBVersion
-from app import Settings
+from app.settings import Settings
 from core.cover import fill_blank_cover
 from core.documents import (
     ContainerXML,

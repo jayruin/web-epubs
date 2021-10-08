@@ -4,7 +4,7 @@ import shutil
 from tqdm import tqdm
 
 from .app_worker import AppWorker
-from app import EPUBCheckResults
+from app.epubcheck_results import EPUBCheckResults
 from core.constants import Encoding, JAVA_EXECUTABLE
 from core.runner import subprocess_run
 

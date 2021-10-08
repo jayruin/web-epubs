@@ -19,10 +19,6 @@ def parse_args() -> Namespace:
         description="Sync projects with Calibre"
     )
     add_project_argparser_args(sync_parser)
-    sync_parser.add_argument(
-        "-t", "--type",
-        default="epub3"
-    )
     sync_parser.add_argument("--with-library")
     sync_parser.add_argument("--username")
     sync_parser.add_argument("--password")

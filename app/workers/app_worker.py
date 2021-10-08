@@ -1,4 +1,4 @@
-from app import Settings
+from app.settings import Settings
 
 
 class AppWorker:

@@ -27,6 +27,9 @@
 
     <dt><code>--all</code></dt>
     <dd>Boolean flag (which defaults to false if absent). If present, <code>projects</code> will be ignored and all possible projects will be processed within the context of the running module.</dd>
+
+    <dt><code>-t</code>, <code>--type</code></dt>
+    <dd>Type of the ePub to process (defaults to <code>epub3</code> if not specified). Possible values are: <code>epub2</code>, <code>epub3</code>.</dd>
 </dl>
 
 <h2 id="epub-build">epub.build</h2>
@@ -43,9 +46,6 @@
 <p>Packages ePubs in <code>--expanded_epubs_directory</code> and places the packaged ePubs in <code>--packaged_epubs_directory</code>.</p>
 <p>Additional command line arguments:</p>
 <dl>
-    <dt><code>-t</code>, <code>--type</code></dt>
-    <dd>Type (see <code>epub.build</code>) of the ePub to pack (defaults to <code>epub3</code>).</dd>
-
     <dt><code>-c</code>, <code>--compression</code></dt>
     <dd>Integer in range [0, 9] specifiying the compression level to use (defaults to 0, no compression).</dd>
 </dl>
@@ -56,9 +56,4 @@
 
 <h2 id="epub-check">epub.check</h2>
 <pre><code>python -m epub.check</code></pre>
-<p>Validate the project ePubs using EPUBCheck and write the results to <code>--logs-directory</code>.</p>
-<p>Additional command line arguments:</p>
-<dl>
-    <dt><code>-t</code>, <code>--type</code></dt>
-    <dd>Type (see <code>epub.build</code>) of the ePub to check (defaults to <code>epub3</code>).</dd>
-</dl></body></html>
+<p>Validate the project ePubs using EPUBCheck and write the results to <code>--logs-directory</code>.</p></body></html>

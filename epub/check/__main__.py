@@ -6,10 +6,6 @@ from app.workers import Checker
 
 description = "Check EPUBs"
 parser = make_project_argparser(description)
-parser.add_argument(
-    "-t", "--type",
-    default="epub3"
-)
 args = parser.parse_args()
 settings = Settings.from_namespace(args)
 projects: list[str]

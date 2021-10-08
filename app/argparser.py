@@ -3,6 +3,8 @@ import os
 from pathlib import Path
 import sys
 
+from app.workers.build_jobs.epub_type import EPUBType
+
 
 def make_project_argparser(description: str) -> ArgumentParser:
     cwd = Path(os.getcwd())
@@ -63,4 +65,11 @@ def add_project_argparser_args(parser: ArgumentParser) -> None:
         "--all",
         action="store_true",
         help="Process all projects"
+    )
+
+    epub_types: list[str] = [member.value for member in EPUBType]
+    parser.add_argument(
+        "-t", "--type",
+        default=epub_types[-1],
+        choices=epub_types
     )

@@ -7,10 +7,6 @@ from app.workers import Packer
 description = "Pack EPUBs"
 parser = make_project_argparser(description)
 parser.add_argument(
-    "-t", "--type",
-    default="epub3"
-)
-parser.add_argument(
     "-c", "--compression",
     default=0,
     type=int,
