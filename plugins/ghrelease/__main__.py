@@ -122,4 +122,5 @@ def main() -> None:
     release_summary(summary_file)
 
 
-main()
+if __name__ == "__main__":
+    main()

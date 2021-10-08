@@ -6,7 +6,7 @@ import sys
 from app.workers.build_jobs.epub_type import EPUBType
 
 
-def make_project_argparser(description: str) -> ArgumentParser:
+def make_main_argparser(description: str) -> ArgumentParser:
     cwd = Path(os.getcwd())
     script = Path(sys.argv[0])
     relative_script = script.relative_to(cwd)
@@ -19,12 +19,13 @@ def make_project_argparser(description: str) -> ArgumentParser:
         prog=f"python -m {module}",
         description=description
     )
-    add_project_argparser_args(parser)
 
     return parser
 
 
-def add_project_argparser_args(parser: ArgumentParser) -> None:
+def make_parent_argparser() -> ArgumentParser:
+    parser = ArgumentParser(add_help=False)
+
     parser.add_argument(
         "--projects-directory",
         type=Path
@@ -73,3 +74,5 @@ def add_project_argparser_args(parser: ArgumentParser) -> None:
         default=epub_types[-1],
         choices=epub_types
     )
+
+    return parser

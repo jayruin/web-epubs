@@ -1,28 +1,28 @@
-from argparse import ArgumentParser, Namespace
+from argparse import Namespace
 from pathlib import Path
 
 from . import calibredb
-from app import add_project_argparser_args, Settings
+from app import make_main_argparser, make_parent_argparser, Settings
 from core.project import EPUBProject
 
 
 def parse_args() -> Namespace:
-    module = "plugins.calibre"
     description = "Calibre related integrations"
-    parser = ArgumentParser(
-        prog=f"python -m {module}",
-        description=description
-    )
+    parser = make_main_argparser(description)
     subparsers = parser.add_subparsers(dest="subparser")
+    parent_parser = make_parent_argparser()
+
     sync_parser = subparsers.add_parser(
         "sync",
-        description="Sync projects with Calibre"
+        description="Sync projects with Calibre",
+        parents=[parent_parser]
     )
-    add_project_argparser_args(sync_parser)
     sync_parser.add_argument("--with-library")
     sync_parser.add_argument("--username")
     sync_parser.add_argument("--password")
     sync_parser.add_argument("--timeout", type=int)
+    sync_parser.set_defaults(run=sync)
+
     args = parser.parse_args()
     return args
 
@@ -82,8 +82,8 @@ def sync(args: Namespace) -> None:
 
 def main() -> None:
     args = parse_args()
-    if args.subparser == "sync":
-        sync(args)
+    args.run(args)
 
 
-main()
+if __name__ == "__main__":
+    main()
