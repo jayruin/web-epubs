@@ -216,11 +216,15 @@ class BaseBuildJob(ABC):
                 if len(anchor.href.name.split("#")) == 1:
                     bodymatter_progression.append(anchor.href)
         if len(bodymatter_progression) > 0:
+            if epub_version is EPUBVersion.EPUB2:
+                start_type = "text"
+            elif epub_version is EPUBVersion.EPUB3:
+                start_type = "bodymatter"
             self._landmarks.append(
                 Anchor(
                     "Begin Reading",
                     bodymatter_progression[0],
-                    "bodymatter"
+                    start_type
                 )
             )
         self._progression.extend(bodymatter_progression)

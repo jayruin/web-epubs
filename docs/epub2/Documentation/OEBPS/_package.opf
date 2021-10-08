@@ -32,6 +32,6 @@
     <guide>
         <reference type="cover" title="Cover" href="_cover.xhtml"/>
         <reference type="toc" title="Table of Contents" href="_nav.xhtml"/>
-        <reference type="bodymatter" title="Begin Reading" href="why-html.xhtml"/>
+        <reference type="text" title="Begin Reading" href="why-html.xhtml"/>
     </guide>
 </package>
