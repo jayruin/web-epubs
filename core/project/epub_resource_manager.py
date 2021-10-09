@@ -42,7 +42,6 @@ class EPUBResourceManager:
                 return
             elif path.suffix == ".html":
                 xhtml_resource = resource_path.with_suffix(".xhtml")
-                self.resources[xhtml_resource] = EPUBResource(xhtml_resource)
                 destination = Path(self.root, xhtml_resource)
                 self.xhtml_to_html[destination] = path
             else:
@@ -61,6 +60,8 @@ class EPUBResourceManager:
         for xhtml_file, html_file in self.xhtml_to_html.items():
             xhtml_file.parent.mkdir(parents=True, exist_ok=True)
             xhtml_template.fill(html_file, xhtml_file)
+            xhtml_resource = xhtml_file.relative_to(self.root)
+            self.resources[xhtml_resource] = EPUBResource(xhtml_resource)
 
     def add_id_counts(self) -> None:
         """
