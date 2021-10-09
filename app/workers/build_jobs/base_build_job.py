@@ -16,7 +16,13 @@ from core.documents import (
     NavigationDocument,
     NCXDocument
 )
-from core.project import Anchor, EPUBProject, EPUBResource, EPUBResourceManager
+from core.project import (
+    Anchor,
+    EPUBProject,
+    EPUBResource,
+    EPUBResourceManager,
+    Tree
+)
 from core.templates import EPUB2Template, EPUB3Template
 
 
@@ -52,6 +58,9 @@ class BaseBuildJob(ABC):
         self._progression: list[Path] = []
 
         self._landmarks: list[Anchor] = []
+
+        self._nav_extras_front: list[Tree[Anchor]] = []
+        self._nav_extras_back: list[Tree[Anchor]] = []
 
     @classmethod
     @property
@@ -164,7 +173,11 @@ class BaseBuildJob(ABC):
                 xhtml_file.relative_to(self._resource_manager.root)
             ].properties = "scripted"
 
-    def _write_cover(self, epub_version: Optional[EPUBVersion] = None) -> None:
+    def _write_cover(
+        self,
+        epub_version: Optional[EPUBVersion] = None,
+        add_to_spine: bool = True
+    ) -> None:
         if epub_version is None:
             epub_version = self.epub_version
 
@@ -193,12 +206,16 @@ class BaseBuildJob(ABC):
         self._resource_manager.resources[cover_xhtml_path] = EPUBResource(
             cover_xhtml_path
         )
-        self._progression.append(cover_xhtml_path)
-        self._landmarks.append(Anchor("Cover", cover_xhtml_path, "cover"))
+        cover_xhtml_anchor = Anchor("Cover", cover_xhtml_path, "cover")
+        if add_to_spine:
+            self._progression.append(cover_xhtml_path)
+            self._nav_extras_front.append(Tree(cover_xhtml_anchor, []))
+            self._landmarks.append(cover_xhtml_anchor)
 
     def _write_navigation_document(
         self,
-        epub_version: Optional[EPUBVersion] = None
+        epub_version: Optional[EPUBVersion] = None,
+        add_to_spine: bool = True
     ) -> None:
         if epub_version is None:
             epub_version = self.epub_version
@@ -208,8 +225,11 @@ class BaseBuildJob(ABC):
             navigation,
             properties="nav"
         )
-        self._landmarks.append(Anchor("Table of Contents", navigation, "toc"))
-        self._progression.append(navigation)
+        nav_anchor = Anchor("Table of Contents", navigation, "toc")
+        if add_to_spine:
+            self._progression.append(navigation)
+            self._nav_extras_front.append(Tree(nav_anchor, []))
+            self._landmarks.append(nav_anchor)
         bodymatter_progression: list[Path] = []
         for nav_tree in self._project.nav_trees:
             for anchor in nav_tree.depth_first_traversal():
@@ -229,8 +249,13 @@ class BaseBuildJob(ABC):
             )
         self._progression.extend(bodymatter_progression)
 
+        nav_trees = [
+            *self._nav_extras_front,
+            *self._project.nav_trees,
+            *self._nav_extras_back
+        ]
         document = NavigationDocument(
-            self._project.nav_trees,
+            nav_trees,
             self._landmarks
         )
         document_path = Path(
