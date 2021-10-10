@@ -1,6 +1,9 @@
 # Compiled bytecode
 __pycache__/
 
+# venv
+env/
+
 # .epub files
 /dist/
 
