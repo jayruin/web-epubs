@@ -169,10 +169,11 @@ class BaseBuildJob(ABC):
                 self._resource_manager.root
             )
         self._resource_manager.convert_html(template)
-        for xhtml_file in self._resource_manager.xhtml_to_html:
-            self._resource_manager.resources[
-                xhtml_file.relative_to(self._resource_manager.root)
-            ].properties = "scripted"
+        if self._js_files:
+            for xhtml_file in self._resource_manager.xhtml_to_html:
+                self._resource_manager.resources[
+                    xhtml_file.relative_to(self._resource_manager.root)
+                ].properties = "scripted"
 
     def _write_cover(
         self,
