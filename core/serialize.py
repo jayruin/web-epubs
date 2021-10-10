@@ -19,14 +19,12 @@ def get_dump(suffix: str) -> Any:
         case ".json":
             dump = partial(
                 cast(Any, json).dump,
-                encoding=Encoding.UTF_8.value,
                 ensure_ascii=False,
                 indent=4
             )
         case ".yaml" | ".yml":
             dump = partial(
                 cast(Any, yaml).dump,
-                encoding=Encoding.UTF_8.value,
                 allow_unicode=True,
                 indent=2,
                 sort_keys=False
@@ -46,7 +44,7 @@ def tree_to_nav_dict(tree: Tree[Anchor]) -> NavDict:
 
 def write_nav(path: Path, nav: list[Tree[Anchor]]) -> None:
     dump = get_dump(path.suffix)
-    with open(path, "wb") as f:
+    with open(path, "w", encoding=Encoding.UTF_8.value) as f:
         dump([tree_to_nav_dict(tree) for tree in nav], f)
 
 
