@@ -40,22 +40,24 @@ def nav_dict_to_tree(data: NavDict) -> Tree[Anchor]:
 
 
 def read_epub_metadata(path: Path) -> EPUBMetadata:
-    if path.suffix == ".json":
-        load = cast(Any, json).load
-    elif path.suffix in [".yaml", ".yml"]:
-        load = cast(Any, yaml).load
-    else:
-        raise ValueError(f"{path.suffix} is unsupported for metadata!")
+    match path.suffix:
+        case".json":
+            load = cast(Any, json).load
+        case ".yaml" | ".yml":
+            load = cast(Any, yaml).load
+        case _:
+            raise ValueError(f"{path.suffix} is unsupported for metadata!")
     with open(path, "rb") as f:
         return EPUBMetadata(**load(f))
 
 
 def read_nav(path: Path) -> list[Tree[Anchor]]:
-    if path.suffix == ".json":
-        load = cast(Any, json).load
-    elif path.suffix in [".yaml", ".yml"]:
-        load = cast(Any, yaml).load
-    else:
-        raise ValueError(f"{path.suffix} is unsupported for nav!")
+    match path.suffix:
+        case".json":
+            load = cast(Any, json).load
+        case ".yaml" | ".yml":
+            load = cast(Any, yaml).load
+        case _:
+            raise ValueError(f"{path.suffix} is unsupported for metadata!")
     with open(path, "rb") as f:
         return [nav_dict_to_tree(nav_dict) for nav_dict in load(f)]

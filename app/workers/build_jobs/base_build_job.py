@@ -130,10 +130,11 @@ class BaseBuildJob(ABC):
         found_css_files: set[Path] = set()
         found_js_files: set[Path] = set()
         for file in self._resource_manager.resources:
-            if file.suffix == ".css":
-                found_css_files.add(file)
-            elif file.suffix == ".js":
-                found_js_files.add(file)
+            match file.suffix:
+                case ".css":
+                    found_css_files.add(file)
+                case ".js":
+                    found_js_files.add(file)
         remaining_css_files = found_css_files - set(self._css_files)
         remaining_js_files = found_js_files - set(self._js_files)
         self._css_files.extend(

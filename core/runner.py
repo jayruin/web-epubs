@@ -31,16 +31,21 @@ def pool_run(
         raise ValueError("Must have the same number of args and kwargs!")
     with contextlib.ExitStack() as stack:
         executor: concurrent.futures.Executor
-        if executor_type == "process":
-            executor = stack.enter_context(
-                concurrent.futures.ProcessPoolExecutor(max_workers=max_workers)
-            )
-        elif executor_type == "thread":
-            executor = stack.enter_context(
-                concurrent.futures.ThreadPoolExecutor(max_workers=max_workers)
-            )
-        else:
-            raise ValueError("Invalid executor_type")
+        match executor_type:
+            case "process":
+                executor = stack.enter_context(
+                    concurrent.futures.ProcessPoolExecutor(
+                        max_workers=max_workers
+                    )
+                )
+            case "thread":
+                executor = stack.enter_context(
+                    concurrent.futures.ThreadPoolExecutor(
+                        max_workers=max_workers
+                    )
+                )
+            case _:
+                raise ValueError("Invalid executor_type")
         pbar: typing.Optional[tqdm.tqdm] = None
         if show_progress:
             pbar = stack.enter_context(tqdm.tqdm(total=len(args_collection)))

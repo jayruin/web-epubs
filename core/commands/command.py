@@ -2,26 +2,25 @@ from collections.abc import Callable, Collection, Iterable, Mapping
 from functools import wraps
 from inspect import Parameter, signature
 from subprocess import CalledProcessError
-from typing import Any, cast, Optional, TypeVar
+from typing import Any, cast, Optional, ParamSpec, TypeVar
 
 from .processing import identity
 from core.runner import subprocess_run
 
 
+_P = ParamSpec("_P")
 _R = TypeVar("_R")
 
 
-# TODO: python 3.10+ use typing.ParamSpec
-# See https://www.python.org/dev/peps/pep-0612/
 def command(
     executable: Iterable[str],
     flag_overrides: Mapping[str, str] = {},
     flag_repeats: Collection[str] = set(),
     processing: Callable[[str], _R] = identity
 ) -> Callable[[Callable[..., _R]], Callable[..., _R]]:
-    def decorator(function: Callable[..., _R]) -> Callable[..., _R]:
+    def decorator(function: Callable[_P, _R]) -> Callable[_P, _R]:
         @wraps(function)
-        def decorated(*args: Any, **kwargs: Any) -> _R:
+        def decorated(*args: _P.args, **kwargs: _P.kwargs) -> _R:
             subprocess_args: list[str] = list(executable)
             sig = signature(function)
             ba = sig.bind(*args, **kwargs)
