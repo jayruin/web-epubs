@@ -26,6 +26,17 @@ def read_any(
     raise FileNotFoundError
 
 
+def get_load(suffix: str) -> Any:
+    match suffix:
+        case ".json":
+            load = cast(Any, json).load
+        case ".yaml" | ".yml":
+            load = cast(Any, yaml).load
+        case _:
+            raise ValueError(f"{suffix} is unsupported for metadata!")
+    return load
+
+
 class NavDict(TypedDict):
     text: str
     href: str
@@ -40,24 +51,12 @@ def nav_dict_to_tree(data: NavDict) -> Tree[Anchor]:
 
 
 def read_epub_metadata(path: Path) -> EPUBMetadata:
-    match path.suffix:
-        case".json":
-            load = cast(Any, json).load
-        case ".yaml" | ".yml":
-            load = cast(Any, yaml).load
-        case _:
-            raise ValueError(f"{path.suffix} is unsupported for metadata!")
+    load = get_load(path.suffix)
     with open(path, "rb") as f:
         return EPUBMetadata(**load(f))
 
 
 def read_nav(path: Path) -> list[Tree[Anchor]]:
-    match path.suffix:
-        case".json":
-            load = cast(Any, json).load
-        case ".yaml" | ".yml":
-            load = cast(Any, yaml).load
-        case _:
-            raise ValueError(f"{path.suffix} is unsupported for metadata!")
+    load = get_load(path.suffix)
     with open(path, "rb") as f:
         return [nav_dict_to_tree(nav_dict) for nav_dict in load(f)]
