@@ -26,27 +26,29 @@ def make_main_argparser(description: str) -> ArgumentParser:
 def make_parent_argparser() -> ArgumentParser:
     parser = ArgumentParser(add_help=False)
 
-    parser.add_argument(
+    settings_group = parser.add_argument_group("App Settings")
+
+    settings_group.add_argument(
         "--projects-directory",
         type=Path
     )
-    parser.add_argument(
-        "--expanded_epubs_directory",
+    settings_group.add_argument(
+        "--expanded-epubs-directory",
         type=Path
     )
-    parser.add_argument(
-        "--packaged_epubs_directory",
+    settings_group.add_argument(
+        "--packaged-epubs-directory",
         type=Path
     )
-    parser.add_argument(
+    settings_group.add_argument(
         "--epubcheck-directory",
         type=Path
     )
-    parser.add_argument(
+    settings_group.add_argument(
         "--logs-directory",
         type=Path
     )
-    parser.add_argument(
+    settings_group.add_argument(
         "--bundles-directory",
         type=Path
     )
