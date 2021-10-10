@@ -1,16 +1,28 @@
-from __future__ import annotations
 from collections.abc import Callable
 import json
 from pathlib import Path
-from typing import Any, cast, TypedDict, TypeVar
+from typing import Any, cast, TypeVar
+
 import yaml
 
 from core.project.anchor import Anchor
 from core.project.epub_metadata import EPUBMetadata
+from core.project.nav_dict import NavDict
 from core.project.tree import Tree
 
 
 _T = TypeVar("_T")
+
+
+def get_load(suffix: str) -> Any:
+    match suffix:
+        case ".json":
+            load = cast(Any, json).load
+        case ".yaml" | ".yml":
+            load = cast(Any, yaml).load
+        case _:
+            raise ValueError(f"{suffix} is unsupported for metadata!")
+    return load
 
 
 def read_any(
@@ -26,27 +38,10 @@ def read_any(
     raise FileNotFoundError
 
 
-def get_load(suffix: str) -> Any:
-    match suffix:
-        case ".json":
-            load = cast(Any, json).load
-        case ".yaml" | ".yml":
-            load = cast(Any, yaml).load
-        case _:
-            raise ValueError(f"{suffix} is unsupported for metadata!")
-    return load
-
-
-class NavDict(TypedDict):
-    text: str
-    href: str
-    children: list[NavDict]
-
-
-def nav_dict_to_tree(data: NavDict) -> Tree[Anchor]:
+def nav_dict_to_tree(nav_dict: NavDict) -> Tree[Anchor]:
     return Tree(
-        Anchor(data["text"], Path(data["href"])),
-        [nav_dict_to_tree(child) for child in data["children"]]
+        Anchor(nav_dict["text"], Path(nav_dict["href"])),
+        [nav_dict_to_tree(child) for child in nav_dict["children"]]
     )
 
 
