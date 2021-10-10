@@ -17,7 +17,7 @@ def command(
     flag_overrides: Mapping[str, str] = {},
     flag_repeats: Collection[str] = set(),
     processing: Callable[[str], _R] = identity
-) -> Callable[[Callable[..., _R]], Callable[..., _R]]:
+) -> Callable[[Callable[_P, _R]], Callable[_P, _R]]:
     def decorator(function: Callable[_P, _R]) -> Callable[_P, _R]:
         @wraps(function)
         def decorated(*args: _P.args, **kwargs: _P.kwargs) -> _R:
