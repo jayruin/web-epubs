@@ -9,7 +9,7 @@
         <meta refines="#creator-id-1" property="role" scheme="marc:relators">aut</meta>
         <meta refines="#creator-id-1" property="role" scheme="marc:relators">pbl</meta>
         <dc:date>2020-08-26T00:00:00Z</dc:date>
-        <meta property="dcterms:modified">2021-10-09T22:15:00Z</meta>
+        <meta property="dcterms:modified">2021-10-11T10:56:43Z</meta>
     </metadata>
     <manifest>
         <item href="_cover.jpg" id="item-id-1" media-type="image/jpeg" properties="cover-image"/>
