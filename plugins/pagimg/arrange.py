@@ -17,9 +17,9 @@ def arrange(directory: Path, suffixes: Optional[list[str]] = None) -> None:
         elif path.is_dir():
             subdirectories.append(path)
     try:
-        sorted_files = sorted(files, key=lambda page: int(page.stem))
+        sorted_files = sorted(files, key=lambda file: int(file.stem))
     except ValueError:
-        sorted_files = sorted(files, key=lambda page: page.stem)
+        sorted_files = sorted(files, key=lambda file: file.stem)
     if len(sorted_files) > 0:
         digits = math.floor(math.log(len(sorted_files), 10)) + 1
         with ExitStack() as stack:

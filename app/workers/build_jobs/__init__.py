@@ -3,11 +3,13 @@ from .epub2_build_job import EPUB2BuildJob
 from .epub3_build_job import EPUB3BuildJob
 from .epub_type import EPUBType
 from .epub_version import EPUBVersion
+from .paginated_images_build_job import PaginatedImagesBuildJob
 
 __all__ = [
     "BaseBuildJob",
     "EPUB2BuildJob",
     "EPUB3BuildJob",
     "EPUBType",
-    "EPUBVersion"
+    "EPUBVersion",
+    "PaginatedImagesBuildJob"
 ]
