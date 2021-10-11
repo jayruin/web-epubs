@@ -42,4 +42,4 @@ def arrange(directory: Path, suffixes: Optional[list[str]] = None) -> None:
             for file_to_delete in files_to_delete:
                 file_to_delete.unlink()
     for subdirectory in subdirectories:
-        arrange(subdirectory)
+        arrange(subdirectory, suffixes=suffixes)
