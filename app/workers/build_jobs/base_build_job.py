@@ -283,7 +283,8 @@ class BaseBuildJob(ABC):
 
     def _write_package_document(
         self,
-        epub_version: Optional[EPUBVersion] = None
+        epub_version: Optional[EPUBVersion] = None,
+        pre_paginated: bool = False
     ) -> None:
         if epub_version is None:
             epub_version = self.epub_version
@@ -308,7 +309,8 @@ class BaseBuildJob(ABC):
             document = EPUB3PackageDocument(
                 self._project.epub_metadata,
                 self._resource_manager.resources,
-                self._progression
+                self._progression,
+                pre_paginated
             )
             document_path = Path(
                 self._resource_manager.root,

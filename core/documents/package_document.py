@@ -20,11 +20,13 @@ class EPUB3PackageDocument(EPUB3Document):
         self,
         epub_metadata: EPUBMetadata,
         resources: dict[Path, EPUBResource],
-        progression: list[Path]
+        progression: list[Path],
+        pre_paginated: bool
     ) -> None:
         self.epub_metadata = epub_metadata
         self.resources = resources
         self.progression = progression
+        self.pre_paginated = pre_paginated
 
     def epub3(self, path: Path) -> None:
         """
@@ -34,6 +36,7 @@ class EPUB3PackageDocument(EPUB3Document):
             self.epub_metadata,
             self.resources,
             self.progression,
+            self.pre_paginated,
             self.UNIQUE_IDENTIFIER_ID
         )
 
@@ -80,6 +83,7 @@ def make_epub3_package_element(
     epub_metadata: EPUBMetadata,
     resources: dict[Path, EPUBResource],
     progression: list[Path],
+    pre_paginated: bool,
     UNIQUE_IDENTIFIER_ID: str
 ) -> etree._Element:
     package = etree.Element(
@@ -95,6 +99,7 @@ def make_epub3_package_element(
 
     metadata = make_epub3_metadata_element(
         epub_metadata,
+        pre_paginated,
         UNIQUE_IDENTIFIER_ID
     )
     package.append(metadata)
@@ -110,6 +115,7 @@ def make_epub3_package_element(
 
 def make_epub3_metadata_element(
     epub_metadata: EPUBMetadata,
+    pre_paginated: bool,
     UNIQUE_IDENTIFIER_ID: str
 ) -> etree._Element:
     metadata = etree.Element(
@@ -178,6 +184,16 @@ def make_epub3_metadata_element(
     dc_date = etree.Element(etree.QName(Namespace.DC.value, "date").text)
     dc_date.text = epub_metadata.date
     metadata.append(dc_date)
+
+    if pre_paginated:
+        pre_paginated_meta = etree.Element(
+            "meta",
+            attrib={
+                "property": "rendition:layout"
+            }
+        )
+        pre_paginated_meta.text = "pre-paginated"
+        metadata.append(pre_paginated_meta)
 
     meta_modified = etree.Element(
         "meta",
