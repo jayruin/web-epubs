@@ -14,10 +14,7 @@ def parse_args() -> Namespace:
         "arrange",
         description="Arrange files"
     )
-    arrange_parser.add_argument(
-        "-s", "--suffixes",
-        nargs="*"
-    )
+    arrange_parser.add_argument("-s", "--suffixes", nargs="*")
     arrange_parser.add_argument("directory", type=Path)
     arrange_parser.set_defaults(run=arrange_from_args)
 
