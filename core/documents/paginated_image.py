@@ -12,9 +12,9 @@ class PaginatedImage(EPUB3Document):
     """
     XHTML Fixed-Layout Document containing a single image.
     """
-    def __init__(self, image_path: Path, root_path: Path) -> None:
+    def __init__(self, image_path: Path) -> None:
         self.image_path = image_path
-        self.width, self.height = Image.open(Path(root_path, image_path)).size
+        self.width, self.height = Image.open(image_path).size
 
     def epub3(self, path: Path) -> None:
         """
@@ -31,7 +31,7 @@ class PaginatedImage(EPUB3Document):
         )
         head.append(meta_viewport)
 
-        body = make_epub3_body_element(self.image_path)
+        body = make_epub3_body_element(Path(self.image_path.name))
         html.append(body)
 
         write_epub3_xhtml_element(html, path)
@@ -51,13 +51,13 @@ def make_epub3_meta_viewport_element(
     return meta
 
 
-def make_epub3_body_element(image_path: Path) -> etree._Element:
+def make_epub3_body_element(src: Path) -> etree._Element:
     body = etree.Element("body")
 
     img = etree.Element(
         "img",
         attrib={
-            "src": image_path.as_posix()
+            "src": src.as_posix()
         }
     )
     body.append(img)

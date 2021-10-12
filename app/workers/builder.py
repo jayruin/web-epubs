@@ -3,7 +3,13 @@ from typing import Any, Optional
 from more_itertools import consume
 
 from .app_worker import AppWorker
-from .build_jobs import BaseBuildJob, EPUB2BuildJob, EPUB3BuildJob, EPUBType
+from .build_jobs import (
+    BaseBuildJob,
+    EPUB2BuildJob,
+    EPUB3BuildJob,
+    EPUBType,
+    PaginatedImagesBuildJob
+)
 from app.settings import Settings
 from core.runner import pool_run
 
@@ -39,7 +45,11 @@ def build_epub(
     epub_type: EPUBType,
     bundles: list[str]
 ) -> None:
-    build_job_types: list[type[BaseBuildJob]] = [EPUB2BuildJob, EPUB3BuildJob]
+    build_job_types: list[type[BaseBuildJob]] = [
+        EPUB2BuildJob,
+        EPUB3BuildJob,
+        PaginatedImagesBuildJob
+    ]
     build_job: Optional[BaseBuildJob] = None
     for build_job_type in build_job_types:
         if build_job_type.epub_type is epub_type:
