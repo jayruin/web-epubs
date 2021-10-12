@@ -37,6 +37,7 @@ class EPUB3PackageDocument(EPUB3Document):
             self.resources,
             self.progression,
             self.pre_paginated,
+            self.epub_metadata.direction,
             self.UNIQUE_IDENTIFIER_ID
         )
 
@@ -84,6 +85,7 @@ def make_epub3_package_element(
     resources: dict[Path, EPUBResource],
     progression: list[Path],
     pre_paginated: bool,
+    page_progression_direction: Optional[str],
     UNIQUE_IDENTIFIER_ID: str
 ) -> etree._Element:
     package = etree.Element(
@@ -107,7 +109,11 @@ def make_epub3_package_element(
     manifest = make_epub3_manifest_element(resources)
     package.append(manifest)
 
-    spine = make_epub3_spine_element(resources, progression)
+    spine = make_epub3_spine_element(
+        resources,
+        progression,
+        page_progression_direction
+    )
     package.append(spine)
 
     return package
@@ -231,7 +237,8 @@ def make_epub3_manifest_element(
 
 def make_epub3_spine_element(
     resources: dict[Path, EPUBResource],
-    progression: list[Path]
+    progression: list[Path],
+    page_progression_direction: Optional[str]
 ) -> etree._Element:
     spine = etree.Element("spine")
 
@@ -244,6 +251,9 @@ def make_epub3_spine_element(
             }
         )
         spine.append(itemref)
+
+    if page_progression_direction is not None:
+        spine.set("page-progression-direction", page_progression_direction)
 
     return spine
 

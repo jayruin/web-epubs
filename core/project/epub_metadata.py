@@ -12,6 +12,7 @@ class EPUBMetadata:
         creators: dict[str, list[str]],
         languages: list[str] = ["en"],
         cover: Optional[Union[Path, str]] = None,
+        direction: Optional[str] = None,
         css: list[Union[Path, str]] = [],
         js: list[Union[Path, str]] = [],
         date: str = BUILD_TIME,
@@ -24,6 +25,7 @@ class EPUBMetadata:
             Path(cover) if isinstance(cover, str)
             else cover
         )
+        self.direction: Optional[str] = direction
         self.css: list[Path] = [
             Path(css_file) if isinstance(css_file, str)
             else css_file
