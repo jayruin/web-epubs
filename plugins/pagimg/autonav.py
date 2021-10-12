@@ -25,10 +25,10 @@ def autonav(
     try:
         for subdirectory in sorted(
             subdirectories,
-            key=lambda path: int(path.stem.split(" ")[0])
+            key=lambda path: int(path.stem.split("_")[0])
         ):
             tree = subdirectories[subdirectory]
-            tree.value.text = " ".join(subdirectory.stem.split(" ")[1:])
+            tree.value.text = "_".join(subdirectory.stem.split("_")[1:])
             children.append(tree)
     except ValueError:
         for subdirectory in sorted(subdirectories, key=lambda path: path.stem):
