@@ -28,12 +28,14 @@ def autonav(
             key=lambda path: int(path.stem.split("_")[0])
         ):
             tree = subdirectories[subdirectory]
-            tree.value.text = "_".join(subdirectory.stem.split("_")[1:])
+            tree.value.text = "_".join(
+                subdirectory.stem.split("_")[1:]
+            ).replace("_", " ")
             children.append(tree)
     except ValueError:
         for subdirectory in sorted(subdirectories, key=lambda path: path.stem):
             tree = subdirectories[subdirectory]
-            tree.value.text = subdirectory.stem
+            tree.value.text = subdirectory.stem.replace("_", " ")
             children.append(tree)
     sorted_pages = sorted(pages, key=lambda page: int(page.stem))
     if len(sorted_pages) > 0:
