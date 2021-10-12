@@ -1,5 +1,6 @@
 lxml
 lxml-stubs
 more-itertools
+Pillow
 pyyaml
 tqdm
