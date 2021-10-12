@@ -12,9 +12,9 @@ class PaginatedImage(EPUB3Document):
     """
     XHTML Fixed-Layout Document containing a single image.
     """
-    def __init__(self, image_path: Path) -> None:
+    def __init__(self, image_path: Path, root_path: Path) -> None:
         self.image_path = image_path
-        self.width, self.height = Image.open(image_path).size
+        self.width, self.height = Image.open(Path(root_path, image_path)).size
 
     def epub3(self, path: Path) -> None:
         """
