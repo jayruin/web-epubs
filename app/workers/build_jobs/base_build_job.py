@@ -250,6 +250,7 @@ class BaseBuildJob(ABC):
                 )
             )
         self._progression.extend(bodymatter_progression)
+        self._progression = list(dict.fromkeys(self._progression))
 
         nav_trees = [
             *self._nav_extras_front,
