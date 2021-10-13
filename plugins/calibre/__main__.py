@@ -3,6 +3,7 @@ from pathlib import Path
 
 from . import calibredb
 from app import make_main_argparser, make_parent_argparser, Settings
+from app.workers import Librarian
 from core.project import EPUBProject
 
 
@@ -30,7 +31,13 @@ def parse_args() -> Namespace:
 def sync(args: Namespace) -> None:
     settings = Settings.from_namespace(args)
     new_books: list[str] = []
-    for project in args.projects:
+    projects: list[str]
+    if args.all:
+        librarian = Librarian(settings)
+        projects = librarian.get_packaged_epubs().get(args.type, [])
+    else:
+        projects = args.projects
+    for project in projects:
         epub_project = EPUBProject(
             Path(
                 settings.projects_directory,
