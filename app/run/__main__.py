@@ -1,8 +1,7 @@
 from argparse import Namespace
-from pathlib import Path
 
 from app import make_main_argparser, make_parent_argparser, Settings
-from app.workers import Builder, Checker, Installer, Packer
+from app.workers import Builder, Checker, Installer, Librarian, Packer
 
 
 def parse_args() -> Namespace:
@@ -55,13 +54,10 @@ def parse_args() -> Namespace:
 
 def build(args: Namespace) -> None:
     settings = Settings.from_namespace(args)
+    librarian = Librarian(settings)
     projects: list[str]
     if args.all:
-        projects = [
-            path.name
-            for path in settings.projects_directory.iterdir()
-            if path.is_dir()
-        ]
+        projects = librarian.get_projects()
     else:
         projects = args.projects
     if len(projects) > 0:
@@ -72,16 +68,10 @@ def build(args: Namespace) -> None:
 
 def pack(args: Namespace) -> None:
     settings = Settings.from_namespace(args)
+    librarian = Librarian(settings)
     projects: list[str]
     if args.all:
-        projects = [
-            path.name
-            for path in Path(
-                settings.expanded_epubs_directory,
-                args.type
-            ).iterdir()
-            if path.is_dir()
-        ]
+        projects = librarian.get_expanded_epubs().get(args.type, [])
     else:
         projects = args.projects
     if len(projects) > 0:
@@ -96,16 +86,10 @@ def check(args: Namespace) -> None:
         print("Installing EPUBCheck...")
         installer = Installer(settings)
         installer.install_epubcheck()
+    librarian = Librarian(settings)
     projects: list[str]
     if args.all:
-        projects = [
-            ".".join(path.stem.split(".")[:-1])
-            for path in Path(
-                settings.packaged_epubs_directory,
-                args.type
-            ).iterdir()
-            if path.is_file() and path.suffix == ".epub"
-        ]
+        projects = librarian.get_packaged_epubs().get(args.type, [])
     else:
         projects = args.projects
     if len(projects) > 0:
