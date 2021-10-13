@@ -4,6 +4,7 @@ from pathlib import Path
 from .arrange import arrange
 from .autonav import autonav
 from app import make_main_argparser, make_parent_argparser, Settings
+from app.workers import Librarian
 from core.project import EPUBProject
 from core.serialize import write_nav
 
@@ -44,7 +45,13 @@ def arrange_from_args(args: Namespace) -> None:
 
 def autonav_from_args(args: Namespace) -> None:
     settings = Settings.from_namespace(args)
-    for project in args.projects:
+    projects: list[str]
+    if args.all:
+        librarian = Librarian(settings)
+        projects = librarian.get_projects()
+    else:
+        projects = args.projects
+    for project in projects:
         project_path = Path(settings.projects_directory, project)
         root_tree = autonav(project_path, root=project_path)
         if root_tree is not None:
