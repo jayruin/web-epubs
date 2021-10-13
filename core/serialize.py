@@ -50,7 +50,7 @@ def write_nav(path: Path, nav: list[Tree[Anchor]]) -> None:
 
 def get_doctype_html(include_dtd: bool) -> str:
     if include_dtd:
-        dtd = " ".join(
+        dtd = " " + " ".join(
             [
                 "PUBLIC",
                 "\"-//W3C//DTD XHTML 1.1//EN\"",
@@ -59,7 +59,7 @@ def get_doctype_html(include_dtd: bool) -> str:
         )
     else:
         dtd = ""
-    return f"<!DOCTYPE html {dtd}>"
+    return f"<!DOCTYPE html{dtd}>"
 
 
 def get_xml_header(encoding: str) -> str:
