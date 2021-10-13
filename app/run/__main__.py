@@ -54,9 +54,9 @@ def parse_args() -> Namespace:
 
 def build(args: Namespace) -> None:
     settings = Settings.from_namespace(args)
-    librarian = Librarian(settings)
     projects: list[str]
     if args.all:
+        librarian = Librarian(settings)
         projects = librarian.get_projects()
     else:
         projects = args.projects
@@ -68,9 +68,9 @@ def build(args: Namespace) -> None:
 
 def pack(args: Namespace) -> None:
     settings = Settings.from_namespace(args)
-    librarian = Librarian(settings)
     projects: list[str]
     if args.all:
+        librarian = Librarian(settings)
         projects = librarian.get_expanded_epubs().get(args.type, [])
     else:
         projects = args.projects
@@ -86,9 +86,9 @@ def check(args: Namespace) -> None:
         print("Installing EPUBCheck...")
         installer = Installer(settings)
         installer.install_epubcheck()
-    librarian = Librarian(settings)
     projects: list[str]
     if args.all:
+        librarian = Librarian(settings)
         projects = librarian.get_packaged_epubs().get(args.type, [])
     else:
         projects = args.projects
