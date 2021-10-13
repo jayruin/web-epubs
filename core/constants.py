@@ -1,10 +1,11 @@
 import datetime
 from enum import Enum
+from typing import Final
 
 
-INDENT: str = " " * 4
+INDENT: Final[str] = " " * 4
 
-NEWLINE: str = "\n"
+NEWLINE: Final[str] = "\n"
 
 
 class Encoding(Enum):
@@ -21,8 +22,8 @@ class Namespace(Enum):
     XHTML = "http://www.w3.org/1999/xhtml"
 
 
-UUID_NAMESPACE = "00000000-0000-0000-0000-000000000000"
-BUILD_TIME: str = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
-EPUBCHECK_RELEASES_URL: str = (
+UUID_NAMESPACE: Final[str] = "00000000-0000-0000-0000-000000000000"
+BUILD_TIME: Final[str] = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
+EPUBCHECK_RELEASES_URL: Final[str] = (
     "https://api.github.com/repos/w3c/epubcheck/releases/latest"
 )
