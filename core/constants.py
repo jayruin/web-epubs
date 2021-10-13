@@ -26,5 +26,3 @@ BUILD_TIME: str = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 EPUBCHECK_RELEASES_URL: str = (
     "https://api.github.com/repos/w3c/epubcheck/releases/latest"
 )
-
-JAVA_EXECUTABLE = "java"

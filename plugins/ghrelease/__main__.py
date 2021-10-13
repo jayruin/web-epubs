@@ -78,10 +78,7 @@ def summarize(settings: Settings) -> Path:
     for project_type in project_types:
         for path in Path(settings.logs_directory, project_type).iterdir():
             if path.is_file() and path.suffix == ".txt":
-                project = ".".join(path.stem.split(".")[:-1])
                 epubcheck_results = EPUBCheckResults.from_text(
-                    project,
-                    project_type,
                     path.read_text(encoding=Encoding.UTF_8.value)
                 )
                 summary["fatals"] += epubcheck_results.fatals
