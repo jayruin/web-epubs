@@ -5,6 +5,8 @@ import shutil
 import tempfile
 from typing import Optional
 
+from .navigation import sort_files
+
 
 def arrange(directory: Path, suffixes: Optional[list[str]] = None) -> None:
     assert directory.is_dir()
@@ -16,10 +18,7 @@ def arrange(directory: Path, suffixes: Optional[list[str]] = None) -> None:
                 files.append(path)
         elif path.is_dir():
             subdirectories.append(path)
-    try:
-        sorted_files = sorted(files, key=lambda file: int(file.stem))
-    except ValueError:
-        sorted_files = sorted(files, key=lambda file: file.stem)
+    sorted_files = sort_files(files)
     if len(sorted_files) > 0:
         digits = math.floor(math.log(len(sorted_files), 10)) + 1
         with ExitStack() as stack:
