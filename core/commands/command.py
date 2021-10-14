@@ -16,7 +16,8 @@ def command(
     executable: Iterable[str],
     flag_overrides: Mapping[str, str] = {},
     flag_repeats: Collection[str] = set(),
-    processing: Callable[[str], _R] = identity
+    processing: Callable[[str], _R] = identity,
+    check_returncode: bool = True
 ) -> Callable[[Callable[_P, _R]], Callable[_P, _R]]:
     def decorator(function: Callable[_P, _R]) -> Callable[_P, _R]:
         @wraps(function)
@@ -42,7 +43,7 @@ def command(
             try:
                 command_output = subprocess_run(
                     subprocess_args,
-                    check_returncode=True
+                    check_returncode=check_returncode
                 )
                 return processing(command_output)
             except CalledProcessError:

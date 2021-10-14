@@ -62,7 +62,8 @@ def make_epubcheck_command(
 ) -> Callable[[Path], EPUBCheckResults]:
     @command(
         ["java", "-jar", "-Dfile.encoding=UTF-8", epubcheck_jar.as_posix()],
-        processing=EPUBCheckResults.from_text
+        processing=EPUBCheckResults.from_text,
+        check_returncode=False
     )
     def epubcheck(packaged: Path, /) -> EPUBCheckResults:
         return EPUBCheckResults("", -1, -1, -1)
