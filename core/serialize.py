@@ -30,7 +30,7 @@ def get_dump(suffix: str) -> Any:
                 sort_keys=False
             )
         case _:
-            raise ValueError(f"{suffix} is unsupported for metadata!")
+            raise ValueError(f"{suffix} is unsupported!")
     return dump
 
 

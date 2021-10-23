@@ -21,7 +21,7 @@ def get_load(suffix: str) -> Any:
         case ".yaml" | ".yml":
             load = cast(Any, yaml).load
         case _:
-            raise ValueError(f"{suffix} is unsupported for metadata!")
+            raise ValueError(f"{suffix} is unsupported!")
     return load
 
 
