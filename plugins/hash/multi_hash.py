@@ -8,13 +8,13 @@ class MultiHash:
     def __init__(self, algorithms: Optional[Iterable[str]] = None) -> None:
         self.hashes: list[hashlib._Hash] = []
         if algorithms is None:
-            algorithms = self.default_algorithms
+            algorithms = self.supported_algorithms
         for algorithm in algorithms:
-            try:
-                hash = hashlib.new(algorithm)
-                self.hashes.append(hash)
-            except ValueError:
-                continue
+            algorithm = algorithm.lower()
+            if algorithm not in self.supported_algorithms:
+                raise ValueError(f"Algorithm {algorithm} not supported!")
+            hash = hashlib.new(algorithm)
+            self.hashes.append(hash)
 
     def update(self, data: bytes) -> None:
         for hash in self.hashes:
@@ -29,7 +29,7 @@ class MultiHash:
     @classmethod
     @property
     @cache
-    def default_algorithms(cls) -> Set[str]:
+    def supported_algorithms(cls) -> Set[str]:
         algorithms: set[str] = set()
         for algorithm in hashlib.algorithms_guaranteed:
             try:
