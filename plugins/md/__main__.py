@@ -1,6 +1,7 @@
 from argparse import Namespace
 from pathlib import Path
 
+from .convert import convert
 from app import make_main_argparser
 
 
@@ -32,7 +33,7 @@ def parse_args() -> Namespace:
 
 
 def convert_from_args(args: Namespace) -> None:
-    pass
+    convert(args.source, args.destination, args.copy)
 
 
 def main() -> None:

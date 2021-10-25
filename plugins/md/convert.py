@@ -26,7 +26,7 @@ def md_to_html(source: Path, destination: Path) -> None:
         md_content = f.read()
     html_content = markdown.markdown(md_content, extensions=extensions)
     title = source.stem.replace("_", " ").title()
-    destination.write_text(
+    destination.with_suffix(".html").write_text(
         "\n".join(
             [
                 get_doctype_html(False),
