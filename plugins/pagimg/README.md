@@ -16,7 +16,7 @@ Renamed files will all have integer names, starting from `1` and left padded wit
 Args:
 
 * `-s`, `--suffixes`: list of files suffixes to process. If not specified, all files will be processed. For example, to process all images, one might use `--suffixes .jpg .png`.
-* `directory`: positional arg of the path to the directory to process. Will recursively process all subdirectories as well.
+* `directory` (positional): the path to the directory to process. Will recursively process all subdirectories as well.
 
 ## autonav
 
