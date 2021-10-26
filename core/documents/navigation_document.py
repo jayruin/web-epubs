@@ -6,7 +6,8 @@ from lxml import etree
 from .epub2document import EPUB2Document
 from .epub3document import EPUB3Document
 from core.constants import Namespace
-from core.project import Anchor, Tree
+from core.datastructures import Tree
+from core.project import Anchor
 from core.serialize import write_epub2_xhtml_element, write_epub3_xhtml_element
 from core.templates import EPUB2Template, EPUB3Template
 

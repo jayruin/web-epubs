@@ -3,7 +3,8 @@ from typing import Optional
 
 from .navigation import sort_directories
 from app.workers.build_jobs import PaginatedImagesBuildJob
-from core.project import Anchor, Tree
+from core.datastructures import Tree
+from core.project import Anchor
 
 
 def autonav(

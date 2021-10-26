@@ -7,6 +7,7 @@ from .epub_type import EPUBType
 from .epub_version import EPUBVersion
 from app.settings import Settings
 from core.cover import fill_blank_cover
+from core.datastructures import Tree
 from core.documents import (
     ContainerXML,
     CoverXHTML,
@@ -20,8 +21,7 @@ from core.project import (
     Anchor,
     EPUBProject,
     EPUBResource,
-    EPUBResourceManager,
-    Tree
+    EPUBResourceManager
 )
 from core.templates import EPUB2Template, EPUB3Template
 
@@ -234,7 +234,7 @@ class BaseBuildJob(ABC):
             self._landmarks.append(nav_anchor)
         bodymatter_progression: list[Path] = []
         for nav_tree in self._project.nav_trees:
-            for anchor in nav_tree.depth_first_traversal():
+            for anchor in nav_tree:
                 if len(anchor.href.name.split("#")) == 1:
                     bodymatter_progression.append(anchor.href)
         if len(bodymatter_progression) > 0:

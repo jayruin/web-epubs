@@ -5,10 +5,10 @@ from typing import Any, cast, TypeVar
 
 import yaml
 
+from core.datastructures.tree import Tree
 from core.project.anchor import Anchor
 from core.project.epub_metadata import EPUBMetadata
 from core.project.nav_dict import NavDict
-from core.project.tree import Tree
 
 
 _T = TypeVar("_T")

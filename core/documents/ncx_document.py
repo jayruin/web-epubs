@@ -4,7 +4,8 @@ from lxml import etree
 
 from .epub2document import EPUB2Document
 from core.constants import Namespace
-from core.project import Anchor, Tree
+from core.datastructures import Tree
+from core.project import Anchor
 from core.serialize import write_xml_element
 
 

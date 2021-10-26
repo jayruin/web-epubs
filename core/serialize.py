@@ -9,9 +9,9 @@ import yaml
 
 from core.constants import Encoding, INDENT
 if TYPE_CHECKING:
+    from core.datastructures import Tree
     from core.project.anchor import Anchor
     from core.project.nav_dict import NavDict
-    from core.project.tree import Tree
 
 
 def get_dump(suffix: str) -> Any:

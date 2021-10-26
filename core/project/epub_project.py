@@ -2,7 +2,7 @@ from pathlib import Path
 
 from .anchor import Anchor
 from .epub_metadata import EPUBMetadata
-from .tree import Tree
+from core.datastructures import Tree
 from core.deserialize import read_any, read_epub_metadata, read_nav
 
 
