@@ -6,7 +6,7 @@ from typing import Optional
 from lxml import etree, html
 
 from .xhtml_template import XHTMLTemplate
-from core.constants import Namespace
+from core.constants import Encoding, Namespace
 from core.serialize import write_epub2_xhtml_element
 
 
@@ -24,7 +24,8 @@ class EPUB2Template(XHTMLTemplate):
         self.base = base
 
     def fill(self, html_file: Path, xhtml_file: Path) -> None:
-        source_html = html.parse(html_file.as_posix())
+        parser = html.HTMLParser(encoding=Encoding.UTF_8.value)
+        source_html = html.parse(html_file.as_posix(), parser)
         title = source_html.find("head/title")
         body = source_html.find("body")
         html_root = self.generate_root_element(title.text, xhtml_file)

@@ -73,11 +73,11 @@ def write_epub3_xhtml_element(
 ) -> None:
     if indent:
         etree.indent(root_element, space=INDENT)
-    with open(path, "wb") as f:
+    with open(path, "w", encoding=Encoding.UTF_8.value) as f:
         f.write(
             etree.tostring(
                 root_element,
-                encoding=Encoding.UTF_8.value,
+                encoding=str,
                 doctype="\n".join(
                     [
                         get_xml_header(Encoding.UTF_8.value),
