@@ -1,4 +1,5 @@
 from collections.abc import Callable
+from functools import partial
 import json
 from pathlib import Path
 from typing import Any, cast, TypeVar
@@ -19,7 +20,10 @@ def get_load(suffix: str) -> Any:
         case ".json":
             load = cast(Any, json).load
         case ".yaml" | ".yml":
-            load = cast(Any, yaml).load
+            load = partial(
+                cast(Any, yaml).load,
+                Loader=yaml.SafeLoader
+            )
         case _:
             raise ValueError(f"{suffix} is unsupported!")
     return load
