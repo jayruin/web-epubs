@@ -7,7 +7,7 @@ from app.workers import Builder, Checker, Installer, Librarian, Packer
 def parse_args() -> Namespace:
     description = "Creating and Validating EPUBs"
     parser = make_main_argparser(description)
-    subparsers = parser.add_subparsers(dest="subparser")
+    subparsers = parser.add_subparsers(dest="subparser", required=True)
     parent_parser = make_parent_argparser()
 
     build_parser = subparsers.add_parser(

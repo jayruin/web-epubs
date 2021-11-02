@@ -10,7 +10,7 @@ from core.project import EPUBProject
 def parse_args() -> Namespace:
     description = "Calibre related integrations"
     parser = make_main_argparser(description)
-    subparsers = parser.add_subparsers(dest="subparser")
+    subparsers = parser.add_subparsers(dest="subparser", required=True)
     parent_parser = make_parent_argparser()
 
     sync_parser = subparsers.add_parser(

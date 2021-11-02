@@ -26,7 +26,7 @@ def make_logger(log_file: Optional[Path] = None) -> logging.Logger:
 def parse_args() -> Namespace:
     description = "Hashing files and directories"
     parser = make_main_argparser(description)
-    subparsers = parser.add_subparsers(dest="subparser")
+    subparsers = parser.add_subparsers(dest="subparser", required=True)
 
     parent_parser = ArgumentParser(add_help=False)
     parent_parser.add_argument(

@@ -12,7 +12,7 @@ from core.serialize import write_nav
 def parse_args() -> Namespace:
     description = "Tools for paginated images"
     parser = make_main_argparser(description)
-    subparsers = parser.add_subparsers(dest="subparser")
+    subparsers = parser.add_subparsers(dest="subparser", required=True)
     parent_parser = make_parent_argparser()
 
     arrange_parser = subparsers.add_parser(
