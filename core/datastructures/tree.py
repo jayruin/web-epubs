@@ -1,7 +1,10 @@
 from __future__ import annotations
-from collections.abc import Collection, Iterator
+from collections.abc import Collection
 from dataclasses import dataclass
-from typing import Generic, TypeVar
+from typing import Generic, TYPE_CHECKING, TypeVar
+
+if TYPE_CHECKING:
+    from collections.abc import Iterator
 
 _T = TypeVar("_T")
 
