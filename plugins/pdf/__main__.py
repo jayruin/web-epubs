@@ -7,7 +7,7 @@ from app import make_main_argparser
 def parse_args() -> Namespace:
     description = "Working with PDF files"
     parser = make_main_argparser(description)
-    subparsers = parser.add_subparsers(dest="subparser")
+    subparsers = parser.add_subparsers(dest="subparser", required=True)
 
     pagimg_parser = subparsers.add_parser(
         "from-pagimg",
