@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 import shutil
 
@@ -8,8 +7,8 @@ def fill_blank_cover(
 ) -> None:
     if path.exists():
         return
-    os.makedirs(path.parent, exist_ok=True)
+    path.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(
-        "./core/cover/cover.jpg",
+        Path("core", "cover", "cover.jpg"),
         path
     )
