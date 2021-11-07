@@ -1,15 +1,19 @@
-from collections.abc import Callable, Collection, Iterable, Mapping
+from __future__ import annotations
+from collections.abc import Iterable
 from functools import wraps
 from inspect import Parameter, signature
 from subprocess import CalledProcessError
-from typing import Any, cast, Optional, ParamSpec, TypeVar
+from typing import TYPE_CHECKING
 
 from .processing import identity
 from core.runner import subprocess_run
 
+if TYPE_CHECKING:
+    from collections.abc import Callable, Collection, Mapping
+    from typing import Any, cast, Optional, ParamSpec, TypeVar
 
-_P = ParamSpec("_P")
-_R = TypeVar("_R")
+    _P = ParamSpec("_P")
+    _R = TypeVar("_R")
 
 
 def command(
@@ -75,7 +79,8 @@ def format_arg(
         isinstance(value, Iterable)
         and not isinstance(value, iterable_exclusions)
     ):
-        value = cast(Iterable[Any], value)
+        if TYPE_CHECKING:
+            value = cast(Iterable[Any], value)
         if flag_repeat:
             for item in value:
                 if flag:
