@@ -7,7 +7,7 @@ from .epub2document import EPUB2Document
 from .epub3document import EPUB3Document
 from core.constants import Namespace
 from core.datastructures import Tree
-from core.project import Anchor
+from core.project import Anchor, TypedAnchor
 from core.serialize import write_epub2_xhtml_element, write_epub3_xhtml_element
 from core.templates import EPUB2Template, EPUB3Template
 
@@ -20,7 +20,7 @@ class NavigationDocument(EPUB3Document, EPUB2Document):
     def __init__(
         self,
         nav_trees: list[Tree[Anchor]],
-        landmarks: Optional[list[Anchor]] = None
+        landmarks: Optional[list[TypedAnchor]] = None
     ) -> None:
         self.nav_trees = nav_trees
         self.landmarks = landmarks
@@ -88,7 +88,7 @@ def make_ol_element(nav_trees: list[Tree[Anchor]]) -> etree._Element:
 
 def make_epub3_body_element(
     nav_trees: list[Tree[Anchor]],
-    landmarks: Optional[list[Anchor]] = None
+    landmarks: Optional[list[TypedAnchor]] = None
 ) -> etree._Element:
     body = etree.Element("body")
 
@@ -132,7 +132,9 @@ def make_epub3_toc_element(nav_trees: list[Tree[Anchor]]) -> etree._Element:
     return nav
 
 
-def make_epub3_landmarks_element(landmarks: list[Anchor]) -> etree._Element:
+def make_epub3_landmarks_element(
+    landmarks: list[TypedAnchor]
+) -> etree._Element:
     nav = etree.Element(
         "nav",
         attrib={

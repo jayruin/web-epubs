@@ -21,7 +21,8 @@ from core.project import (
     Anchor,
     EPUBProject,
     EPUBResource,
-    EPUBResourceManager
+    EPUBResourceManager,
+    TypedAnchor
 )
 from core.templates import EPUB2Template, EPUB3Template
 
@@ -57,7 +58,7 @@ class BaseBuildJob(ABC):
 
         self._progression: list[Path] = []
 
-        self._landmarks: list[Anchor] = []
+        self._landmarks: list[TypedAnchor] = []
 
         self._nav_extras_front: list[Tree[Anchor]] = []
         self._nav_extras_back: list[Tree[Anchor]] = []
@@ -208,7 +209,7 @@ class BaseBuildJob(ABC):
         self._resource_manager.resources[cover_xhtml_path] = EPUBResource(
             cover_xhtml_path
         )
-        cover_xhtml_anchor = Anchor("Cover", cover_xhtml_path, "cover")
+        cover_xhtml_anchor = TypedAnchor("Cover", cover_xhtml_path, "cover")
         if add_to_spine:
             self._progression.append(cover_xhtml_path)
             self._nav_extras_front.append(Tree(cover_xhtml_anchor, []))
@@ -227,7 +228,7 @@ class BaseBuildJob(ABC):
             navigation,
             properties="nav"
         )
-        nav_anchor = Anchor("Table of Contents", navigation, "toc")
+        nav_anchor = TypedAnchor("Table of Contents", navigation, "toc")
         if add_to_spine:
             self._progression.append(navigation)
             self._nav_extras_front.append(Tree(nav_anchor, []))
@@ -243,7 +244,7 @@ class BaseBuildJob(ABC):
             elif epub_version is EPUBVersion.EPUB3:
                 start_type = "bodymatter"
             self._landmarks.append(
-                Anchor(
+                TypedAnchor(
                     "Begin Reading",
                     bodymatter_progression[0],
                     start_type

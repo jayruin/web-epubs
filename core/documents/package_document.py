@@ -6,7 +6,7 @@ from lxml import etree
 from .epub3document import EPUB3Document
 from .epub2document import EPUB2Document
 from core.constants import BUILD_TIME, Namespace
-from core.project import Anchor, EPUBMetadata, EPUBResource
+from core.project import EPUBMetadata, EPUBResource, TypedAnchor
 from core.serialize import write_xml_element
 
 
@@ -56,7 +56,7 @@ class EPUB2PackageDocument(EPUB2Document):
         resources: dict[Path, EPUBResource],
         progression: list[Path],
         toc: Path,
-        landmarks: Optional[list[Anchor]] = None
+        landmarks: Optional[list[TypedAnchor]] = None
     ) -> None:
         self.epub_metadata = epub_metadata
         self.resources = resources
@@ -263,7 +263,7 @@ def make_epub2_package_element(
     resources: dict[Path, EPUBResource],
     progression: list[Path],
     toc: Path,
-    landmarks: Optional[list[Anchor]],
+    landmarks: Optional[list[TypedAnchor]],
     UNIQUE_IDENTIFIER_ID: str
 ) -> etree._Element:
     package = etree.Element(
@@ -405,7 +405,7 @@ def make_epub2_spine_element(
     return spine
 
 
-def make_epub2_guide_element(landmarks: list[Anchor]) -> etree._Element:
+def make_epub2_guide_element(landmarks: list[TypedAnchor]) -> etree._Element:
     guide = etree.Element("guide")
 
     for anchor in landmarks:
