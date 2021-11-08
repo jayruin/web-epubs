@@ -27,9 +27,14 @@ class EPUB3Template(XHTMLTemplate):
 
     def fill(self, html_file: Path, xhtml_file: Path) -> None:
         parser = html.HTMLParser(encoding=Encoding.UTF_8.value)
-        source_html = html.parse(html_file.as_posix(), parser)
-        title = source_html.find("head/title")
-        body = source_html.find("body")
+        with open(html_file, encoding=Encoding.UTF_8.value) as f:
+            source_html = html.document_fromstring(
+                f.read(),
+                parser=parser,
+                ensure_head_body=True
+            )
+        title = source_html.head.find("title")
+        body = source_html.body
         html_root = self.generate_root_element(title.text, xhtml_file)
         html_root.append(body)
         write_epub3_xhtml_element(html_root, xhtml_file, indent=False)
