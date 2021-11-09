@@ -1,11 +1,13 @@
-from pathlib import Path
+from __future__ import annotations
+from typing import TYPE_CHECKING
 
-from core.documents import MimetypeFile
 from tests.core.documents.shared import check_epub3_document
 
+if TYPE_CHECKING:
+    from pathlib import Path
 
-def test_mimetype_file():
-    parent_directory = Path(__file__).parent
-    document = MimetypeFile()
-    expected_file = Path(parent_directory, "expected", "mimetype")
-    assert check_epub3_document(document, expected_file)
+    from core.documents import MimetypeFile
+
+
+def test_mimetype_file(mimetype_file: MimetypeFile, expected_file: Path):
+    assert check_epub3_document(mimetype_file, expected_file)

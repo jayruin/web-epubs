@@ -1,20 +1,20 @@
-from pathlib import Path
+from __future__ import annotations
+from typing import TYPE_CHECKING
 
-from core.documents import ContainerXML
 from tests.core.documents.shared import check_epub3_document
 
+if TYPE_CHECKING:
+    from pathlib import Path
 
-def test_no_sep():
-    parent_directory = Path(__file__).parent
-    package_document = Path("package.opf")
-    document = ContainerXML(package_document)
-    expected_file = Path(parent_directory, "expected", "no_sep.xml")
-    assert check_epub3_document(document, expected_file)
+    from core.documents import ContainerXML
 
 
-def test_sep():
-    parent_directory = Path(__file__).parent
-    package_document = Path("OEBPS/package.opf")
-    document = ContainerXML(package_document)
-    expected_file = Path(parent_directory, "expected", "sep.xml")
-    assert check_epub3_document(document, expected_file)
+def test_no_sep(
+    container_xml_no_sep: ContainerXML,
+    expected_file_no_sep: Path
+):
+    assert check_epub3_document(container_xml_no_sep, expected_file_no_sep)
+
+
+def test_sep(container_xml_sep: ContainerXML, expected_file_sep: Path):
+    assert check_epub3_document(container_xml_sep, expected_file_sep)
