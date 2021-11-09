@@ -1,3 +1,4 @@
 {
+    ".js": "application/javascript",
     ".ncx": "application/x-dtbncx+xml"
 }
