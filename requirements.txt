@@ -2,5 +2,6 @@ lxml
 lxml-stubs
 more-itertools
 Pillow
+pytest
 pyyaml
 tqdm
