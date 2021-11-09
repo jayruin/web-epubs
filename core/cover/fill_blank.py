@@ -1,14 +1,14 @@
-from pathlib import Path
-import shutil
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+from PIL import Image
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 
 def fill_blank_cover(
     path: Path
 ) -> None:
-    if path.exists():
-        return
-    path.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(
-        Path("core", "cover", "cover.jpg"),
-        path
-    )
+    image = Image.new("RGB", (350, 560), (128, 128, 128))
+    image.save(path)
