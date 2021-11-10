@@ -13,7 +13,7 @@ def container_xml_no_sep() -> ContainerXML:
 
 @pytest.fixture
 def container_xml_sep() -> ContainerXML:
-    package_document = Path("OEBPS/package.opf")
+    package_document = Path("OEBPS", "package.opf")
     return ContainerXML(package_document)
 
 
