@@ -9,14 +9,15 @@ class EPUBMetadata:
     def __init__(
         self,
         title: str,
-        creators: dict[str, list[str]],
+        creators: dict[str, list[str]] = {},
         languages: list[str] = ["en"],
         cover: Optional[Union[Path, str]] = None,
         direction: Optional[str] = None,
         css: list[Union[Path, str]] = [],
         js: list[Union[Path, str]] = [],
-        date: str = BUILD_TIME,
-        identifier: Optional[str] = None
+        date: Optional[str] = None,
+        identifier: Optional[str] = None,
+        modified: str = BUILD_TIME
     ) -> None:
         self.title: str = title
         self.creators: dict[str, list[str]] = creators
@@ -36,7 +37,7 @@ class EPUBMetadata:
             else js_file
             for js_file in js
         ]
-        self.date: str = date
+        self.date: Optional[str] = date
         self.identifier: str = (
             identifier
             or uuid.uuid5(
@@ -44,3 +45,4 @@ class EPUBMetadata:
                 " ".join([title, str(creators), str(languages)])
             ).urn
         )
+        self.modified: str = modified

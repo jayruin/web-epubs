@@ -14,7 +14,7 @@
 
 <h2 id="metadata">_metadata</h2>
 
-<p>Used to populate ePub metadata.</p>
+<p>Used to populate EPUB metadata.</p>
 
 <p>Maybe be serialized as JSON or YAML.</p>
 
@@ -26,23 +26,22 @@
         "The Illustrator": ["ill"],
         "Creator With No Role": [],
         "Creator With Multiple Roles": ["aut", "ill"]
-    }
+    },
+    "languages": ["en"]
 }</code></pre>
 
-<p><code>creators</code> is a key value mapping where keys define creator names and values define an array of creator roles. Key value pairs in <code>creators</code> will be inserted into the ePub in the order they are listed. Similarly, the roles will be inserted into the ePub in the order they are listed.</p>
-
-<p>Creator roles must be 3 character <a href="http://id.loc.gov/vocabulary/relators.html">MARC codes</a>.</p>
-
-<p>Each language in <code>languages</code> must conform to the requirements defined by the ePub specs.</p>
+<p><code>title</code> is the only mandatory parameter.</p>
 
 <p>Optional parameters:</p>
-
 <dl>
+    <dt><code>creators</code></dt>
+    <dd>Key value mapping (defaults to empty mapping) where keys define creator names and values define an array of creator roles. Key value pairs in <code>creators</code> will be inserted into the EPUB in the order they are listed. Similarly, the roles will be inserted into the EPUB in the order they are listed. The roles array may be empty. Creator roles must be 3 character <a href="http://id.loc.gov/vocabulary/relators.html">MARC codes</a>.</dd>
+
     <dt><code>languages</code></dt>
-    <dd>Array of strings (defaults to <code>["en"]</code>) which specify the languages used in the ePub.</dd>
+    <dd>Array of strings (defaults to <code>["en"]</code>) which specify the languages used in the EPUB. Each language in <code>languages</code> must conform to the requirements defined by the EPUB specs.</dd>
 
     <dt><code>cover</code></dt>
-    <dd>String which specifies the relative path to the cover image. This image should be in a file format that is supported by the ePub specs. If this value is not specified, a default cover will be generated and included.</dd>
+    <dd>String which specifies the relative path to the cover image. This image should be in a file format that is supported by the EPUB specs. If this value is not specified, a default cover will be generated and included.</dd>
 
     <dt><code>css</code></dt>
     <dd>Array of strings (defaults to empty array) which specifies the order in which css files should be linked. Any remaining css files will be linked in lexicographical order.</dd>
@@ -54,15 +53,18 @@
     <dd>Array of strings (defaults to empty array) which specifies the order in which js files should be linked. Any remaining js files will be linked in lexicographical order.</dd>
 
     <dt><code>date</code></dt>
-    <dd>String (defaults to date time now) which specifies the publication date. This parameter should be formatted according to ePub specs.</dd>
+    <dd>String (defaults to null) which specifies the publication date. This parameter should be formatted according to EPUB specs.</dd>
 
     <dt><code>identifier</code></dt>
-    <dd>String which specifies the unique identifier of the ePub. If not specified, a URN UUID will be generated.</dd>
+    <dd>String which specifies the unique identifier of the EPUB. If not specified, a URN UUID will be generated.</dd>
+
+    <dt><code>modified</code></dt>
+    <dd>String (defaults to date time now) which specifies the timestamp of the last modification. This parameter should be formatted according to EPUB specs.</dd>
 </dl>
 
 <h2 id="nav">_nav</h2>
 
-<p>Used to construct ePub navigation document.</p>
+<p>Used to construct EPUB navigation document.</p>
 
 <p>Maybe be serialized as JSON or YAML.</p>
 

@@ -5,7 +5,7 @@ from lxml import etree
 
 from .epub3document import EPUB3Document
 from .epub2document import EPUB2Document
-from core.constants import BUILD_TIME, Namespace
+from core.constants import Namespace
 from core.project import EPUBMetadata, EPUBResource, TypedAnchor
 from core.serialize import write_xml_element
 
@@ -187,9 +187,10 @@ def make_epub3_metadata_element(
             dc_creator_meta.text = role
             metadata.append(dc_creator_meta)
 
-    dc_date = etree.Element(etree.QName(Namespace.DC.value, "date").text)
-    dc_date.text = epub_metadata.date
-    metadata.append(dc_date)
+    if epub_metadata.date:
+        dc_date = etree.Element(etree.QName(Namespace.DC.value, "date").text)
+        dc_date.text = epub_metadata.date
+        metadata.append(dc_date)
 
     if pre_paginated:
         pre_paginated_meta = etree.Element(
@@ -207,7 +208,7 @@ def make_epub3_metadata_element(
             "property": "dcterms:modified"
         }
     )
-    meta_modified.text = BUILD_TIME
+    meta_modified.text = epub_metadata.modified
     metadata.append(meta_modified)
 
     return metadata
@@ -343,9 +344,10 @@ def make_epub2_metadata_element(
             dc_creator.text = creator
             metadata.append(dc_creator)
 
-    dc_date = etree.Element(etree.QName(Namespace.DC.value, "date").text)
-    dc_date.text = epub_metadata.date
-    metadata.append(dc_date)
+    if epub_metadata.date:
+        dc_date = etree.Element(etree.QName(Namespace.DC.value, "date").text)
+        dc_date.text = epub_metadata.date
+        metadata.append(dc_date)
 
     if epub_metadata.cover:
         meta_cover = etree.Element(
