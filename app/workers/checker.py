@@ -7,7 +7,7 @@ from tqdm import tqdm
 from .app_worker import AppWorker
 from app.settings import Settings
 from app.epubcheck_results import EPUBCheckResults
-from core.commands import command
+from core.cli import command
 from core.constants import Encoding
 
 

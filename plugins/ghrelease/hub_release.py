@@ -1,6 +1,6 @@
 from typing import Optional
 
-from core.commands import command
+from core.cli import command
 
 
 # https://hub.github.com/hub-release.1.html

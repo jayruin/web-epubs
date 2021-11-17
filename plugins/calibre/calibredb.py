@@ -1,7 +1,7 @@
 from typing import Literal, Optional, Union
 
-from core.commands import command
-from core.commands.processing import comma_separated_ints
+from core.cli import command
+from core.cli.processing import comma_separated_ints
 
 
 @command(["calibredb", "add"], flag_repeats={"identifiers"})
