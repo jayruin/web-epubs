@@ -86,6 +86,8 @@ def make_doctitle_element(title: str) -> etree._Element:
 def make_navmap_element(nav_trees: list[Tree[Anchor]]) -> etree._Element:
     navmap = etree.Element("navMap")
 
+    if len(nav_trees) == 0:
+        navmap.text = ""
     for count, nav_tree in enumerate(nav_trees):
         navmap.append(make_navpoint_element(nav_tree, [count]))
 
