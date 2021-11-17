@@ -13,11 +13,10 @@ if TYPE_CHECKING:
 
 @pytest.fixture
 def ncx_document_empty_nav_trees(
-    epub_metadata_minimal: EPUBMetadata,
-    nav_trees_empty: list[Tree[Anchor]]
+    epub_metadata_minimal: EPUBMetadata
 ) -> NCXDocument:
     return NCXDocument(
-        nav_trees_empty,
+        [],
         epub_metadata_minimal.identifier,
         epub_metadata_minimal.title
     )

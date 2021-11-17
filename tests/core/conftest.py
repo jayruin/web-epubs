@@ -16,11 +16,6 @@ def epub_metadata_minimal() -> EPUBMetadata:
 
 
 @pytest.fixture
-def nav_trees_empty() -> list[Tree[Anchor]]:
-    return []
-
-
-@pytest.fixture
 def nav_trees_nonempty() -> list[Tree[Anchor]]:
     nav_trees: list[Tree[Anchor]] = []
     chapter_1 = Tree(Anchor("Chapter 1", Path("chapter_1.xhtml")), [])
