@@ -9,38 +9,50 @@
     <navMap>
         <navPoint id="ncx-0">
             <navLabel>
+                <text>Cover</text>
+            </navLabel>
+            <content src="_cover.xhtml"/>
+        </navPoint>
+        <navPoint id="ncx-1">
+            <navLabel>
+                <text>Table of Contents</text>
+            </navLabel>
+            <content src="_nav.xhtml"/>
+        </navPoint>
+        <navPoint id="ncx-2">
+            <navLabel>
                 <text>Chapter 1</text>
             </navLabel>
             <content src="chapter_1.xhtml"/>
         </navPoint>
-        <navPoint id="ncx-1">
+        <navPoint id="ncx-3">
             <navLabel>
                 <text>Chapter 2</text>
             </navLabel>
             <content src="chapter_2.xhtml"/>
-            <navPoint id="ncx-1-0">
+            <navPoint id="ncx-3-0">
                 <navLabel>
                     <text>Chapter 2.1</text>
                 </navLabel>
                 <content src="chapter_2.xhtml#id-1"/>
             </navPoint>
-            <navPoint id="ncx-1-1">
+            <navPoint id="ncx-3-1">
                 <navLabel>
                     <text>Chapter 2.2</text>
                 </navLabel>
                 <content src="chapter_2.xhtml#id-2"/>
             </navPoint>
         </navPoint>
-        <navPoint id="ncx-2">
+        <navPoint id="ncx-4">
             <navLabel>
                 <text>Chapter 3</text>
             </navLabel>
             <content src="chapter_3.xhtml"/>
-            <navPoint id="ncx-2-0">
+            <navPoint id="ncx-4-0">
                 <navLabel>
                     <text>Chapter 3.1</text>
                 </navLabel>
-                <content src="chapter_3_1.xhtml"/>
+                <content src="chapter_3/1.xhtml"/>
             </navPoint>
         </navPoint>
     </navMap>

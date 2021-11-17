@@ -107,7 +107,7 @@ def make_epub3_body_element(
     toc_nav = make_epub3_toc_element(nav_trees)
     section.append(toc_nav)
 
-    if landmarks is not None:
+    if landmarks:
         landmarks_nav = make_epub3_landmarks_element(landmarks)
         section.append(landmarks_nav)
 
