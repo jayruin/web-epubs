@@ -21,18 +21,14 @@ class NCXDocument(EPUB2Document):
         identifier: str,
         title: str
     ) -> None:
-        self.nav_trees = nav_trees
-        self.identifier = identifier
-        self.title = title
+        self.epub2_root_element = epub2.make_ncx_element(
+            nav_trees,
+            identifier,
+            title
+        )
 
     def write_epub2(self, path: Path) -> None:
         """
         http://idpf.org/epub/20/spec/OPF_2.0.1_draft.htm#Section2.4.1
         """
-        ncx = epub2.make_ncx_element(
-            self.nav_trees,
-            self.identifier,
-            self.title
-        )
-
-        write_xml_element(ncx, path)
+        write_xml_element(self.epub2_root_element, path)

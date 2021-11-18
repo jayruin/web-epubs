@@ -4,10 +4,26 @@ from typing import TYPE_CHECKING
 from lxml import etree
 
 from . import shared
+from core.templates import EPUB2Template
 
 if TYPE_CHECKING:
     from core.datastructures import Tree
     from core.project import Anchor
+
+
+def make_html_element(nav_trees: list[Tree[Anchor]]) -> etree._Element:
+    template = EPUB2Template([])
+    html = template.generate_root_element("Navigation")
+
+    head = html.find("head")
+    assert head is not None
+    style = make_style_element()
+    head.append(style)
+
+    body = make_body_element(nav_trees)
+    html.append(body)
+
+    return html
 
 
 def make_body_element(nav_trees: list[Tree[Anchor]]) -> etree._Element:

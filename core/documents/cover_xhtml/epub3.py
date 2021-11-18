@@ -5,9 +5,25 @@ from lxml import etree
 
 from . import shared
 from core.constants import Namespace
+from core.templates import EPUB3Template
 
 if TYPE_CHECKING:
     from pathlib import Path
+
+
+def make_html_element(cover_file: Path) -> etree._Element:
+    template = EPUB3Template([], [])
+    html = template.generate_root_element("Cover")
+
+    head = html.find("head")
+    assert head is not None
+    style = make_style_element()
+    head.append(style)
+
+    body = make_body_element(cover_file)
+    html.append(body)
+
+    return html
 
 
 def make_body_element(cover_file: Path) -> etree._Element:

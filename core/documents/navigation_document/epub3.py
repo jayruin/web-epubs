@@ -5,12 +5,31 @@ from lxml import etree
 
 from . import shared
 from core.constants import Namespace
+from core.templates import EPUB3Template
 
 if TYPE_CHECKING:
     from typing import Optional
 
     from core.datastructures import Tree
     from core.project import Anchor, TypedAnchor
+
+
+def make_html_element(
+    nav_trees: list[Tree[Anchor]],
+    landmarks: Optional[list[TypedAnchor]] = None
+) -> etree._Element:
+    template = EPUB3Template([], [])
+    html = template.generate_root_element("Navigation")
+
+    head = html.find("head")
+    assert head is not None
+    style = make_style_element()
+    head.append(style)
+
+    body = make_body_element(nav_trees, landmarks)
+    html.append(body)
+
+    return html
 
 
 def make_body_element(

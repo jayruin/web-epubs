@@ -4,9 +4,25 @@ from typing import TYPE_CHECKING
 from lxml import etree
 
 from . import shared
+from core.templates import EPUB2Template
 
 if TYPE_CHECKING:
     from pathlib import Path
+
+
+def make_html_element(cover_file: Path) -> etree._Element:
+    template = EPUB2Template([])
+    html = template.generate_root_element("Cover")
+
+    head = html.find("head")
+    assert head is not None
+    style = make_style_element()
+    head.append(style)
+
+    body = make_body_element(cover_file)
+    html.append(body)
+
+    return html
 
 
 def make_body_element(cover_file: Path) -> etree._Element:
