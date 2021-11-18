@@ -1,9 +1,9 @@
 from pathlib import Path
 
-from lxml import etree
 from PIL import Image
 
-from .abcs import EPUB3Document
+from . import epub3
+from ..abcs import EPUB3Document
 from core.serialize import write_epub3_xhtml_element
 from core.templates import EPUB3Template
 
@@ -25,41 +25,13 @@ class PaginatedImage(EPUB3Document):
 
         head = html.find("head")
         assert head is not None
-        meta_viewport = make_epub3_meta_viewport_element(
+        meta_viewport = epub3.make_meta_viewport_element(
             self.width,
             self.height
         )
         head.append(meta_viewport)
 
-        body = make_epub3_body_element(Path(self.image_path.name))
+        body = epub3.make_body_element(Path(self.image_path.name))
         html.append(body)
 
         write_epub3_xhtml_element(html, path)
-
-
-def make_epub3_meta_viewport_element(
-    width: int,
-    height: int
-) -> etree._Element:
-    meta = etree.Element(
-        "meta",
-        attrib={
-            "name": "viewport",
-            "content": f"width={width}, height={height}"
-        }
-    )
-    return meta
-
-
-def make_epub3_body_element(src: Path) -> etree._Element:
-    body = etree.Element("body")
-
-    img = etree.Element(
-        "img",
-        attrib={
-            "src": src.as_posix()
-        }
-    )
-    body.append(img)
-
-    return body

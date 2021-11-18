@@ -1,34 +1,13 @@
-from pathlib import Path
+from __future__ import annotations
+from typing import TYPE_CHECKING
 
 from lxml import etree
 
-from .abcs import EPUB2Document
 from core.constants import Namespace
-from core.datastructures import Tree
-from core.project import Anchor
-from core.serialize import write_xml_element
 
-
-class NCXDocument(EPUB2Document):
-    """
-    An XML document corresponding to the Navigation Center eXtended.
-    """
-    def __init__(
-        self, nav_trees: list[Tree[Anchor]],
-        identifier: str,
-        title: str
-    ) -> None:
-        self.nav_trees = nav_trees
-        self.identifier = identifier
-        self.title = title
-
-    def write_epub2(self, path: Path) -> None:
-        """
-        http://idpf.org/epub/20/spec/OPF_2.0.1_draft.htm#Section2.4.1
-        """
-        ncx = make_ncx_element(self.nav_trees, self.identifier, self.title)
-
-        write_xml_element(ncx, path)
+if TYPE_CHECKING:
+    from core.datastructures import Tree
+    from core.project import Anchor
 
 
 def make_ncx_element(
