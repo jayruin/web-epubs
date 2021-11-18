@@ -3,7 +3,7 @@ from pathlib import Path
 from lxml import etree
 from PIL import Image
 
-from .epub3document import EPUB3Document
+from .abcs import EPUB3Document
 from core.serialize import write_epub3_xhtml_element
 from core.templates import EPUB3Template
 
@@ -16,7 +16,7 @@ class PaginatedImage(EPUB3Document):
         self.image_path = image_path
         self.width, self.height = Image.open(image_path).size
 
-    def epub3(self, path: Path) -> None:
+    def write_epub3(self, path: Path) -> None:
         """
         https://www.w3.org/publishing/epub3/epub-contentdocs.html#sec-fxl-icb-html
         """

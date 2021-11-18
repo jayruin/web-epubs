@@ -2,7 +2,7 @@ from pathlib import Path
 
 from lxml import etree
 
-from .epub2document import EPUB2Document
+from .abcs import EPUB2Document
 from core.constants import Namespace
 from core.datastructures import Tree
 from core.project import Anchor
@@ -22,7 +22,7 @@ class NCXDocument(EPUB2Document):
         self.identifier = identifier
         self.title = title
 
-    def epub2(self, path: Path) -> None:
+    def write_epub2(self, path: Path) -> None:
         """
         http://idpf.org/epub/20/spec/OPF_2.0.1_draft.htm#Section2.4.1
         """

@@ -2,8 +2,7 @@ from pathlib import Path
 
 from lxml import etree
 
-from .epub2document import EPUB2Document
-from .epub3document import EPUB3Document
+from .abcs import EPUB3Document, EPUB2Document
 from core.constants import Namespace
 from core.serialize import write_epub2_xhtml_element, write_epub3_xhtml_element
 from core.templates import EPUB2Template, EPUB3Template
@@ -16,7 +15,7 @@ class CoverXHTML(EPUB3Document, EPUB2Document):
     def __init__(self, cover_file: Path) -> None:
         self.cover_file = cover_file
 
-    def epub3(self, path: Path) -> None:
+    def write_epub3(self, path: Path) -> None:
         template = EPUB3Template([], [])
         html = template.generate_root_element("Cover")
 
@@ -30,7 +29,7 @@ class CoverXHTML(EPUB3Document, EPUB2Document):
 
         write_epub3_xhtml_element(html, path)
 
-    def epub2(self, path: Path) -> None:
+    def write_epub2(self, path: Path) -> None:
         template = EPUB2Template([])
         html = template.generate_root_element("Cover")
 

@@ -3,8 +3,7 @@ from typing import Optional
 
 from lxml import etree
 
-from .epub3document import EPUB3Document
-from .epub2document import EPUB2Document
+from .abcs import EPUB3Document, EPUB2Document
 from core.constants import Namespace
 from core.project import EPUBMetadata, EPUBResource, TypedAnchor
 from core.serialize import write_xml_element
@@ -28,7 +27,7 @@ class EPUB3PackageDocument(EPUB3Document):
         self.progression = progression
         self.pre_paginated = pre_paginated
 
-    def epub3(self, path: Path) -> None:
+    def write_epub3(self, path: Path) -> None:
         """
         https://www.w3.org/publishing/epub3/epub-packages.html#sec-package-doc
         """
@@ -64,7 +63,7 @@ class EPUB2PackageDocument(EPUB2Document):
         self.toc = toc
         self.landmarks = landmarks
 
-    def epub2(self, path: Path) -> None:
+    def write_epub2(self, path: Path) -> None:
         """
         http://idpf.org/epub/20/spec/OPF_2.0.1_draft.htm#Section2.0
         """

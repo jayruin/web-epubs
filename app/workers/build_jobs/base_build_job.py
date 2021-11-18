@@ -95,9 +95,9 @@ class BaseBuildJob(ABC):
         document_path = Path(self._destination, self._project.MIMETYPE_FILE)
 
         if epub_version is EPUBVersion.EPUB2:
-            document.epub2(document_path)
+            document.write_epub2(document_path)
         elif epub_version is EPUBVersion.EPUB3:
-            document.epub3(document_path)
+            document.write_epub3(document_path)
 
     def _fill_meta_inf(
         self,
@@ -118,9 +118,9 @@ class BaseBuildJob(ABC):
         document_path = Path(meta_inf_directory, self._project.CONTAINER_XML)
 
         if epub_version is EPUBVersion.EPUB2:
-            document.epub2(document_path)
+            document.write_epub2(document_path)
         elif epub_version is EPUBVersion.EPUB3:
-            document.epub3(document_path)
+            document.write_epub3(document_path)
 
     def _import_resources(self) -> None:
         for bundle in self._bundles:
@@ -201,9 +201,9 @@ class BaseBuildJob(ABC):
         )
 
         if epub_version is EPUBVersion.EPUB2:
-            document.epub2(document_path)
+            document.write_epub2(document_path)
         elif epub_version is EPUBVersion.EPUB3:
-            document.epub3(document_path)
+            document.write_epub3(document_path)
 
         cover_xhtml_path = Path(self._project.COVER_XHTML)
         self._resource_manager.resources[cover_xhtml_path] = EPUBResource(
@@ -268,9 +268,9 @@ class BaseBuildJob(ABC):
         )
 
         if epub_version is EPUBVersion.EPUB2:
-            document.epub2(document_path)
+            document.write_epub2(document_path)
         elif epub_version is EPUBVersion.EPUB3:
-            document.epub3(document_path)
+            document.write_epub3(document_path)
 
     def _write_ncx_document(self) -> None:
         ncx = Path(self._project.NCX_DOCUMENT)
@@ -281,7 +281,7 @@ class BaseBuildJob(ABC):
             self._project.epub_metadata.title
         )
         document_path = Path(self._resource_manager.root, ncx)
-        document.epub2(document_path)
+        document.write_epub2(document_path)
 
     def _write_package_document(
         self,
@@ -306,7 +306,7 @@ class BaseBuildJob(ABC):
                 self._resource_manager.root,
                 self._project.PACKAGE_DOCUMENT
             )
-            document.epub2(document_path)
+            document.write_epub2(document_path)
         elif epub_version is EPUBVersion.EPUB3:
             document = EPUB3PackageDocument(
                 self._project.epub_metadata,
@@ -318,4 +318,4 @@ class BaseBuildJob(ABC):
                 self._resource_manager.root,
                 self._project.PACKAGE_DOCUMENT
             )
-            document.epub3(document_path)
+            document.write_epub3(document_path)

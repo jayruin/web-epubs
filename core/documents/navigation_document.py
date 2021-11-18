@@ -3,8 +3,7 @@ from typing import Optional
 
 from lxml import etree
 
-from .epub2document import EPUB2Document
-from .epub3document import EPUB3Document
+from .abcs import EPUB3Document, EPUB2Document
 from core.constants import Namespace
 from core.datastructures import Tree
 from core.project import Anchor, TypedAnchor
@@ -25,7 +24,7 @@ class NavigationDocument(EPUB3Document, EPUB2Document):
         self.nav_trees = nav_trees
         self.landmarks = landmarks
 
-    def epub3(self, path: Path) -> None:
+    def write_epub3(self, path: Path) -> None:
         """
         https://www.w3.org/publishing/epub3/epub-packages.html#sec-package-nav
         """
@@ -42,7 +41,7 @@ class NavigationDocument(EPUB3Document, EPUB2Document):
 
         write_epub3_xhtml_element(html, path)
 
-    def epub2(self, path: Path) -> None:
+    def write_epub2(self, path: Path) -> None:
         template = EPUB2Template([])
         html = template.generate_root_element("Navigation")
 

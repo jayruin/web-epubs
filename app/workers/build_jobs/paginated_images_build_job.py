@@ -40,7 +40,7 @@ class PaginatedImagesBuildJob(BaseBuildJob):
                 document = PaginatedImage(image_path)
                 relative_document_path = path.with_suffix(".xhtml")
                 document_path = image_path.with_suffix(".xhtml")
-                document.epub3(document_path)
+                document.write_epub3(document_path)
                 parent_to_paginated_images[
                     relative_document_path.parent
                 ].append(
