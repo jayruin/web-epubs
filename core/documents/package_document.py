@@ -218,6 +218,9 @@ def make_epub3_manifest_element(
 ) -> etree._Element:
     manifest = etree.Element("manifest")
 
+    if len(resources) == 0:
+        manifest.text = ""
+
     for path in sorted(resources, key=lambda p: p.as_posix()):
         epub_resource = resources[path]
         item = etree.Element(
@@ -241,6 +244,9 @@ def make_epub3_spine_element(
     page_progression_direction: Optional[str]
 ) -> etree._Element:
     spine = etree.Element("spine")
+
+    if len(progression) == 0:
+        spine.text = ""
 
     for path in progression:
         itemref = etree.Element(

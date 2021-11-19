@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="publication-id" version="3.0">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <dc:identifier id="publication-id">urn:uuid:00000000-0000-0000-0000-000000000000</dc:identifier>
+        <dc:language>en</dc:language>
+        <dc:language>es</dc:language>
+        <dc:title id="title-id">Title</dc:title>
+        <meta refines="#title-id" property="title-type">main</meta>
+        <dc:creator id="creator-id-1">Creator No Roles</dc:creator>
+        <dc:creator id="creator-id-2">Creator One Role</dc:creator>
+        <meta refines="#creator-id-2" property="role" scheme="marc:relators">aut</meta>
+        <dc:creator id="creator-id-3">Creator Two Roles</dc:creator>
+        <meta refines="#creator-id-3" property="role" scheme="marc:relators">ill</meta>
+        <dc:date>2020-07-19T00:00:00Z</dc:date>
+        <meta property="rendition:layout">pre-paginated</meta>
+        <meta property="dcterms:modified">2020-07-19T00:00:00Z</meta>
+    </metadata>
+    <manifest>
+        <item href="_cover.xhtml" id="item-id-1" media-type="application/xhtml+xml"/>
+        <item href="_nav.xhtml" id="item-id-2" media-type="application/xhtml+xml" properties="nav"/>
+        <item href="chapter_1.xhtml" id="item-id-5" media-type="application/xhtml+xml"/>
+        <item href="chapter_2.xhtml" id="item-id-6" media-type="application/xhtml+xml"/>
+        <item href="chapter_3.xhtml" id="item-id-7" media-type="application/xhtml+xml"/>
+        <item href="chapter_3/1.xhtml" id="item-id-8" media-type="application/xhtml+xml" properties="scripted"/>
+        <item href="cover.jpg" id="item-id-0" media-type="image/jpeg" properties="cover-image"/>
+        <item href="css/style.css" id="item-id-3" media-type="text/css"/>
+        <item href="js/script.js" id="item-id-4" media-type="application/javascript"/>
+    </manifest>
+    <spine page-progression-direction="rtl">
+        <itemref idref="item-id-1" linear="yes"/>
+        <itemref idref="item-id-2" linear="yes"/>
+        <itemref idref="item-id-5" linear="yes"/>
+        <itemref idref="item-id-6" linear="yes"/>
+        <itemref idref="item-id-7" linear="yes"/>
+        <itemref idref="item-id-8" linear="yes"/>
+    </spine>
+</package>

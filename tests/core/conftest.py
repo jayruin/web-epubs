@@ -3,15 +3,33 @@ from pathlib import Path
 import pytest
 
 from core.datastructures import Tree
-from core.project import Anchor, EPUBMetadata, TypedAnchor
+from core.project import Anchor, EPUBMetadata, EPUBResource, TypedAnchor
 
 MODIFIED = "2020-07-19T00:00:00Z"
 
 
 @pytest.fixture
 def epub_metadata_minimal() -> EPUBMetadata:
-    epub_metadata = EPUBMetadata("Title")
-    epub_metadata.modified = MODIFIED
+    epub_metadata = EPUBMetadata("Title", modified=MODIFIED)
+    return epub_metadata
+
+
+@pytest.fixture
+def epub_metadata_maximal() -> EPUBMetadata:
+    epub_metadata = EPUBMetadata(
+        "Title",
+        creators={
+            "Creator No Roles": [],
+            "Creator One Role": ["aut"],
+            "Creator Two Roles": ["ill"]
+        },
+        languages=["en", "es"],
+        cover=Path("img/cover.jpg"),
+        direction="rtl",
+        date=MODIFIED,
+        identifier="urn:uuid:00000000-0000-0000-0000-000000000000",
+        modified=MODIFIED
+    )
     return epub_metadata
 
 
@@ -64,3 +82,61 @@ def landmarks_nonempty() -> list[TypedAnchor]:
     landmarks.append(bodymatter)
 
     return landmarks
+
+
+@pytest.fixture
+def resources_nonempty() -> dict[Path, EPUBResource]:
+    resources: dict[Path, EPUBResource] = {}
+
+    path = Path("cover.jpg")
+    resource = EPUBResource(path, properties="cover-image")
+    resources[path] = resource
+
+    path = Path("_cover.xhtml")
+    resource = EPUBResource(path)
+    resources[path] = resource
+
+    path = Path("_nav.xhtml")
+    resource = EPUBResource(path, properties="nav")
+    resources[path] = resource
+
+    path = Path("css/style.css")
+    resource = EPUBResource(path)
+    resources[path] = resource
+
+    path = Path("js/script.js")
+    resource = EPUBResource(path)
+    resources[path] = resource
+
+    path = Path("chapter_1.xhtml")
+    resource = EPUBResource(path)
+    resources[path] = resource
+
+    path = Path("chapter_2.xhtml")
+    resource = EPUBResource(path)
+    resources[path] = resource
+
+    path = Path("chapter_3.xhtml")
+    resource = EPUBResource(path)
+    resources[path] = resource
+
+    path = Path("chapter_3", "1.xhtml")
+    resource = EPUBResource(path, properties="scripted")
+    resources[path] = resource
+
+    for count, resource in enumerate(resources.values()):
+        resource.id_count = count
+
+    return resources
+
+
+@pytest.fixture
+def progression_nonempty() -> list[Path]:
+    return [
+        Path("_cover.xhtml"),
+        Path("_nav.xhtml"),
+        Path("chapter_1.xhtml"),
+        Path("chapter_2.xhtml"),
+        Path("chapter_3.xhtml"),
+        Path("chapter_3", "1.xhtml")
+    ]
