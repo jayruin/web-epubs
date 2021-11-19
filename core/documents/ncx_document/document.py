@@ -17,7 +17,8 @@ class NCXDocument(EPUB2Document):
     An XML document corresponding to the Navigation Center eXtended.
     """
     def __init__(
-        self, nav_trees: list[Tree[Anchor]],
+        self,
+        nav_trees: list[Tree[Anchor]],
         identifier: str,
         title: str
     ) -> None:
