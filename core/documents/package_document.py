@@ -296,7 +296,7 @@ def make_epub2_package_element(
     spine = make_epub2_spine_element(resources, progression, toc)
     package.append(spine)
 
-    if landmarks is not None:
+    if landmarks:
         guide = make_epub2_guide_element(landmarks)
         package.append(guide)
 

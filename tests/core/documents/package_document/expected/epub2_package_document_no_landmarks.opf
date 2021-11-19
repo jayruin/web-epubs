@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="publication-id" version="2.0">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <dc:identifier id="publication-id">urn:uuid:c3025fcb-eef8-54ee-9769-5eb22b5449b2</dc:identifier>
+        <dc:language>en</dc:language>
+        <dc:title>Title</dc:title>
+    </metadata>
+    <manifest>
+        <item href="_cover.xhtml" id="item-id-1" media-type="application/xhtml+xml"/>
+        <item href="_nav.xhtml" id="item-id-2" media-type="application/xhtml+xml"/>
+        <item href="_toc.ncx" id="item-id-9" media-type="application/x-dtbncx+xml"/>
+        <item href="chapter_1.xhtml" id="item-id-5" media-type="application/xhtml+xml"/>
+        <item href="chapter_2.xhtml" id="item-id-6" media-type="application/xhtml+xml"/>
+        <item href="chapter_3.xhtml" id="item-id-7" media-type="application/xhtml+xml"/>
+        <item href="chapter_3/1.xhtml" id="item-id-8" media-type="application/xhtml+xml"/>
+        <item href="cover.jpg" id="item-id-0" media-type="image/jpeg"/>
+        <item href="css/style.css" id="item-id-3" media-type="text/css"/>
+        <item href="js/script.js" id="item-id-4" media-type="application/javascript"/>
+    </manifest>
+    <spine toc="item-id-9">
+        <itemref idref="item-id-1" linear="yes"/>
+        <itemref idref="item-id-2" linear="yes"/>
+        <itemref idref="item-id-5" linear="yes"/>
+        <itemref idref="item-id-6" linear="yes"/>
+        <itemref idref="item-id-7" linear="yes"/>
+        <itemref idref="item-id-8" linear="yes"/>
+    </spine>
+</package>

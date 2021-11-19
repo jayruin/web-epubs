@@ -131,6 +131,17 @@ def resources_nonempty() -> dict[Path, EPUBResource]:
 
 
 @pytest.fixture
+def resources_nonempty_ncx(
+    resources_nonempty: dict[Path, EPUBResource]
+) -> dict[Path, EPUBResource]:
+    path = Path("_toc.ncx")
+    resource = EPUBResource(path)
+    resource.id_count = len(resources_nonempty)
+    resources_nonempty[path] = resource
+    return resources_nonempty
+
+
+@pytest.fixture
 def progression_nonempty() -> list[Path]:
     return [
         Path("_cover.xhtml"),
