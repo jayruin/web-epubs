@@ -1,9 +1,12 @@
+from collections.abc import Callable
 from pathlib import Path
+from typing import TypeVar
 
 from .anchor import Anchor
 from .epub_metadata import EPUBMetadata
+from .nav_dict import NavDict
 from core.datastructures import Tree
-from core.deserialize import read_any, read_epub_metadata, read_nav
+from core.serialization import get_load
 
 
 class EPUBProject:
@@ -35,3 +38,38 @@ class EPUBProject:
             read_nav,
             self.SUPPORTED_SUFFIXES
         )
+
+
+_T = TypeVar("_T")
+
+
+def read_any(
+    path: Path,
+    read_function: Callable[[Path], _T],
+    suffixes: list[str]
+) -> _T:
+    for suffix in suffixes:
+        try:
+            return read_function(path.with_suffix(suffix))
+        except FileNotFoundError:
+            continue
+    raise FileNotFoundError
+
+
+def nav_dict_to_tree(nav_dict: NavDict) -> Tree[Anchor]:
+    return Tree(
+        Anchor(nav_dict["text"], Path(nav_dict["href"])),
+        [nav_dict_to_tree(child) for child in nav_dict["children"]]
+    )
+
+
+def read_epub_metadata(path: Path) -> EPUBMetadata:
+    load = get_load(path.suffix)
+    with open(path, "rb") as f:
+        return EPUBMetadata(**load(f))
+
+
+def read_nav(path: Path) -> list[Tree[Anchor]]:
+    load = get_load(path.suffix)
+    with open(path, "rb") as f:
+        return [nav_dict_to_tree(nav_dict) for nav_dict in load(f)]

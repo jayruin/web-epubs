@@ -6,8 +6,7 @@ from typing import Optional
 from .path_hash import check_path_hash, create_path_hash
 from app import make_main_argparser
 from core.constants import Encoding
-from core.deserialize import get_load
-from core.serialize import get_dump
+from core.serialization import get_dump, get_load
 
 
 def make_logger(log_file: Optional[Path] = None) -> logging.Logger:
