@@ -1,12 +1,8 @@
-from __future__ import annotations
-from typing import TYPE_CHECKING
+from pathlib import Path
 
 from lxml import etree
 
 from core.constants import Namespace
-
-if TYPE_CHECKING:
-    from pathlib import Path
 
 
 def make_container_element(package_document: Path) -> etree._Element:

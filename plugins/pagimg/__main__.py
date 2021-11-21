@@ -6,7 +6,7 @@ from .autonav import autonav
 from app import make_main_argparser, make_parent_argparser, Settings
 from app.workers import Librarian
 from core.project import EPUBProject
-from core.serialize import write_nav
+from core.project.epub_project import write_nav
 
 
 def parse_args() -> Namespace:

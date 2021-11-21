@@ -1,14 +1,9 @@
-from __future__ import annotations
-from typing import TYPE_CHECKING
-
 from lxml import etree
 
 from . import shared
+from core.datastructures import Tree
+from core.project import Anchor
 from core.templates import EPUB2Template
-
-if TYPE_CHECKING:
-    from core.datastructures import Tree
-    from core.project import Anchor
 
 
 def make_html_element(nav_trees: list[Tree[Anchor]]) -> etree._Element:

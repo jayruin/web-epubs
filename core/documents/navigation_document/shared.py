@@ -1,11 +1,7 @@
-from __future__ import annotations
-from typing import TYPE_CHECKING
-
 from lxml import etree
 
-if TYPE_CHECKING:
-    from core.datastructures import Tree
-    from core.project import Anchor
+from core.datastructures import Tree
+from core.project import Anchor
 
 
 def make_li_element(nav_tree: Tree[Anchor]) -> etree._Element:

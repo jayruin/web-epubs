@@ -4,7 +4,7 @@ import shutil
 import markdown
 
 from core.constants import Encoding
-from core.serialize import get_doctype_html
+from core.documents.sgml import get_doctype_html
 
 
 def convert(source: Path, destination: Path, copy: bool) -> None:

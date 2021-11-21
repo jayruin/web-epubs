@@ -1,17 +1,12 @@
-from __future__ import annotations
-from typing import TYPE_CHECKING
+from typing import Optional
 
 from lxml import etree
 
 from . import shared
 from core.constants import Namespace
+from core.datastructures import Tree
+from core.project import Anchor, TypedAnchor
 from core.templates import EPUB3Template
-
-if TYPE_CHECKING:
-    from typing import Optional
-
-    from core.datastructures import Tree
-    from core.project import Anchor, TypedAnchor
 
 
 def make_html_element(

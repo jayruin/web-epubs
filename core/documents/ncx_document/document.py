@@ -1,15 +1,10 @@
-from __future__ import annotations
-from typing import TYPE_CHECKING
+from pathlib import Path
 
 from . import epub2
 from ..abcs import EPUB2Document
-from core.serialize import write_xml_element
-
-if TYPE_CHECKING:
-    from pathlib import Path
-
-    from core.datastructures import Tree
-    from core.project import Anchor
+from ..sgml import write_xml_element
+from core.datastructures import Tree
+from core.project import Anchor
 
 
 class NCXDocument(EPUB2Document):

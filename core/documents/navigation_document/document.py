@@ -1,16 +1,11 @@
-from __future__ import annotations
-from typing import TYPE_CHECKING
+from pathlib import Path
+from typing import Optional
 
 from . import epub3, epub2
 from ..abcs import EPUB3Document, EPUB2Document
-from core.serialize import write_epub3_xhtml_element, write_epub2_xhtml_element
-
-if TYPE_CHECKING:
-    from pathlib import Path
-    from typing import Optional
-
-    from core.datastructures import Tree
-    from core.project import Anchor, TypedAnchor
+from ..sgml import write_epub3_xhtml_element, write_epub2_xhtml_element
+from core.datastructures import Tree
+from core.project import Anchor, TypedAnchor
 
 
 class NavigationDocument(EPUB3Document, EPUB2Document):

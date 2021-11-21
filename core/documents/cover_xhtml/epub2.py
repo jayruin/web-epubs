@@ -1,13 +1,9 @@
-from __future__ import annotations
-from typing import TYPE_CHECKING
+from pathlib import Path
 
 from lxml import etree
 
 from . import shared
 from core.templates import EPUB2Template
-
-if TYPE_CHECKING:
-    from pathlib import Path
 
 
 def make_html_element(cover_file: Path) -> etree._Element:

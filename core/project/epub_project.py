@@ -5,8 +5,9 @@ from typing import TypeVar
 from .anchor import Anchor
 from .epub_metadata import EPUBMetadata
 from .nav_dict import NavDict
+from core.constants import Encoding
 from core.datastructures import Tree
-from core.serialization import get_load
+from core.serialization import get_dump, get_load
 
 
 class EPUBProject:
@@ -63,6 +64,14 @@ def nav_dict_to_tree(nav_dict: NavDict) -> Tree[Anchor]:
     )
 
 
+def tree_to_nav_dict(tree: Tree[Anchor]) -> NavDict:
+    return {
+        "text": tree.value.text,
+        "href": tree.value.href.as_posix(),
+        "children": [tree_to_nav_dict(child) for child in tree.children]
+    }
+
+
 def read_epub_metadata(path: Path) -> EPUBMetadata:
     load = get_load(path.suffix)
     with open(path, "rb") as f:
@@ -73,3 +82,9 @@ def read_nav(path: Path) -> list[Tree[Anchor]]:
     load = get_load(path.suffix)
     with open(path, "rb") as f:
         return [nav_dict_to_tree(nav_dict) for nav_dict in load(f)]
+
+
+def write_nav(path: Path, nav: list[Tree[Anchor]]) -> None:
+    dump = get_dump(path.suffix)
+    with open(path, "w", encoding=Encoding.UTF_8.value) as f:
+        dump([tree_to_nav_dict(tree) for tree in nav], f)

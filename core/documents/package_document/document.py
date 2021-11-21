@@ -1,15 +1,11 @@
-from __future__ import annotations
-from typing import TYPE_CHECKING
+from pathlib import Path
+from typing import Optional
 
 from . import epub3, epub2
 from ..abcs import EPUB3Document, EPUB2Document
-from core.serialize import write_xml_element
+from ..sgml import write_xml_element
 
-if TYPE_CHECKING:
-    from pathlib import Path
-    from typing import Optional
-
-    from core.project import EPUBMetadata, EPUBResource, TypedAnchor
+from core.project import EPUBMetadata, EPUBResource, TypedAnchor
 
 
 class EPUB3PackageDocument(EPUB3Document):

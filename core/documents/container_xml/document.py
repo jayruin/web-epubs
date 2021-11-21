@@ -1,12 +1,8 @@
-from __future__ import annotations
-from typing import TYPE_CHECKING
+from pathlib import Path
 
 from . import shared
 from ..abcs import EPUB3Document, EPUB2Document
-from core.serialize import write_xml_element
-
-if TYPE_CHECKING:
-    from pathlib import Path
+from ..sgml import write_xml_element
 
 
 class ContainerXML(EPUB3Document, EPUB2Document):

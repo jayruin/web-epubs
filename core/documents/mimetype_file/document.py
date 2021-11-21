@@ -1,12 +1,8 @@
-from __future__ import annotations
-from typing import TYPE_CHECKING
+from pathlib import Path
 
 from . import shared
 from ..abcs import EPUB3Document, EPUB2Document
 from core.constants import Encoding
-
-if TYPE_CHECKING:
-    from pathlib import Path
 
 
 class MimetypeFile(EPUB3Document, EPUB2Document):

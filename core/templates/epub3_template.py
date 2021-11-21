@@ -7,7 +7,7 @@ from lxml import etree, html
 
 from .xhtml_template import XHTMLTemplate
 from core.constants import Encoding, Namespace
-from core.serialize import write_epub3_xhtml_element
+from core.documents.sgml import write_epub3_xhtml_element
 
 
 class EPUB3Template(XHTMLTemplate):

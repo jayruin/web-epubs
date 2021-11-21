@@ -1,12 +1,8 @@
-from __future__ import annotations
-from typing import TYPE_CHECKING
+from pathlib import Path
 
 from . import epub3, epub2
 from ..abcs import EPUB3Document, EPUB2Document
-from core.serialize import write_epub3_xhtml_element, write_epub2_xhtml_element
-
-if TYPE_CHECKING:
-    from pathlib import Path
+from ..sgml import write_epub3_xhtml_element, write_epub2_xhtml_element
 
 
 class CoverXHTML(EPUB3Document, EPUB2Document):

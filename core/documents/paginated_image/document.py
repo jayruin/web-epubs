@@ -4,7 +4,7 @@ from PIL import Image
 
 from . import epub3
 from ..abcs import EPUB3Document
-from core.serialize import write_epub3_xhtml_element
+from ..sgml import write_epub3_xhtml_element
 
 
 class PaginatedImage(EPUB3Document):

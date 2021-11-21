@@ -1,15 +1,10 @@
-from __future__ import annotations
-from typing import TYPE_CHECKING
+from pathlib import Path
+from typing import Optional
 
 from lxml import etree
 
 from core.constants import Namespace
-
-if TYPE_CHECKING:
-    from pathlib import Path
-    from typing import Optional
-
-    from core.project import EPUBMetadata, EPUBResource
+from core.project import EPUBMetadata, EPUBResource
 
 
 def make_package_element(
