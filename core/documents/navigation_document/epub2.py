@@ -2,8 +2,8 @@ from lxml import etree
 
 from . import shared
 from core.datastructures import Tree
+from core.documents.templates import EPUB2Template
 from core.project import Anchor
-from core.templates import EPUB2Template
 
 
 def make_html_element(nav_trees: list[Tree[Anchor]]) -> etree._Element:

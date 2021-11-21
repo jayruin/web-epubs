@@ -4,7 +4,7 @@ from lxml import etree
 
 from . import shared
 from core.constants import Namespace
-from core.templates import EPUB3Template
+from core.documents.templates import EPUB3Template
 
 
 def make_html_element(cover_file: Path) -> etree._Element:

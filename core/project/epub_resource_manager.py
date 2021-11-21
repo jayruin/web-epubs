@@ -1,9 +1,12 @@
+from __future__ import annotations
 from pathlib import Path
 import shutil
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 
 from .epub_resource import EPUBResource
-from core.templates import XHTMLTemplate
+
+if TYPE_CHECKING:
+    from core.documents.templates import XHTMLTemplate
 
 
 class EPUBResourceManager:

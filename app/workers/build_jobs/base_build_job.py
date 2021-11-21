@@ -17,6 +17,7 @@ from core.documents import (
     NavigationDocument,
     NCXDocument
 )
+from core.documents.templates import EPUB2Template, EPUB3Template
 from core.project import (
     Anchor,
     EPUBProject,
@@ -24,7 +25,6 @@ from core.project import (
     EPUBResourceManager,
     TypedAnchor
 )
-from core.templates import EPUB2Template, EPUB3Template
 
 
 class BaseBuildJob(ABC):

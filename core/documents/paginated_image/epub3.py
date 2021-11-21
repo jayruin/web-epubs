@@ -2,7 +2,7 @@ from pathlib import Path
 
 from lxml import etree
 
-from core.templates import EPUB3Template
+from core.documents.templates import EPUB3Template
 
 
 def make_html_element(width: int, height: int, src: Path) -> etree._Element:
