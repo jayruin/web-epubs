@@ -1,13 +1,9 @@
-from __future__ import annotations
 from pathlib import Path
-from typing import TYPE_CHECKING
 
 import pytest
 
 from core.documents import EPUB3PackageDocument, EPUB2PackageDocument
-
-if TYPE_CHECKING:
-    from core.project import EPUBMetadata, EPUBResource
+from core.project import EPUBMetadata, EPUBResource
 
 
 @pytest.fixture

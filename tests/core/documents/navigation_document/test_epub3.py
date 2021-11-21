@@ -1,12 +1,7 @@
-from __future__ import annotations
-from typing import TYPE_CHECKING
+from pathlib import Path
 
+from core.documents import NavigationDocument
 from tests.core.documents.shared import check_epub3_document
-
-if TYPE_CHECKING:
-    from pathlib import Path
-
-    from core.documents import NavigationDocument
 
 
 def test_no_landmarks(

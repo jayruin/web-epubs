@@ -1,14 +1,10 @@
-from __future__ import annotations
 from pathlib import Path
-from typing import TYPE_CHECKING
 
 import pytest
 
+from core.datastructures import Tree
 from core.documents import NCXDocument
-
-if TYPE_CHECKING:
-    from core.datastructures import Tree
-    from core.project import Anchor, EPUBMetadata
+from core.project import Anchor, EPUBMetadata
 
 
 @pytest.fixture

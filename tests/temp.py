@@ -1,12 +1,8 @@
-from __future__ import annotations
+from collections.abc import Generator
 from pathlib import Path
 from contextlib import contextmanager, ExitStack
 from tempfile import NamedTemporaryFile, TemporaryDirectory
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from collections.abc import Generator
-    from typing import Optional
+from typing import Optional
 
 
 @contextmanager
