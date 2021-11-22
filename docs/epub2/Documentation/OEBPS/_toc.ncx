@@ -56,23 +56,29 @@
             <content src="running.xhtml"/>
             <navPoint id="ncx-4-0">
                 <navLabel>
+                    <text>Environment Variables</text>
+                </navLabel>
+                <content src="running.xhtml#environment-variables"/>
+            </navPoint>
+            <navPoint id="ncx-4-1">
+                <navLabel>
                     <text>Global Command Line Arguments</text>
                 </navLabel>
                 <content src="running.xhtml#global-command-line-arguments"/>
             </navPoint>
-            <navPoint id="ncx-4-1">
+            <navPoint id="ncx-4-2">
                 <navLabel>
                     <text>build</text>
                 </navLabel>
                 <content src="running.xhtml#build"/>
             </navPoint>
-            <navPoint id="ncx-4-2">
+            <navPoint id="ncx-4-3">
                 <navLabel>
                     <text>pack</text>
                 </navLabel>
                 <content src="running.xhtml#pack"/>
             </navPoint>
-            <navPoint id="ncx-4-3">
+            <navPoint id="ncx-4-4">
                 <navLabel>
                     <text>check</text>
                 </navLabel>

@@ -2,28 +2,31 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops"><head><title>Running</title><meta charset="utf-8"/><link href="css/style.css" type="text/css" rel="stylesheet"/><script src="js/script.js" type="text/javascript" async="async" defer="defer"></script></head><body><h1>Running</h1>
 
-<h2 id="global-command-line-arguments">Global Command Line Arguments</h2>
+<h2 id="environment-variables">Environment Variables</h2>
 <dl>
-    <dt><code>--projects-directory</code></dt>
+    <dt><code>PROJECTS_DIRECTORY</code></dt>
     <dd>Defaults to <code>projects</code></dd>
 
-    <dt><code>--expanded_epubs_directory</code></dt>
+    <dt><code>EXPANDED_EPUBS_DIRECTORY</code></dt>
     <dd>Defaults to <code>docs</code></dd>
 
-    <dt><code>--packaged_epubs_directory</code></dt>
+    <dt><code>PACKAGED_EPUBS_DIRECTORY</code></dt>
     <dd>Defaults to <code>dist</code></dd>
 
-    <dt><code>--epubcheck-directory</code></dt>
+    <dt><code>EPUBCHECK_DIRECTORY</code></dt>
     <dd>Defaults to <code>epubcheck</code></dd>
 
-    <dt><code>--logs-directory</code></dt>
+    <dt><code>LOGS_DIRECTORY</code></dt>
     <dd>Defaults to <code>log</code></dd>
 
-    <dt><code>--bundles-directory</code></dt>
+    <dt><code>BUNDLES_DIRECTORY</code></dt>
     <dd>Defaults to <code>bundles</code></dd>
+</dl>
 
+<h2 id="global-command-line-arguments">Global Command Line Arguments</h2>
+<dl>
     <dt>positional argument <code>projects</code></dt>
-    <dd>List of strings of project names (defaults to empty list). Each project should be a subdirectory of <code>--projects-directory</code>.</dd>
+    <dd>List of strings of project names (defaults to empty list). Each project should be a subdirectory of <code>PROJECTS_DIRECTORY</code>.</dd>
 
     <dt><code>--all</code></dt>
     <dd>Boolean flag (which defaults to false if absent). If present, <code>projects</code> will be ignored and all possible projects will be processed within the context of the running module.</dd>
@@ -45,12 +48,12 @@
 <p>Additional command line arguments:</p>
 <dl>
     <dt><code>-b</code>, <code>--bundles</code></dt>
-    <dd>List of strings of the bundles to include (defaults to empty list). Each bundle should a subdirectory of <code>--bundles-directory</code>. Bundles contain files to include in the output EPUB, such as shared CSS and JS files.</dd>
+    <dd>List of strings of the bundles to include (defaults to empty list). Each bundle should a subdirectory of <code>BUNDLES_DIRECTORY</code>. Bundles contain files to include in the output EPUB, such as shared CSS and JS files.</dd>
 </dl>
 
 <h2 id="pack">pack</h2>
 <pre><code>python -m app.run pack</code></pre>
-<p>Packages EPUBs in <code>--expanded_epubs_directory</code> and places the packaged EPUBs in <code>--packaged_epubs_directory</code>.</p>
+<p>Packages EPUBs in <code>EXPANDED_EPUBS_DIRECTORY</code> and places the packaged EPUBs in <code>PACKAGED_EPUBS_DIRECTORY</code>.</p>
 <p>Additional command line arguments:</p>
 <dl>
     <dt><code>-c</code>, <code>--compression</code></dt>
@@ -59,9 +62,9 @@
 
 <h2 id="check">check</h2>
 <pre><code>python -m app.run check</code></pre>
-<p>Validate the project EPUBs using EPUBCheck and write the results to <code>--logs-directory</code>.</p>
+<p>Validate the project EPUBs using EPUBCheck and write the results to <code>LOGS_DIRECTORY</code>.</p>
 <p>Additional command line arguments:</p>
 <dl>
     <dt><code>-i</code>, <code>--install</code></dt>
-    <dd>Boolean flag (which defaults to false if absent). If present, the latest version of EPUBCheck will be installed to <code>--epubcheck-directory</code> before validating the EPUBs.</dd>
+    <dd>Boolean flag (which defaults to false if absent). If present, the latest version of EPUBCheck will be installed to <code>EPUBCHECK_DIRECTORY</code> before validating the EPUBs.</dd>
 </dl></body></html>
