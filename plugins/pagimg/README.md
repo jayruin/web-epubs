@@ -28,7 +28,7 @@ Automatically generate a `_nav` file based on directory structure. Since EPUB pa
 
 Each directory corresponds to a navigation tree node, with `href` to its first page. If it has no pages, its `href` will be to the `href` if its first subdirectory. Empty subdirectories (containing no pages) are ignored. The navigation tree node `text` is the name of the corresponding directory with underscores replaced with spaces (and leading integer stripped if sorted based on those integers).
 
-Inherits global args from main app. Additional args:
+Inherits environment variables and global args from main app. Additional args:
 
 * `--nav-format`: the file format of the `_nav` file. Should be one of:
     * `json` (default if not specified)

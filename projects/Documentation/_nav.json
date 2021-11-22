@@ -40,6 +40,11 @@
         "href": "running.xhtml",
         "children": [
             {
+                "text": "Environment Variables",
+                "href": "running.xhtml#environment-variables",
+                "children": []
+            },
+            {
                 "text": "Global Command Line Arguments",
                 "href": "running.xhtml#global-command-line-arguments",
                 "children": []

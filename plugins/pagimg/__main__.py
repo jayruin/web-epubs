@@ -44,7 +44,7 @@ def arrange_from_args(args: Namespace) -> None:
 
 
 def autonav_from_args(args: Namespace) -> None:
-    settings = Settings.from_namespace(args)
+    settings = Settings.from_env()
     projects: list[str]
     if args.all:
         librarian = Librarian(settings)

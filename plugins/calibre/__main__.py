@@ -29,7 +29,7 @@ def parse_args() -> Namespace:
 
 
 def sync(args: Namespace) -> None:
-    settings = Settings.from_namespace(args)
+    settings = Settings.from_env()
     new_books: list[str] = []
     projects: list[str]
     if args.all:
