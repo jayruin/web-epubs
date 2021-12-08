@@ -5,6 +5,7 @@ import markdown
 
 from core.constants import Encoding
 from core.documents.sgml import get_doctype_html
+from plugins.pagimg.navigation import make_title
 
 
 def convert(source: Path, destination: Path, copy: bool) -> None:
@@ -25,7 +26,7 @@ def md_to_html(source: Path, destination: Path) -> None:
     with open(source, "r", encoding=Encoding.UTF_8.value) as f:
         md_content = f.read()
     html_content = markdown.markdown(md_content, extensions=extensions)
-    title = source.stem.replace("_", " ").title()
+    title = make_title(source.stem)
     destination.with_suffix(".html").write_text(
         "\n".join(
             [

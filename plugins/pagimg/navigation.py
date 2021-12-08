@@ -1,5 +1,6 @@
 from collections.abc import Iterable
 from pathlib import Path
+import re
 from typing import Optional
 
 from .paginated_anchor import PaginatedAnchor
@@ -23,14 +24,12 @@ def sort_directories(directories: Iterable[Path]) -> list[tuple[Path, str]]:
             key=lambda path: int(path.stem.split("_")[0])
         )
         for directory in sorted_directories:
-            text = "_".join(
-                directory.stem.split("_")[1:]
-            ).replace("_", " ").title()
+            text = make_title("_".join(directory.stem.split("_")[1:]))
             directory_and_text.append((directory, text))
     except ValueError:
         sorted_directories = sorted(directories, key=lambda path: path.stem)
         for directory in sorted_directories:
-            text = directory.stem.replace("_", " ").title()
+            text = make_title(directory.stem)
             directory_and_text.append((directory, text))
     return directory_and_text
 
@@ -62,3 +61,16 @@ def organize_pages(
     else:
         return None
     return Tree(PaginatedAnchor(text, href, sorted_pages), children)
+
+
+_title_pattern = re.compile(r"(^|\s)(\S)")
+
+
+def _title_repl(match: re.Match[str]) -> str:
+    return f"{match.group(1)}{match.group(2).upper()}"
+
+
+def make_title(text: str) -> str:
+    title = text.replace("_", " ")
+    title = _title_pattern.sub(_title_repl, title)
+    return title
