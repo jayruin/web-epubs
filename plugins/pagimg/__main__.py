@@ -2,11 +2,9 @@ from argparse import Namespace
 from pathlib import Path
 
 from .arrange import arrange
-from .navigation import organize_pages
+from .autonav import autonav
 from app import make_main_argparser, make_parent_argparser, Settings
 from app.workers import Librarian
-from core.project import EPUBProject
-from core.project.epub_project import write_nav
 
 
 def parse_args() -> Namespace:
@@ -53,14 +51,7 @@ def autonav_from_args(args: Namespace) -> None:
         projects = args.projects
     for project in projects:
         project_path = Path(settings.projects_directory, project)
-        root_tree = organize_pages(project_path, root=project_path)
-        if root_tree is not None:
-            nav_trees = root_tree.children
-            nav_file = Path(
-                project_path,
-                EPUBProject.NAV
-            ).with_suffix(f".{args.nav_format}")
-            write_nav(nav_file, nav_trees)
+        autonav(project_path, args.nav_format)
 
 
 def main() -> None:
