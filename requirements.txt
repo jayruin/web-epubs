@@ -1,7 +1,9 @@
 lxml
 lxml-stubs
+markdown
 more-itertools
 Pillow
+pikepdf
 pytest
 pyyaml
 tqdm
