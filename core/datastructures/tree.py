@@ -6,13 +6,13 @@ from typing import Generic, TYPE_CHECKING, TypeVar
 if TYPE_CHECKING:
     from collections.abc import Iterator
 
-_T = TypeVar("_T")
+_T_co = TypeVar("_T_co", covariant=True)
 
 
 @dataclass
-class Tree(Generic[_T], Collection[_T]):
-    value: _T
-    children: list[Tree[_T]]
+class Tree(Generic[_T_co], Collection[_T_co]):
+    value: _T_co
+    children: list[Tree[_T_co]]
 
     def __contains__(self, __o: object) -> bool:
         for value in self:
@@ -20,7 +20,7 @@ class Tree(Generic[_T], Collection[_T]):
                 return True
         return False
 
-    def __iter__(self) -> Iterator[_T]:
+    def __iter__(self) -> Iterator[_T_co]:
         yield self.value
         for child in self.children:
             yield from child

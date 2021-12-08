@@ -1,4 +1,4 @@
-from collections.abc import Callable
+from collections.abc import Callable, Iterable
 from pathlib import Path
 from typing import TypeVar
 
@@ -84,7 +84,7 @@ def read_nav(path: Path) -> list[Tree[Anchor]]:
         return [nav_dict_to_tree(nav_dict) for nav_dict in load(f)]
 
 
-def write_nav(path: Path, nav: list[Tree[Anchor]]) -> None:
+def write_nav(path: Path, nav: Iterable[Tree[Anchor]]) -> None:
     dump = get_dump(path.suffix)
     with open(path, "w", encoding=Encoding.UTF_8.value) as f:
         dump([tree_to_nav_dict(tree) for tree in nav], f)
