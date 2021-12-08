@@ -61,4 +61,4 @@ def organize_pages(
         href = children[0].value.href
     else:
         return None
-    return Tree(PaginatedAnchor(text, href, pages), children)
+    return Tree(PaginatedAnchor(text, href, sorted_pages), children)
