@@ -1,6 +1,7 @@
 from argparse import Namespace
 from pathlib import Path
 
+from .from_pagimg import from_pagimg
 from app import make_main_argparser
 
 
@@ -22,7 +23,7 @@ def parse_args() -> Namespace:
 
 
 def from_pagimg_from_args(args: Namespace) -> None:
-    pass
+    from_pagimg(args.directory, args.pdf_file)
 
 
 def main() -> None:
