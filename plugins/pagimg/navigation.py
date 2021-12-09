@@ -21,15 +21,15 @@ def sort_directories(directories: Iterable[Path]) -> list[tuple[Path, str]]:
     try:
         sorted_directories = sorted(
             directories,
-            key=lambda path: int(path.stem.split("_")[0])
+            key=lambda path: int(path.name.split("_")[0])
         )
         for directory in sorted_directories:
-            text = make_title("_".join(directory.stem.split("_")[1:]))
+            text = make_title("_".join(directory.name.split("_")[1:]))
             directory_and_text.append((directory, text))
     except ValueError:
-        sorted_directories = sorted(directories, key=lambda path: path.stem)
+        sorted_directories = sorted(directories, key=lambda path: path.name)
         for directory in sorted_directories:
-            text = make_title(directory.stem)
+            text = make_title(directory.name)
             directory_and_text.append((directory, text))
     return directory_and_text
 

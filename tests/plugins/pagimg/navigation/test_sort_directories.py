@@ -30,3 +30,27 @@ def test_numeric():
     assert directory_and_text[0] == (paths[1], "Cc Ccc Cc")
     assert directory_and_text[1] == (paths[2], "Bb Bbb Bb")
     assert directory_and_text[2] == (paths[0], "Aa Aaa Aa")
+
+
+def test_dot_lexicographic():
+    paths = [
+        Path("aa_aaa.aa"),
+        Path("cc_ccc.cc"),
+        Path("bb_bbb.bb")
+    ]
+    directory_and_text = sort_directories(paths)
+    assert directory_and_text[0] == (paths[0], "Aa Aaa.aa")
+    assert directory_and_text[1] == (paths[2], "Bb Bbb.bb")
+    assert directory_and_text[2] == (paths[1], "Cc Ccc.cc")
+
+
+def test_dot_numeric():
+    paths = [
+        Path("3_aa_aaa.aa"),
+        Path("1_cc_ccc.cc"),
+        Path("2_bb_bbb.bb")
+    ]
+    directory_and_text = sort_directories(paths)
+    assert directory_and_text[0] == (paths[1], "Cc Ccc.cc")
+    assert directory_and_text[1] == (paths[2], "Bb Bbb.bb")
+    assert directory_and_text[2] == (paths[0], "Aa Aaa.aa")
