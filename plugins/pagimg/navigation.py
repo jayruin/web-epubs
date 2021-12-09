@@ -49,8 +49,8 @@ def organize_pages(
             pages.append(path)
         elif path.is_dir():
             subdirectories.append(path)
-    for subdirectory, text in sort_directories(subdirectories):
-        tree = organize_pages(subdirectory, root, text)
+    for subdirectory, subdirectory_text in sort_directories(subdirectories):
+        tree = organize_pages(subdirectory, root, subdirectory_text)
         if tree is not None:
             children.append(tree)
     sorted_pages = sort_files(pages)

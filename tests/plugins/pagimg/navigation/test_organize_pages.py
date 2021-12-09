@@ -79,3 +79,28 @@ def test_recursive():
                 for j in range(1, 4)
             ]
             assert child.children == []
+
+
+def test_text():
+    with get_temporary_directory() as directory:
+        Path(directory, "A").mkdir()
+        Path(directory, "B").mkdir()
+        Path(directory, "A", "C").mkdir()
+        Path(directory, "A", "D").mkdir()
+        Path(directory, "B", "E").mkdir()
+        Path(directory, "B", "F").mkdir()
+        Path(directory, "A", "C", "1.jpg").touch()
+        Path(directory, "A", "D", "1.jpg").touch()
+        Path(directory, "B", "E", "1.jpg").touch()
+        Path(directory, "B", "F", "1.jpg").touch()
+        tree = organize_pages(directory, directory)
+        assert tree is not None
+        assert len(tree.children) == 2
+        assert tree.children[0].value.text == "A"
+        assert tree.children[1].value.text == "B"
+        assert len(tree.children[0].children) == 2
+        assert tree.children[0].children[0].value.text == "C"
+        assert tree.children[0].children[1].value.text == "D"
+        assert len(tree.children[1].children) == 2
+        assert tree.children[1].children[0].value.text == "E"
+        assert tree.children[1].children[1].value.text == "F"
