@@ -1,3 +1,4 @@
+flake8
 lxml
 lxml-stubs
 markdown
