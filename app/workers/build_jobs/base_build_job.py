@@ -49,7 +49,7 @@ class BaseBuildJob(ABC):
         self._resource_manager: EPUBResourceManager = EPUBResourceManager(
             Path(
                 self._destination,
-                self._project.RESOURCES_DIRECTORY
+                self._project.special_names.resources_directory
             )
         )
 
@@ -92,7 +92,10 @@ class BaseBuildJob(ABC):
             epub_version = self.epub_version
 
         document = MimetypeFile()
-        document_path = Path(self._destination, self._project.MIMETYPE_FILE)
+        document_path = Path(
+            self._destination,
+            self._project.special_names.mimetype_file
+        )
 
         if epub_version is EPUBVersion.EPUB2:
             document.write_epub2(document_path)
@@ -106,16 +109,22 @@ class BaseBuildJob(ABC):
         if epub_version is None:
             epub_version = self.epub_version
 
-        meta_inf_directory = Path(self._destination, self._project.META_INF)
+        meta_inf_directory = Path(
+            self._destination,
+            self._project.special_names.meta_inf
+        )
         meta_inf_directory.mkdir()
 
         document = ContainerXML(
             Path(
-                self._project.RESOURCES_DIRECTORY,
-                self._project.PACKAGE_DOCUMENT
+                self._project.special_names.resources_directory,
+                self._project.special_names.package_document
             )
         )
-        document_path = Path(meta_inf_directory, self._project.CONTAINER_XML)
+        document_path = Path(
+            meta_inf_directory,
+            self._project.special_names.container_xml
+        )
 
         if epub_version is EPUBVersion.EPUB2:
             document.write_epub2(document_path)
@@ -197,7 +206,7 @@ class BaseBuildJob(ABC):
         document = CoverXHTML(self._project.epub_metadata.cover)
         document_path = Path(
             self._resource_manager.root,
-            self._project.COVER_XHTML
+            self._project.special_names.cover_xhtml
         )
 
         if epub_version is EPUBVersion.EPUB2:
@@ -205,7 +214,7 @@ class BaseBuildJob(ABC):
         elif epub_version is EPUBVersion.EPUB3:
             document.write_epub3(document_path)
 
-        cover_xhtml_path = Path(self._project.COVER_XHTML)
+        cover_xhtml_path = Path(self._project.special_names.cover_xhtml)
         self._resource_manager.resources[cover_xhtml_path] = EPUBResource(
             cover_xhtml_path
         )
@@ -223,7 +232,7 @@ class BaseBuildJob(ABC):
         if epub_version is None:
             epub_version = self.epub_version
 
-        navigation = Path(self._project.NAVIGATION_DOCUMENT)
+        navigation = Path(self._project.special_names.navigation_document)
         self._resource_manager.resources[navigation] = EPUBResource(
             navigation,
             properties="nav"
@@ -264,7 +273,7 @@ class BaseBuildJob(ABC):
         )
         document_path = Path(
             self._resource_manager.root,
-            self._project.NAVIGATION_DOCUMENT
+            self._project.special_names.navigation_document
         )
 
         if epub_version is EPUBVersion.EPUB2:
@@ -273,7 +282,7 @@ class BaseBuildJob(ABC):
             document.write_epub3(document_path)
 
     def _write_ncx_document(self) -> None:
-        ncx = Path(self._project.NCX_DOCUMENT)
+        ncx = Path(self._project.special_names.ncx_document)
         self._resource_manager.resources[ncx] = EPUBResource(ncx)
         document = NCXDocument(
             self._project.nav_trees,
@@ -294,7 +303,7 @@ class BaseBuildJob(ABC):
         self._resource_manager.add_id_counts()
 
         if epub_version is EPUBVersion.EPUB2:
-            ncx = Path(self._project.NCX_DOCUMENT)
+            ncx = Path(self._project.special_names.ncx_document)
             document = EPUB2PackageDocument(
                 self._project.epub_metadata,
                 self._resource_manager.resources,
@@ -304,7 +313,7 @@ class BaseBuildJob(ABC):
             )
             document_path = Path(
                 self._resource_manager.root,
-                self._project.PACKAGE_DOCUMENT
+                self._project.special_names.package_document
             )
             document.write_epub2(document_path)
         elif epub_version is EPUBVersion.EPUB3:
@@ -316,6 +325,6 @@ class BaseBuildJob(ABC):
             )
             document_path = Path(
                 self._resource_manager.root,
-                self._project.PACKAGE_DOCUMENT
+                self._project.special_names.package_document
             )
             document.write_epub3(document_path)

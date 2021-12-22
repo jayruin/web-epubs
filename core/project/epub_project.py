@@ -1,41 +1,36 @@
 from collections.abc import Callable, Iterable
 from pathlib import Path
-from typing import TypeVar
+from typing import Optional, TypeVar
 
 from .anchor import Anchor
 from .epub_metadata import EPUBMetadata
 from .nav_dict import NavDict
+from .special_names import SpecialNames
 from core.constants import Encoding
 from core.datastructures import Tree
 from core.serialization import get_dump, get_load
 
 
 class EPUBProject:
-    CONTAINER_XML: str = "container.xml"
-    COVER_CSS_CLASS: str = "cover-image"
-    COVER_XHTML: str = "_cover.xhtml"
-    META_INF = "META-INF"
-    METADATA: str = "_metadata"
-    MIMETYPE_FILE: str = "mimetype"
-    NAV: str = "_nav"
-    NAVIGATION_DOCUMENT: str = "_nav.xhtml"
-    NCX_DOCUMENT: str = "_toc.ncx"
-    PACKAGE_DOCUMENT: str = "_package.opf"
-    RESOURCES_DIRECTORY: str = "OEBPS"
     SUPPORTED_SUFFIXES: list[str] = [".json", ".yaml", ".yml"]
 
-    def __init__(self, root: Path) -> None:
+    def __init__(
+        self,
+        root: Path,
+        special_names: Optional[SpecialNames] = None
+    ) -> None:
         self.root: Path = root
         self.name: str = root.stem
+        self.special_names = special_names or SpecialNames()
 
         self.epub_metadata: EPUBMetadata = read_any(
-            Path(self.root, self.METADATA),
+            Path(self.root, self.special_names.metadata),
             read_epub_metadata,
             self.SUPPORTED_SUFFIXES
         )
 
         self.nav_trees: list[Tree[Anchor]] = read_any(
-            Path(self.root, self.NAV),
+            Path(self.root, self.special_names.nav),
             read_nav,
             self.SUPPORTED_SUFFIXES
         )
