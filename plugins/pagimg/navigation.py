@@ -1,11 +1,11 @@
 from collections.abc import Iterable
 from pathlib import Path
-import re
 from typing import Optional
 
 from .paginated_anchor import PaginatedAnchor
 from app.workers.build_jobs import PaginatedImagesBuildJob
 from core.datastructures import Tree
+from core.format import make_title
 
 
 def sort_files(files: Iterable[Path]) -> list[Path]:
@@ -61,16 +61,3 @@ def organize_pages(
     else:
         return None
     return Tree(PaginatedAnchor(text, href, sorted_pages), children)
-
-
-_title_pattern = re.compile(r"(^|\s)(\S)")
-
-
-def _title_repl(match: re.Match[str]) -> str:
-    return f"{match.group(1)}{match.group(2).upper()}"
-
-
-def make_title(text: str) -> str:
-    title = text.replace("_", " ")
-    title = _title_pattern.sub(_title_repl, title)
-    return title

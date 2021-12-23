@@ -5,7 +5,7 @@ import markdown
 
 from core.constants import Encoding
 from core.documents.sgml import get_doctype_html
-from plugins.pagimg.navigation import make_title
+from core.format import make_title
 
 
 def convert(source: Path, destination: Path, copy: bool) -> None:

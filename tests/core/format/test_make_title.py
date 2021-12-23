@@ -1,4 +1,4 @@
-from plugins.pagimg.navigation import make_title
+from core.format import make_title
 
 
 def test_all_caps():
