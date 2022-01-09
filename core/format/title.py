@@ -2,7 +2,16 @@ import re
 
 title_translation_table = str.maketrans(
     {
-        "_": " "
+        "_": " ",
+        "＜": "<",
+        "＞": ">",
+        "：": ":",
+        "＂": "\"",
+        "／": "/",
+        "＼": "\\",
+        "｜": "|",
+        "？": "?",
+        "＊": "*"
     }
 )
 title_pattern = re.compile(r"(^|\s)(\S)")
