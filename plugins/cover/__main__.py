@@ -1,6 +1,8 @@
 from argparse import Namespace
 from pathlib import Path
 
+from PIL import Image
+
 from .make_grid import make_grid_cover
 from app import make_main_argparser
 
@@ -23,7 +25,8 @@ def parse_args() -> Namespace:
 
 
 def make_grid_from_args(args: Namespace) -> None:
-    grid = make_grid_cover(args.covers)
+    covers = [Image.open(cover) for cover in args.covers]
+    grid = make_grid_cover(covers)
     grid.save(args.output)
 
 
