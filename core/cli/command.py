@@ -18,11 +18,14 @@ if TYPE_CHECKING:
 
 def command(
     executable: Iterable[str],
-    flag_overrides: Mapping[str, str] = {},
-    flag_repeats: Collection[str] = set(),
+    flag_overrides: Optional[Mapping[str, str]] = None,
+    flag_repeats: Optional[Collection[str]] = None,
     processing: Callable[[str], _R] = identity,
     check_returncode: bool = True
 ) -> Callable[[Callable[_P, _R]], Callable[_P, _R]]:
+    flag_overrides = flag_overrides or {}
+    flag_repeats = flag_repeats or set()
+
     def decorator(function: Callable[_P, _R]) -> Callable[_P, _R]:
         @wraps(function)
         def decorated(*args: _P.args, **kwargs: _P.kwargs) -> _R:
