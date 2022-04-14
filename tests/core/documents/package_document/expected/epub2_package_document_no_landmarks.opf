@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" unique-identifier="publication-id" version="2.0">
     <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
-        <dc:identifier id="publication-id">urn:uuid:c3025fcb-eef8-54ee-9769-5eb22b5449b2</dc:identifier>
+        <dc:identifier id="publication-id">urn:uuid:00000000-0000-0000-0000-000000000000</dc:identifier>
         <dc:language>en</dc:language>
         <dc:title>Title</dc:title>
     </metadata>

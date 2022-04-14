@@ -178,13 +178,17 @@ def make_spine_element(
         spine.text = ""
 
     for path in progression:
+        epub_resource = resources[path]
         itemref = etree.Element(
             "itemref",
             attrib={
-                "idref": resources[path].manifest_id,
+                "idref": epub_resource.manifest_id,
                 "linear": "yes"
             }
         )
+        if epub_resource.spine_properties:
+            properties = " ".join(sorted(epub_resource.spine_properties))
+            itemref.set("properties", properties)
         spine.append(itemref)
 
     if page_progression_direction is not None:

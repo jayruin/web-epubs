@@ -10,7 +10,11 @@ MODIFIED = "2020-07-19T00:00:00Z"
 
 @pytest.fixture
 def epub_metadata_minimal() -> EPUBMetadata:
-    epub_metadata = EPUBMetadata("Title", modified=MODIFIED)
+    epub_metadata = EPUBMetadata(
+        "Title",
+        identifier="urn:uuid:00000000-0000-0000-0000-000000000000",
+        modified=MODIFIED
+    )
     return epub_metadata
 
 
@@ -109,11 +113,11 @@ def resources_nonempty() -> dict[Path, EPUBResource]:
     resources[path] = resource
 
     path = Path("chapter_1.xhtml")
-    resource = EPUBResource(path)
+    resource = EPUBResource(path, spine_properties={"page-spread-right"})
     resources[path] = resource
 
     path = Path("chapter_2.xhtml")
-    resource = EPUBResource(path)
+    resource = EPUBResource(path, spine_properties={"page-spread-left"})
     resources[path] = resource
 
     path = Path("chapter_3.xhtml")
