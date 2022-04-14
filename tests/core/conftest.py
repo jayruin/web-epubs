@@ -89,7 +89,7 @@ def resources_nonempty() -> dict[Path, EPUBResource]:
     resources: dict[Path, EPUBResource] = {}
 
     path = Path("cover.jpg")
-    resource = EPUBResource(path, properties="cover-image")
+    resource = EPUBResource(path, manifest_properties={"cover-image"})
     resources[path] = resource
 
     path = Path("_cover.xhtml")
@@ -97,7 +97,7 @@ def resources_nonempty() -> dict[Path, EPUBResource]:
     resources[path] = resource
 
     path = Path("_nav.xhtml")
-    resource = EPUBResource(path, properties="nav")
+    resource = EPUBResource(path, manifest_properties={"nav"})
     resources[path] = resource
 
     path = Path("css/style.css")
@@ -121,7 +121,7 @@ def resources_nonempty() -> dict[Path, EPUBResource]:
     resources[path] = resource
 
     path = Path("chapter_3", "1.xhtml")
-    resource = EPUBResource(path, properties="scripted")
+    resource = EPUBResource(path, manifest_properties={"scripted"})
     resources[path] = resource
 
     for count, resource in enumerate(resources.values()):

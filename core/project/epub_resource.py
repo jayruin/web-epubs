@@ -9,7 +9,8 @@ class EPUBResource:
         self,
         href: Path,
         mimetype: Optional[str] = None,
-        properties: Optional[str] = None
+        manifest_properties: Optional[set[str]] = None,
+        spine_properties: Optional[set[str]] = None
     ) -> None:
         self.href: Path = href
         self.mimetype: str = (
@@ -18,7 +19,8 @@ class EPUBResource:
             or "application/octet-stream"
         )
         self.id_count: int = 0
-        self.properties: Optional[str] = properties
+        self.manifest_properties: set[str] = manifest_properties or set()
+        self.spine_properties: set[str] = spine_properties or set()
 
     @property
     def manifest_id(self) -> str:

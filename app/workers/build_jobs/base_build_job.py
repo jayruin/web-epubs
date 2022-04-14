@@ -183,7 +183,7 @@ class BaseBuildJob(ABC):
             for xhtml_file in self._resource_manager.xhtml_to_html:
                 self._resource_manager.resources[
                     xhtml_file.relative_to(self._resource_manager.root)
-                ].properties = "scripted"
+                ].manifest_properties.add("scripted")
 
     def _write_cover(
         self,
@@ -201,7 +201,7 @@ class BaseBuildJob(ABC):
             self._project.epub_metadata.cover
         ] = EPUBResource(
             self._project.epub_metadata.cover,
-            properties="cover-image"
+            manifest_properties={"cover-image"}
         )
         document = CoverXHTML(self._project.epub_metadata.cover)
         document_path = Path(
@@ -235,7 +235,7 @@ class BaseBuildJob(ABC):
         navigation = Path(self._project.special_names.navigation_document)
         self._resource_manager.resources[navigation] = EPUBResource(
             navigation,
-            properties="nav"
+            manifest_properties={"nav"}
         )
         nav_anchor = TypedAnchor("Table of Contents", navigation, "toc")
         if add_to_spine:

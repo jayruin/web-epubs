@@ -159,8 +159,9 @@ def make_manifest_element(
                 "media-type": epub_resource.mimetype
             }
         )
-        if epub_resource.properties:
-            item.set("properties", epub_resource.properties)
+        if epub_resource.manifest_properties:
+            properties = " ".join(sorted(epub_resource.manifest_properties))
+            item.set("properties", properties)
         manifest.append(item)
 
     return manifest
