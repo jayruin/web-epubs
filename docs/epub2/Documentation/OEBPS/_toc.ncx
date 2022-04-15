@@ -48,6 +48,12 @@
                 </navLabel>
                 <content src="adding-content.xhtml#nav"/>
             </navPoint>
+            <navPoint id="ncx-3-3">
+                <navLabel>
+                    <text>_spreads</text>
+                </navLabel>
+                <content src="adding-content.xhtml#spreads"/>
+            </navPoint>
         </navPoint>
         <navPoint id="ncx-4">
             <navLabel>

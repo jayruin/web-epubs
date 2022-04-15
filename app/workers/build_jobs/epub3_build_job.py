@@ -22,4 +22,5 @@ class EPUB3BuildJob(BaseBuildJob):
         self._convert_html()
         self._write_cover()
         self._write_navigation_document()
+        self._add_spreads()
         self._write_package_document()

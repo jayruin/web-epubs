@@ -16,3 +16,4 @@ class SpecialNames:
     # Project files
     metadata: str = "_metadata"
     nav: str = "_nav"
+    spreads: str = "_spreads"

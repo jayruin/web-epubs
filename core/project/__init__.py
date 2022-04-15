@@ -4,6 +4,7 @@ from .epub_resource import EPUBResource
 from .epub_resource_manager import EPUBResourceManager
 from .epub_metadata import EPUBMetadata
 from .nav_dict import NavDict
+from .page_spread import PageSpread
 from .special_names import SpecialNames
 from .typed_anchor import TypedAnchor
 
@@ -14,6 +15,7 @@ __all__ = [
     "EPUBResourceManager",
     "EPUBMetadata",
     "NavDict",
+    "PageSpread",
     "SpecialNames",
     "TypedAnchor"
 ]

@@ -292,6 +292,16 @@ class BaseBuildJob(ABC):
         document_path = Path(self._resource_manager.root, ncx)
         document.write_epub2(document_path)
 
+    def _add_spreads(self) -> None:
+        if self._project.page_spreads:
+            for page_spread in self._project.page_spreads:
+                self._resource_manager.resources[
+                    page_spread.left
+                ].spine_properties.add("page-spread-left")
+                self._resource_manager.resources[
+                    page_spread.right
+                ].spine_properties.add("page-spread-right")
+
     def _write_package_document(
         self,
         epub_version: Optional[EPUBVersion] = None,
