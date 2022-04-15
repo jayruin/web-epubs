@@ -30,6 +30,7 @@ class PaginatedImagesBuildJob(BaseBuildJob):
         self._write_cover(add_to_spine=False)
         self._write_navigation_document(add_to_spine=False)
         self._paginate()
+        self._add_spreads()
         self._write_package_document(pre_paginated=True)
 
     def _paginate(self) -> None:
